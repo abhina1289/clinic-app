@@ -18,7 +18,7 @@ import {
   Star,
   ArrowRight
 } from 'lucide-react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import '../components/Home.css';
 
 function Home() {
