@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar, Nav, Button } from "react-bootstrap";
+import { Link } from "react-router-dom"; // Add this import
 
 function Header() {
   // Naavika Theme
@@ -13,7 +14,6 @@ function Header() {
 
   return (
     <>
-      {/* Remove default spacing */}
       <style>
         {`
           body {
@@ -35,9 +35,9 @@ function Header() {
           borderBottom: `1px solid ${theme.blue}20`,
         }}
       >
-        {/* Logo */}
         <Navbar.Brand
-          href="/"
+          as={Link}  // Change this
+          to="/"     // Change this
           style={{
             display: "flex",
             alignItems: "center",
@@ -90,37 +90,24 @@ function Header() {
             className="ms-auto align-items-lg-center"
             style={{ gap: "24px" }}
           >
-            {[
-              "Home",
-              "About Us",
-              "Services",
-              "Review",
-              "Contact Us",
-              "Book Appointment"
-
-            ].map((item, index) => (
-              <Nav.Link
-                key={index}
-                href="#"
-                style={{
-                  fontWeight: "500",
-                  color: item === "Home" ? theme.red : theme.textDark,
-                  transition: "color 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  if (item !== "Home") {
-                    e.target.style.color = theme.blue;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (item !== "Home") {
-                    e.target.style.color = theme.textDark;
-                  }
-                }}
-              >
-                {item}
-              </Nav.Link>
-            ))}
+            <Nav.Link as={Link} to="/" style={{ fontWeight: "500", color: "#0D6EFD" }}>
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/service" style={{ fontWeight: "500", color: "#1F3C5B" }}>
+              Solutions
+            </Nav.Link>
+            <Nav.Link as={Link} to="#" style={{ fontWeight: "500", color: "#1F3C5B" }}>
+              Team
+            </Nav.Link>
+            <Nav.Link as={Link} to="/abt" style={{ fontWeight: "500", color: "#1F3C5B" }}>
+              About Us
+            </Nav.Link>
+            <Nav.Link as={Link} to="#" style={{ fontWeight: "500", color: "#1F3C5B" }}>
+              Blog
+            </Nav.Link>
+            <Nav.Link as={Link} to="#" style={{ fontWeight: "500", color: "#1F3C5B" }}>
+              Contact Us
+            </Nav.Link>
 
             <Button
               style={{

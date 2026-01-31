@@ -99,7 +99,7 @@ function Home() {
   };
 
   return (
-    <div className="home-container" style={{ backgroundColor: theme.lightBg }}>
+    <div className="home-container">
       {/* Hero Section */}
       <section className="hero-section" style={{ backgroundColor: theme.lightBg }}>
         <div className="container">
