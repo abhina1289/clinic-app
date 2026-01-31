@@ -2,6 +2,15 @@ import React from 'react'
 import { Navbar, Nav, Button } from "react-bootstrap";
 
 function Header() {
+  // Naavika Theme
+  const theme = {
+    red: "#c92424",
+    blue: "#4484c4",
+    green: "#3a9f43",
+    lightBg: "#f9fafb",
+    textDark: "#222",
+  };
+
   return (
     <>
       {/* Remove default spacing */}
@@ -19,9 +28,11 @@ function Header() {
         collapseOnSelect
         style={{
           width: "100%",
-          backgroundColor: "#EAF2FB",
+          backgroundColor: "#ffffff",
           padding: "18px 32px",
           margin: 0,
+          boxShadow: `0 2px 10px ${theme.blue}10`,
+          borderBottom: `1px solid ${theme.blue}20`,
         }}
       >
         {/* Logo */}
@@ -37,7 +48,7 @@ function Header() {
               fontSize: "28px",
               fontWeight: "800",
               letterSpacing: "3px",
-              color: "#0D6EFD",
+              color: theme.blue,
               marginRight: "10px",
             }}
           >
@@ -52,7 +63,7 @@ function Header() {
               style={{
                 fontSize: "13px",
                 fontWeight: "600",
-                color: "#1F3C5B",
+                color: theme.textDark,
               }}
             >
               Hearing Health Clinic
@@ -60,7 +71,7 @@ function Header() {
             <div
               style={{
                 fontSize: "12px",
-                color: "#4A6A8A",
+                color: `${theme.textDark}99`,
               }}
             >
               Restore | Rediscover
@@ -68,7 +79,11 @@ function Header() {
           </div>
         </Navbar.Brand>
 
-        <Navbar.Toggle />
+        <Navbar.Toggle 
+          style={{
+            borderColor: theme.blue,
+          }}
+        />
 
         <Navbar.Collapse>
           <Nav
@@ -77,18 +92,30 @@ function Header() {
           >
             {[
               "Home",
-              "Solutions",
-              "Team",
               "About Us",
-              "Blog",
+              "Services",
+              "Review",
               "Contact Us",
+              "Book Appointment"
+
             ].map((item, index) => (
               <Nav.Link
                 key={index}
                 href="#"
                 style={{
                   fontWeight: "500",
-                  color: item === "Home" ? "#0D6EFD" : "#1F3C5B",
+                  color: item === "Home" ? theme.red : theme.textDark,
+                  transition: "color 0.3s ease",
+                }}
+                onMouseEnter={(e) => {
+                  if (item !== "Home") {
+                    e.target.style.color = theme.blue;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (item !== "Home") {
+                    e.target.style.color = theme.textDark;
+                  }
                 }}
               >
                 {item}
@@ -97,12 +124,23 @@ function Header() {
 
             <Button
               style={{
-                backgroundColor: "#1CB5A3",
+                backgroundColor: theme.green,
                 border: "none",
                 borderRadius: "20px",
                 padding: "8px 22px",
                 fontWeight: "500",
                 color: "#FFFFFF",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = "#2d7a34";
+                e.target.style.transform = "translateY(-2px)";
+                e.target.style.boxShadow = `0 4px 12px ${theme.green}40`;
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = theme.green;
+                e.target.style.transform = "translateY(0)";
+                e.target.style.boxShadow = "none";
               }}
             >
               Book Appointment

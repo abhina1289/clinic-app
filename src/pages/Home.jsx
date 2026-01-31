@@ -22,6 +22,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../components/Home.css';
 
 function Home() {
+  // Naavika Theme
+  const theme = {
+    red: "#c92424",
+    blue: "#4484c4",
+    green: "#3a9f43",
+    lightBg: "#f9fafb",
+    textDark: "#222",
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     gender: '',
@@ -90,13 +99,9 @@ function Home() {
   };
 
   return (
-<<<<<<< HEAD
-    <div>Home</div>
-  )
-=======
-    <div className="home-container">
+    <div className="home-container" style={{ backgroundColor: theme.lightBg }}>
       {/* Hero Section */}
-      <section className="hero-section">
+      <section className="hero-section" style={{ backgroundColor: theme.lightBg }}>
         <div className="container">
           <div className="row align-items-center">
             <motion.div 
@@ -105,15 +110,21 @@ function Home() {
               animate="visible"
               variants={fadeInLeft}
             >
-              <div className="appointment-form">
-                <div className="form-header">
+              <div className="appointment-form" style={{ 
+                backgroundColor: '#ffffff',
+                border: `1px solid ${theme.blue}20`
+              }}>
+                <div className="form-header" style={{ 
+                  background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
+                  color: '#ffffff'
+                }}>
                   <Calendar className="form-icon" />
-                  <h3 className="form-title">Book Appointment</h3>
+                  <h3 className="form-title" style={{ color: '#ffffff' }}>Book Appointment</h3>
                 </div>
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <div className="input-group">
-                      <span className="input-icon">
+                      <span className="input-icon" style={{ color: theme.blue }}>
                         <User size={18} />
                       </span>
                       <input
@@ -124,6 +135,7 @@ function Home() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
+                        style={{ borderColor: `${theme.blue}40` }}
                       />
                     </div>
                   </div>
@@ -134,6 +146,10 @@ function Home() {
                       value={formData.gender}
                       onChange={handleInputChange}
                       required
+                      style={{ 
+                        borderColor: `${theme.blue}40`,
+                        color: theme.textDark
+                      }}
                     >
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
@@ -143,7 +159,7 @@ function Home() {
                   </div>
                   <div className="mb-3">
                     <div className="input-group">
-                      <span className="input-icon">
+                      <span className="input-icon" style={{ color: theme.blue }}>
                         <Mail size={18} />
                       </span>
                       <input
@@ -154,12 +170,13 @@ function Home() {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
+                        style={{ borderColor: `${theme.blue}40` }}
                       />
                     </div>
                   </div>
                   <div className="mb-3">
                     <div className="input-group">
-                      <span className="input-icon">
+                      <span className="input-icon" style={{ color: theme.blue }}>
                         <Phone size={18} />
                       </span>
                       <input
@@ -170,10 +187,21 @@ function Home() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         required
+                        style={{ borderColor: `${theme.blue}40` }}
                       />
                     </div>
                   </div>
-                  <button type="submit" className="btn btn-submit w-100">
+                  <button 
+                    type="submit" 
+                    className="btn btn-submit w-100"
+                    style={{ 
+                      backgroundColor: theme.red,
+                      borderColor: theme.red,
+                      color: '#ffffff'
+                    }}
+                    onMouseOver={(e) => e.target.style.backgroundColor = '#a51d1d'}
+                    onMouseOut={(e) => e.target.style.backgroundColor = theme.red}
+                  >
                     Book Now <ArrowRight size={18} className="ms-2" />
                   </button>
                 </form>
@@ -193,36 +221,64 @@ function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <span className="hero-badge">
+                  <span className="hero-badge" style={{ 
+                    backgroundColor: `${theme.green}15`,
+                    color: theme.green,
+                    border: `1px solid ${theme.green}`
+                  }}>
                     <Award size={16} /> Trusted Healthcare
                   </span>
                 </motion.div>
-                <h1 className="hero-title">
+                <h1 className="hero-title" style={{ color: theme.textDark }}>
                   The Best Medical & Treatment Center for You
                 </h1>
-                <p className="hero-subtitle">
+                <p className="hero-subtitle" style={{ color: `${theme.textDark}99` }}>
                   Experience world-class healthcare with our team of expert doctors 
                   and state-of-the-art facilities.
                 </p>
                 <div className="hero-features">
-                  <div className="feature-item">
+                  <div className="feature-item" style={{ color: theme.green }}>
                     <CheckCircle size={20} />
-                    <span>24/7 Emergency Care</span>
+                    <span style={{ color: theme.textDark }}>24/7 Emergency Care</span>
                   </div>
-                  <div className="feature-item">
+                  <div className="feature-item" style={{ color: theme.green }}>
                     <CheckCircle size={20} />
-                    <span>Expert Specialists</span>
+                    <span style={{ color: theme.textDark }}>Expert Specialists</span>
                   </div>
-                  <div className="feature-item">
+                  <div className="feature-item" style={{ color: theme.green }}>
                     <CheckCircle size={20} />
-                    <span>Modern Equipment</span>
+                    <span style={{ color: theme.textDark }}>Modern Equipment</span>
                   </div>
                 </div>
                 <div className="hero-buttons">
-                  <button className="btn btn-learn-more">
+                  <button 
+                    className="btn btn-learn-more"
+                    style={{ 
+                      backgroundColor: theme.blue,
+                      borderColor: theme.blue,
+                      color: '#ffffff'
+                    }}
+                    onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
+                    onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
+                  >
                     Learn More <ArrowRight size={18} className="ms-2" />
                   </button>
-                  <button className="btn btn-contact">
+                  <button 
+                    className="btn btn-contact"
+                    style={{ 
+                      backgroundColor: 'transparent',
+                      borderColor: theme.red,
+                      color: theme.red
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.backgroundColor = theme.red;
+                      e.target.style.color = '#ffffff';
+                    }}
+                    onMouseOut={(e) => {
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.color = theme.red;
+                    }}
+                  >
                     <Phone size={18} className="me-2" /> Contact Us
                   </button>
                 </div>
@@ -235,18 +291,24 @@ function Home() {
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 />
-                <div className="floating-card card-1">
-                  <Heart className="card-icon" />
+                <div className="floating-card card-1" style={{ 
+                  backgroundColor: '#ffffff',
+                  boxShadow: `0 10px 30px ${theme.blue}20`
+                }}>
+                  <Heart className="card-icon" style={{ color: theme.red }} />
                   <div>
-                    <h4>98%</h4>
-                    <p>Success Rate</p>
+                    <h4 style={{ color: theme.textDark }}>98%</h4>
+                    <p style={{ color: `${theme.textDark}99` }}>Success Rate</p>
                   </div>
                 </div>
-                <div className="floating-card card-2">
-                  <Users className="card-icon" />
+                <div className="floating-card card-2" style={{ 
+                  backgroundColor: '#ffffff',
+                  boxShadow: `0 10px 30px ${theme.green}20`
+                }}>
+                  <Users className="card-icon" style={{ color: theme.green }} />
                   <div>
-                    <h4>5000+</h4>
-                    <p>Happy Patients</p>
+                    <h4 style={{ color: theme.textDark }}>5000+</h4>
+                    <p style={{ color: `${theme.textDark}99` }}>Happy Patients</p>
                   </div>
                 </div>
               </div>
@@ -262,50 +324,53 @@ function Home() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
+        style={{ 
+          background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
+        }}
       >
         <div className="container">
           <div className="row">
             <motion.div className="col-lg-3 col-md-6 mb-3 mb-lg-0" variants={scaleIn}>
               <div className="stat-item">
-                <div className="stat-icon">
+                <div className="stat-icon" style={{ color: '#ffffff' }}>
                   <Users size={32} />
                 </div>
                 <div className="stat-content">
-                  <h3 className="stat-number">600+</h3>
-                  <p className="stat-label">Patients Treated</p>
+                  <h3 className="stat-number" style={{ color: '#ffffff' }}>600+</h3>
+                  <p className="stat-label" style={{ color: '#ffffffcc' }}>Patients Treated</p>
                 </div>
               </div>
             </motion.div>
             <motion.div className="col-lg-3 col-md-6 mb-3 mb-lg-0" variants={scaleIn}>
               <div className="stat-item">
-                <div className="stat-icon">
+                <div className="stat-icon" style={{ color: '#ffffff' }}>
                   <Stethoscope size={32} />
                 </div>
                 <div className="stat-content">
-                  <h3 className="stat-number">30+</h3>
-                  <p className="stat-label">Expert Doctors</p>
+                  <h3 className="stat-number" style={{ color: '#ffffff' }}>30+</h3>
+                  <p className="stat-label" style={{ color: '#ffffffcc' }}>Expert Doctors</p>
                 </div>
               </div>
             </motion.div>
             <motion.div className="col-lg-3 col-md-6 mb-3 mb-lg-0" variants={scaleIn}>
               <div className="stat-item">
-                <div className="stat-icon">
+                <div className="stat-icon" style={{ color: '#ffffff' }}>
                   <Award size={32} />
                 </div>
                 <div className="stat-content">
-                  <h3 className="stat-number">60+</h3>
-                  <p className="stat-label">Years Experience</p>
+                  <h3 className="stat-number" style={{ color: '#ffffff' }}>60+</h3>
+                  <p className="stat-label" style={{ color: '#ffffffcc' }}>Years Experience</p>
                 </div>
               </div>
             </motion.div>
             <motion.div className="col-lg-3 col-md-6" variants={scaleIn}>
               <div className="stat-item">
-                <div className="stat-icon">
+                <div className="stat-icon" style={{ color: '#ffffff' }}>
                   <Star size={32} />
                 </div>
                 <div className="stat-content">
-                  <h3 className="stat-number">4.9/5</h3>
-                  <p className="stat-label">Patient Rating</p>
+                  <h3 className="stat-number" style={{ color: '#ffffff' }}>4.9/5</h3>
+                  <p className="stat-label" style={{ color: '#ffffffcc' }}>Patient Rating</p>
                 </div>
               </div>
             </motion.div>
@@ -320,6 +385,7 @@ function Home() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={fadeInUp}
+        style={{ backgroundColor: '#ffffff' }}
       >
         <div className="container">
           <div className="row align-items-center">
@@ -330,7 +396,10 @@ function Home() {
                   alt="Medical Center" 
                   className="about-main-image"
                 />
-                <div className="about-badge">
+                <div className="about-badge" style={{ 
+                  backgroundColor: theme.green,
+                  color: '#ffffff'
+                }}>
                   <Shield size={24} />
                   <span>Certified Healthcare</span>
                 </div>
@@ -338,35 +407,37 @@ function Home() {
             </div>
             <div className="col-lg-6">
               <motion.div variants={fadeInRight}>
-                <span className="section-subtitle">
+                <span className="section-subtitle" style={{ color: theme.red }}>
                   <Heart size={18} /> About Us
                 </span>
-                <h2 className="section-title">About Our Center MindCare</h2>
-                <p className="about-text">
+                <h2 className="section-title" style={{ color: theme.textDark }}>
+                  About Our Center MindCare
+                </h2>
+                <p className="about-text" style={{ color: `${theme.textDark}99` }}>
                   We provide comprehensive medical care with state-of-the-art facilities and 
                   experienced medical professionals. Our mission is to deliver exceptional 
                   healthcare services with compassion and excellence.
                 </p>
                 <div className="about-features">
                   <div className="about-feature">
-                    <Activity className="feature-icon" />
+                    <Activity className="feature-icon" style={{ color: theme.blue }} />
                     <div>
-                      <h5>Advanced Technology</h5>
-                      <p>Latest medical equipment and diagnostic tools</p>
+                      <h5 style={{ color: theme.textDark }}>Advanced Technology</h5>
+                      <p style={{ color: `${theme.textDark}99` }}>Latest medical equipment and diagnostic tools</p>
                     </div>
                   </div>
                   <div className="about-feature">
-                    <Shield className="feature-icon" />
+                    <Shield className="feature-icon" style={{ color: theme.green }} />
                     <div>
-                      <h5>Patient Safety</h5>
-                      <p>Highest standards of safety and hygiene</p>
+                      <h5 style={{ color: theme.textDark }}>Patient Safety</h5>
+                      <p style={{ color: `${theme.textDark}99` }}>Highest standards of safety and hygiene</p>
                     </div>
                   </div>
                   <div className="about-feature">
-                    <Clock className="feature-icon" />
+                    <Clock className="feature-icon" style={{ color: theme.red }} />
                     <div>
-                      <h5>24/7 Support</h5>
-                      <p>Round-the-clock emergency services</p>
+                      <h5 style={{ color: theme.textDark }}>24/7 Support</h5>
+                      <p style={{ color: `${theme.textDark}99` }}>Round-the-clock emergency services</p>
                     </div>
                   </div>
                 </div>
@@ -383,16 +454,17 @@ function Home() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={staggerContainer}
+        style={{ backgroundColor: theme.lightBg }}
       >
         <div className="container">
           <div className="text-center mb-5">
-            <motion.span className="section-subtitle" variants={fadeInUp}>
+            <motion.span className="section-subtitle" style={{ color: theme.blue }} variants={fadeInUp}>
               <Stethoscope size={18} /> Our Team
             </motion.span>
-            <motion.h2 className="section-title" variants={fadeInUp}>
+            <motion.h2 className="section-title" style={{ color: theme.textDark }} variants={fadeInUp}>
               Expert Specialists
             </motion.h2>
-            <motion.p className="section-description" variants={fadeInUp}>
+            <motion.p className="section-description" style={{ color: `${theme.textDark}99` }} variants={fadeInUp}>
               Meet our team of highly qualified medical professionals
             </motion.p>
           </div>
@@ -436,29 +508,52 @@ function Home() {
                   transition: { duration: 0.3 }
                 }}
               >
-                <div className="doctor-card">
+                <div className="doctor-card" style={{ 
+                  backgroundColor: '#ffffff',
+                  border: `1px solid ${theme.blue}20`
+                }}>
                   <div className="doctor-image-wrapper">
                     <img 
                       src={doctor.image} 
                       alt={doctor.name} 
                       className="doctor-img"
                     />
-                    <div className="doctor-rating">
+                    <div className="doctor-rating" style={{ 
+                      backgroundColor: theme.green,
+                      color: '#ffffff'
+                    }}>
                       <Star size={14} fill="currentColor" />
                       <span>{doctor.rating}</span>
                     </div>
                   </div>
                   <div className="doctor-info">
-                    <h4 className="doctor-name">{doctor.name}</h4>
-                    <p className="doctor-specialty">
+                    <h4 className="doctor-name" style={{ color: theme.textDark }}>
+                      {doctor.name}
+                    </h4>
+                    <p className="doctor-specialty" style={{ color: theme.blue }}>
                       <Stethoscope size={16} /> {doctor.specialty}
                     </p>
-                    <div className="doctor-stats">
+                    <div className="doctor-stats" style={{ color: `${theme.textDark}99` }}>
                       <span>
                         <Users size={14} /> {doctor.patients} Patients
                       </span>
                     </div>
-                    <button className="btn btn-view-profile">
+                    <button 
+                      className="btn btn-view-profile"
+                      style={{ 
+                        backgroundColor: 'transparent',
+                        borderColor: theme.red,
+                        color: theme.red
+                      }}
+                      onMouseOver={(e) => {
+                        e.target.style.backgroundColor = theme.red;
+                        e.target.style.color = '#ffffff';
+                      }}
+                      onMouseOut={(e) => {
+                        e.target.style.backgroundColor = 'transparent';
+                        e.target.style.color = theme.red;
+                      }}
+                    >
                       View Profile <ArrowRight size={16} className="ms-2" />
                     </button>
                   </div>
@@ -476,42 +571,79 @@ function Home() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={fadeInUp}
+        style={{ backgroundColor: '#ffffff' }}
       >
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6 mb-4 mb-lg-0">
               <motion.div variants={fadeInLeft}>
-                <span className="section-subtitle">
+                <span className="section-subtitle" style={{ color: theme.green }}>
                   <Activity size={18} /> Our Services
                 </span>
-                <h2 className="section-title">Premium Healthcare Services</h2>
-                <p className="services-text">
+                <h2 className="section-title" style={{ color: theme.textDark }}>
+                  Premium Healthcare Services
+                </h2>
+                <p className="services-text" style={{ color: `${theme.textDark}99` }}>
                   We offer a comprehensive range of medical services with cutting-edge technology 
                   and experienced healthcare professionals dedicated to your well-being.
                 </p>
-                <ul className="services-list">
-                  <li>
-                    <Ambulance size={20} />
+                <ul className="services-list" style={{ listStyle: 'none', padding: 0 }}>
+                  <li style={{ 
+                    marginBottom: '15px', 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    color: theme.textDark
+                  }}>
+                    <Ambulance size={20} style={{ color: theme.red, marginRight: '12px' }} />
                     <span>24/7 Emergency Care</span>
                   </li>
-                  <li>
-                    <Activity size={20} />
+                  <li style={{ 
+                    marginBottom: '15px', 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    color: theme.textDark
+                  }}>
+                    <Activity size={20} style={{ color: theme.blue, marginRight: '12px' }} />
                     <span>Advanced Diagnostic Services</span>
                   </li>
-                  <li>
-                    <Heart size={20} />
+                  <li style={{ 
+                    marginBottom: '15px', 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    color: theme.textDark
+                  }}>
+                    <Heart size={20} style={{ color: theme.red, marginRight: '12px' }} />
                     <span>Specialized Treatment Programs</span>
                   </li>
-                  <li>
-                    <Shield size={20} />
+                  <li style={{ 
+                    marginBottom: '15px', 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    color: theme.textDark
+                  }}>
+                    <Shield size={20} style={{ color: theme.green, marginRight: '12px' }} />
                     <span>Preventive Healthcare</span>
                   </li>
-                  <li>
-                    <Users size={20} />
+                  <li style={{ 
+                    marginBottom: '15px', 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    color: theme.textDark
+                  }}>
+                    <Users size={20} style={{ color: theme.blue, marginRight: '12px' }} />
                     <span>Patient-Centered Care</span>
                   </li>
                 </ul>
-                <button className="btn btn-services">
+                <button 
+                  className="btn btn-services"
+                  style={{ 
+                    backgroundColor: theme.blue,
+                    borderColor: theme.blue,
+                    color: '#ffffff'
+                  }}
+                  onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
+                  onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
+                >
                   View All Services <ArrowRight size={18} className="ms-2" />
                 </button>
               </motion.div>
@@ -526,11 +658,14 @@ function Home() {
                   alt="Medical Services" 
                   className="services-main-image"
                 />
-                <div className="service-card">
-                  <Clock size={28} />
+                <div className="service-card" style={{ 
+                  backgroundColor: '#ffffff',
+                  boxShadow: `0 10px 30px ${theme.red}20`
+                }}>
+                  <Clock size={28} style={{ color: theme.red }} />
                   <div>
-                    <h4>Quick Appointment</h4>
-                    <p>Book instantly online</p>
+                    <h4 style={{ color: theme.textDark }}>Quick Appointment</h4>
+                    <p style={{ color: `${theme.textDark}99` }}>Book instantly online</p>
                   </div>
                 </div>
               </motion.div>
@@ -546,21 +681,53 @@ function Home() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
+        style={{ backgroundColor: theme.lightBg }}
       >
         <div className="container">
-          <div className="contact-wrapper">
+          <div className="contact-wrapper" style={{ 
+            background: `linear-gradient(135deg, ${theme.red}, ${theme.red}dd)`,
+            borderRadius: '20px',
+            padding: '50px'
+          }}>
             <div className="row align-items-center">
               <div className="col-lg-6 mb-4 mb-lg-0">
-                <h2 className="contact-title">Ready to Get Started?</h2>
-                <p className="contact-text">
+                <h2 className="contact-title" style={{ color: '#ffffff' }}>
+                  Ready to Get Started?
+                </h2>
+                <p className="contact-text" style={{ color: '#ffffffcc' }}>
                   Book your appointment today and experience world-class healthcare services.
                 </p>
               </div>
               <div className="col-lg-6 text-lg-end">
-                <button className="btn btn-contact-large">
+                <button 
+                  className="btn btn-contact-large"
+                  style={{ 
+                    backgroundColor: '#ffffff',
+                    borderColor: '#ffffff',
+                    color: theme.red,
+                    marginRight: '10px'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = theme.blue;
+                    e.target.style.color = '#ffffff';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = '#ffffff';
+                    e.target.style.color = theme.red;
+                  }}
+                >
                   <Phone size={20} className="me-2" /> Call: +1 (234) 567-8900
                 </button>
-                <button className="btn btn-appointment-large ms-3">
+                <button 
+                  className="btn btn-appointment-large"
+                  style={{ 
+                    backgroundColor: theme.blue,
+                    borderColor: theme.blue,
+                    color: '#ffffff'
+                  }}
+                  onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
+                  onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
+                >
                   <Calendar size={20} className="me-2" /> Book Appointment
                 </button>
               </div>
@@ -570,7 +737,6 @@ function Home() {
       </motion.section>
     </div>
   );
->>>>>>> eb479f0cd7819cb243eeb8513676b2d7c6a64eca
 }
 
 export default Home;
