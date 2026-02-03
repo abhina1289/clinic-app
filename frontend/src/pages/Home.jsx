@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import { motion } from 'framer-motion';
 import { 
   Calendar, 
@@ -18,8 +18,6 @@ import {
   Star,
   ArrowRight
 } from 'lucide-react';
-
-import '../components/Home.css';
 
 function Home() {
   // Naavika Theme
@@ -99,57 +97,52 @@ function Home() {
   };
 
   return (
-    <div className="home-container">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="hero-section" style={{ backgroundColor: theme.lightBg }}>
-        <div className="container">
-          <div className="row align-items-center">
+      <section className="py-16 lg:py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Appointment Form */}
             <motion.div 
-              className="col-lg-5"
+              className="w-full lg:w-5/12"
               initial="hidden"
               animate="visible"
               variants={fadeInLeft}
             >
-              <div className="appointment-form" style={{ 
-                backgroundColor: '#ffffff',
-                border: `1px solid ${theme.blue}20`
-              }}>
-                <div className="form-header" style={{ 
-                  background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
-                  color: '#ffffff'
-                }}>
-                  <Calendar className="form-icon" />
-                  <h3 className="form-title" style={{ color: '#ffffff' }}>Book Appointment</h3>
+              <div className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden">
+                <div 
+                  className="p-6 flex items-center gap-3"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
+                  }}
+                >
+                  <Calendar className="text-white" size={24} />
+                  <h3 className="text-xl font-bold text-white">Book Appointment</h3>
                 </div>
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-3">
-                    <div className="input-group">
-                      <span className="input-icon" style={{ color: theme.blue }}>
+                <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                  <div>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: theme.blue }}>
                         <User size={18} />
                       </span>
                       <input
                         type="text"
-                        className="form-control"
+                        className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
                         placeholder="Full Name*"
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        style={{ borderColor: `${theme.blue}40` }}
                       />
                     </div>
                   </div>
-                  <div className="mb-3">
+                  <div>
                     <select
-                      className="form-select"
+                      className="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-gray-800"
                       name="gender"
                       value={formData.gender}
                       onChange={handleInputChange}
                       required
-                      style={{ 
-                        borderColor: `${theme.blue}40`,
-                        color: theme.textDark
-                      }}
                     >
                       <option value="">Select Gender</option>
                       <option value="male">Male</option>
@@ -157,114 +150,110 @@ function Home() {
                       <option value="other">Other</option>
                     </select>
                   </div>
-                  <div className="mb-3">
-                    <div className="input-group">
-                      <span className="input-icon" style={{ color: theme.blue }}>
+                  <div>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: theme.blue }}>
                         <Mail size={18} />
                       </span>
                       <input
                         type="email"
-                        className="form-control"
+                        className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
                         placeholder="Email Address*"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        style={{ borderColor: `${theme.blue}40` }}
                       />
                     </div>
                   </div>
-                  <div className="mb-3">
-                    <div className="input-group">
-                      <span className="input-icon" style={{ color: theme.blue }}>
+                  <div>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: theme.blue }}>
                         <Phone size={18} />
                       </span>
                       <input
                         type="tel"
-                        className="form-control"
+                        className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
                         placeholder="Phone Number*"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
                         required
-                        style={{ borderColor: `${theme.blue}40` }}
                       />
                     </div>
                   </div>
                   <button 
                     type="submit" 
-                    className="btn btn-submit w-100"
-                    style={{ 
-                      backgroundColor: theme.red,
-                      borderColor: theme.red,
-                      color: '#ffffff'
-                    }}
+                    className="w-full py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center justify-center gap-2"
+                    style={{ backgroundColor: theme.red, color: '#ffffff' }}
                     onMouseOver={(e) => e.target.style.backgroundColor = '#a51d1d'}
                     onMouseOut={(e) => e.target.style.backgroundColor = theme.red}
                   >
-                    Book Now <ArrowRight size={18} className="ms-2" />
+                    Book Now <ArrowRight size={18} />
                   </button>
                 </form>
               </div>
             </motion.div>
 
+            {/* Hero Content */}
             <motion.div 
-              className="col-lg-7"
+              className="w-full lg:w-7/12"
               initial="hidden"
               animate="visible"
               variants={fadeInRight}
             >
-              <div className="hero-content">
+              <div className="space-y-6">
                 <motion.div 
-                  className="badge-wrapper"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <span className="hero-badge" style={{ 
-                    backgroundColor: `${theme.green}15`,
-                    color: theme.green,
-                    border: `1px solid ${theme.green}`
-                  }}>
+                  <span 
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border"
+                    style={{ 
+                      backgroundColor: `${theme.green}15`,
+                      color: theme.green,
+                      borderColor: theme.green
+                    }}
+                  >
                     <Award size={16} /> Trusted Healthcare
                   </span>
                 </motion.div>
-                <h1 className="hero-title" style={{ color: theme.textDark }}>
+                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight" style={{ color: theme.textDark }}>
                   The Best Medical & Treatment Center for You
                 </h1>
-                <p className="hero-subtitle" style={{ color: `${theme.textDark}99` }}>
+                <p className="text-lg text-gray-600">
                   Experience world-class healthcare with our team of expert doctors 
                   and state-of-the-art facilities.
                 </p>
-                <div className="hero-features">
-                  <div className="feature-item" style={{ color: theme.green }}>
-                    <CheckCircle size={20} />
-                    <span style={{ color: theme.textDark }}>24/7 Emergency Care</span>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle size={20} style={{ color: theme.green }} />
+                    <span className="text-gray-800">24/7 Emergency Care</span>
                   </div>
-                  <div className="feature-item" style={{ color: theme.green }}>
-                    <CheckCircle size={20} />
-                    <span style={{ color: theme.textDark }}>Expert Specialists</span>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle size={20} style={{ color: theme.green }} />
+                    <span className="text-gray-800">Expert Specialists</span>
                   </div>
-                  <div className="feature-item" style={{ color: theme.green }}>
-                    <CheckCircle size={20} />
-                    <span style={{ color: theme.textDark }}>Modern Equipment</span>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle size={20} style={{ color: theme.green }} />
+                    <span className="text-gray-800">Modern Equipment</span>
                   </div>
                 </div>
-                <div className="hero-buttons">
+                <div className="flex flex-wrap gap-4 pt-4">
                   <button 
-                    className="btn btn-learn-more"
+                    className="px-6 py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2"
                     style={{ 
                       backgroundColor: theme.blue,
-                      borderColor: theme.blue,
                       color: '#ffffff'
                     }}
                     onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
                     onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
                   >
-                    Learn More <ArrowRight size={18} className="ms-2" />
+                    Learn More <ArrowRight size={18} />
                   </button>
                   <button 
-                    className="btn btn-contact"
+                    className="px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 border-2"
                     style={{ 
                       backgroundColor: 'transparent',
                       borderColor: theme.red,
@@ -279,36 +268,36 @@ function Home() {
                       e.target.style.color = theme.red;
                     }}
                   >
-                    <Phone size={18} className="me-2" /> Contact Us
+                    <Phone size={18} /> Contact Us
                   </button>
                 </div>
               </div>
-              <div className="hero-image">
+              <div className="relative mt-12">
                 <motion.img 
                   src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=700&fit=crop" 
                   alt="Medical Professional" 
-                  className="doctor-image"
+                  className="rounded-2xl shadow-2xl w-full max-w-md mx-auto lg:mx-0"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 />
-                <div className="floating-card card-1" style={{ 
-                  backgroundColor: '#ffffff',
-                  boxShadow: `0 10px 30px ${theme.blue}20`
-                }}>
-                  <Heart className="card-icon" style={{ color: theme.red }} />
+                <div 
+                  className="absolute top-8 -right-4 bg-white rounded-xl shadow-xl p-4 flex items-center gap-3"
+                  style={{ boxShadow: `0 10px 30px ${theme.blue}20` }}
+                >
+                  <Heart className="w-8 h-8" style={{ color: theme.red }} />
                   <div>
-                    <h4 style={{ color: theme.textDark }}>98%</h4>
-                    <p style={{ color: `${theme.textDark}99` }}>Success Rate</p>
+                    <h4 className="text-2xl font-bold" style={{ color: theme.textDark }}>98%</h4>
+                    <p className="text-sm text-gray-600">Success Rate</p>
                   </div>
                 </div>
-                <div className="floating-card card-2" style={{ 
-                  backgroundColor: '#ffffff',
-                  boxShadow: `0 10px 30px ${theme.green}20`
-                }}>
-                  <Users className="card-icon" style={{ color: theme.green }} />
+                <div 
+                  className="absolute bottom-8 -left-4 bg-white rounded-xl shadow-xl p-4 flex items-center gap-3"
+                  style={{ boxShadow: `0 10px 30px ${theme.green}20` }}
+                >
+                  <Users className="w-8 h-8" style={{ color: theme.green }} />
                   <div>
-                    <h4 style={{ color: theme.textDark }}>5000+</h4>
-                    <p style={{ color: `${theme.textDark}99` }}>Happy Patients</p>
+                    <h4 className="text-2xl font-bold" style={{ color: theme.textDark }}>5000+</h4>
+                    <p className="text-sm text-gray-600">Happy Patients</p>
                   </div>
                 </div>
               </div>
@@ -319,7 +308,7 @@ function Home() {
 
       {/* Stats Bar */}
       <motion.section 
-        className="stats-bar"
+        className="py-12"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -328,49 +317,49 @@ function Home() {
           background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
         }}
       >
-        <div className="container">
-          <div className="row">
-            <motion.div className="col-lg-3 col-md-6 mb-3 mb-lg-0" variants={scaleIn}>
-              <div className="stat-item">
-                <div className="stat-icon" style={{ color: '#ffffff' }}>
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <motion.div variants={scaleIn}>
+              <div className="flex items-center gap-4">
+                <div className="text-white">
                   <Users size={32} />
                 </div>
-                <div className="stat-content">
-                  <h3 className="stat-number" style={{ color: '#ffffff' }}>600+</h3>
-                  <p className="stat-label" style={{ color: '#ffffffcc' }}>Patients Treated</p>
+                <div>
+                  <h3 className="text-3xl font-bold text-white">600+</h3>
+                  <p className="text-white/80">Patients Treated</p>
                 </div>
               </div>
             </motion.div>
-            <motion.div className="col-lg-3 col-md-6 mb-3 mb-lg-0" variants={scaleIn}>
-              <div className="stat-item">
-                <div className="stat-icon" style={{ color: '#ffffff' }}>
+            <motion.div variants={scaleIn}>
+              <div className="flex items-center gap-4">
+                <div className="text-white">
                   <Stethoscope size={32} />
                 </div>
-                <div className="stat-content">
-                  <h3 className="stat-number" style={{ color: '#ffffff' }}>30+</h3>
-                  <p className="stat-label" style={{ color: '#ffffffcc' }}>Expert Doctors</p>
+                <div>
+                  <h3 className="text-3xl font-bold text-white">30+</h3>
+                  <p className="text-white/80">Expert Doctors</p>
                 </div>
               </div>
             </motion.div>
-            <motion.div className="col-lg-3 col-md-6 mb-3 mb-lg-0" variants={scaleIn}>
-              <div className="stat-item">
-                <div className="stat-icon" style={{ color: '#ffffff' }}>
+            <motion.div variants={scaleIn}>
+              <div className="flex items-center gap-4">
+                <div className="text-white">
                   <Award size={32} />
                 </div>
-                <div className="stat-content">
-                  <h3 className="stat-number" style={{ color: '#ffffff' }}>60+</h3>
-                  <p className="stat-label" style={{ color: '#ffffffcc' }}>Years Experience</p>
+                <div>
+                  <h3 className="text-3xl font-bold text-white">60+</h3>
+                  <p className="text-white/80">Years Experience</p>
                 </div>
               </div>
             </motion.div>
-            <motion.div className="col-lg-3 col-md-6" variants={scaleIn}>
-              <div className="stat-item">
-                <div className="stat-icon" style={{ color: '#ffffff' }}>
+            <motion.div variants={scaleIn}>
+              <div className="flex items-center gap-4">
+                <div className="text-white">
                   <Star size={32} />
                 </div>
-                <div className="stat-content">
-                  <h3 className="stat-number" style={{ color: '#ffffff' }}>4.9/5</h3>
-                  <p className="stat-label" style={{ color: '#ffffffcc' }}>Patient Rating</p>
+                <div>
+                  <h3 className="text-3xl font-bold text-white">4.9/5</h3>
+                  <p className="text-white/80">Patient Rating</p>
                 </div>
               </div>
             </motion.div>
@@ -380,64 +369,66 @@ function Home() {
 
       {/* About Section */}
       <motion.section 
-        className="about-section"
+        className="py-16 lg:py-24 bg-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={fadeInUp}
-        style={{ backgroundColor: '#ffffff' }}
       >
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6 mb-4 mb-lg-0">
-              <motion.div className="about-image-wrapper" variants={fadeInLeft}>
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="w-full lg:w-1/2">
+              <motion.div className="relative" variants={fadeInLeft}>
                 <img 
                   src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop" 
                   alt="Medical Center" 
-                  className="about-main-image"
+                  className="rounded-2xl shadow-xl w-full"
                 />
-                <div className="about-badge" style={{ 
-                  backgroundColor: theme.green,
-                  color: '#ffffff'
-                }}>
+                <div 
+                  className="absolute bottom-6 left-6 rounded-xl p-4 flex items-center gap-3"
+                  style={{ 
+                    backgroundColor: theme.green,
+                    color: '#ffffff'
+                  }}
+                >
                   <Shield size={24} />
-                  <span>Certified Healthcare</span>
+                  <span className="font-semibold">Certified Healthcare</span>
                 </div>
               </motion.div>
             </div>
-            <div className="col-lg-6">
-              <motion.div variants={fadeInRight}>
-                <span className="section-subtitle" style={{ color: theme.red }}>
+            <div className="w-full lg:w-1/2">
+              <motion.div variants={fadeInRight} className="space-y-6">
+                <span className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: theme.red }}>
                   <Heart size={18} /> About Us
                 </span>
-                <h2 className="section-title" style={{ color: theme.textDark }}>
+                <h2 className="text-3xl lg:text-4xl font-bold" style={{ color: theme.textDark }}>
                   About Our Center MindCare
                 </h2>
-                <p className="about-text" style={{ color: `${theme.textDark}99` }}>
+                <p className="text-gray-600 text-lg">
                   We provide comprehensive medical care with state-of-the-art facilities and 
                   experienced medical professionals. Our mission is to deliver exceptional 
                   healthcare services with compassion and excellence.
                 </p>
-                <div className="about-features">
-                  <div className="about-feature">
-                    <Activity className="feature-icon" style={{ color: theme.blue }} />
+                <div className="space-y-4">
+                  <div className="flex gap-4">
+                    <Activity className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: theme.blue }} />
                     <div>
-                      <h5 style={{ color: theme.textDark }}>Advanced Technology</h5>
-                      <p style={{ color: `${theme.textDark}99` }}>Latest medical equipment and diagnostic tools</p>
+                      <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>Advanced Technology</h5>
+                      <p className="text-gray-600">Latest medical equipment and diagnostic tools</p>
                     </div>
                   </div>
-                  <div className="about-feature">
-                    <Shield className="feature-icon" style={{ color: theme.green }} />
+                  <div className="flex gap-4">
+                    <Shield className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: theme.green }} />
                     <div>
-                      <h5 style={{ color: theme.textDark }}>Patient Safety</h5>
-                      <p style={{ color: `${theme.textDark}99` }}>Highest standards of safety and hygiene</p>
+                      <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>Patient Safety</h5>
+                      <p className="text-gray-600">Highest standards of safety and hygiene</p>
                     </div>
                   </div>
-                  <div className="about-feature">
-                    <Clock className="feature-icon" style={{ color: theme.red }} />
+                  <div className="flex gap-4">
+                    <Clock className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: theme.red }} />
                     <div>
-                      <h5 style={{ color: theme.textDark }}>24/7 Support</h5>
-                      <p style={{ color: `${theme.textDark}99` }}>Round-the-clock emergency services</p>
+                      <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>24/7 Support</h5>
+                      <p className="text-gray-600">Round-the-clock emergency services</p>
                     </div>
                   </div>
                 </div>
@@ -449,26 +440,25 @@ function Home() {
 
       {/* Specialists Section */}
       <motion.section 
-        className="specialists-section"
+        className="py-16 lg:py-24 bg-gray-50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={staggerContainer}
-        style={{ backgroundColor: theme.lightBg }}
       >
-        <div className="container">
-          <div className="text-center mb-5">
-            <motion.span className="section-subtitle" style={{ color: theme.blue }} variants={fadeInUp}>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12 space-y-4">
+            <motion.span className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: theme.blue }} variants={fadeInUp}>
               <Stethoscope size={18} /> Our Team
             </motion.span>
-            <motion.h2 className="section-title" style={{ color: theme.textDark }} variants={fadeInUp}>
+            <motion.h2 className="text-3xl lg:text-4xl font-bold" style={{ color: theme.textDark }} variants={fadeInUp}>
               Expert Specialists
             </motion.h2>
-            <motion.p className="section-description" style={{ color: `${theme.textDark}99` }} variants={fadeInUp}>
+            <motion.p className="text-gray-600 max-w-2xl mx-auto" variants={fadeInUp}>
               Meet our team of highly qualified medical professionals
             </motion.p>
           </div>
-          <div className="row">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 name: 'Dr. Michael Anderson',
@@ -500,7 +490,6 @@ function Home() {
               }
             ].map((doctor, index) => (
               <motion.div 
-                className="col-lg-3 col-md-6 mb-4" 
                 key={index}
                 variants={scaleIn}
                 whileHover={{ 
@@ -508,38 +497,36 @@ function Home() {
                   transition: { duration: 0.3 }
                 }}
               >
-                <div className="doctor-card" style={{ 
-                  backgroundColor: '#ffffff',
-                  border: `1px solid ${theme.blue}20`
-                }}>
-                  <div className="doctor-image-wrapper">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-blue-100">
+                  <div className="relative">
                     <img 
                       src={doctor.image} 
                       alt={doctor.name} 
-                      className="doctor-img"
+                      className="w-full h-64 object-cover"
                     />
-                    <div className="doctor-rating" style={{ 
-                      backgroundColor: theme.green,
-                      color: '#ffffff'
-                    }}>
+                    <div 
+                      className="absolute top-4 right-4 px-3 py-1 rounded-full flex items-center gap-1 text-sm font-semibold"
+                      style={{ 
+                        backgroundColor: theme.green,
+                        color: '#ffffff'
+                      }}
+                    >
                       <Star size={14} fill="currentColor" />
                       <span>{doctor.rating}</span>
                     </div>
                   </div>
-                  <div className="doctor-info">
-                    <h4 className="doctor-name" style={{ color: theme.textDark }}>
+                  <div className="p-6 space-y-3">
+                    <h4 className="text-xl font-bold" style={{ color: theme.textDark }}>
                       {doctor.name}
                     </h4>
-                    <p className="doctor-specialty" style={{ color: theme.blue }}>
+                    <p className="flex items-center gap-2 font-semibold" style={{ color: theme.blue }}>
                       <Stethoscope size={16} /> {doctor.specialty}
                     </p>
-                    <div className="doctor-stats" style={{ color: `${theme.textDark}99` }}>
-                      <span>
-                        <Users size={14} /> {doctor.patients} Patients
-                      </span>
+                    <div className="flex items-center gap-2 text-gray-600 text-sm">
+                      <Users size={14} /> {doctor.patients} Patients
                     </div>
                     <button 
-                      className="btn btn-view-profile"
+                      className="w-full py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 border-2"
                       style={{ 
                         backgroundColor: 'transparent',
                         borderColor: theme.red,
@@ -554,7 +541,7 @@ function Home() {
                         e.target.style.color = theme.red;
                       }}
                     >
-                      View Profile <ArrowRight size={16} className="ms-2" />
+                      View Profile <ArrowRight size={16} />
                     </button>
                   </div>
                 </div>
@@ -566,106 +553,79 @@ function Home() {
 
       {/* Services Section */}
       <motion.section 
-        className="services-section"
+        className="py-16 lg:py-24 bg-white"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={fadeInUp}
-        style={{ backgroundColor: '#ffffff' }}
       >
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6 mb-4 mb-lg-0">
-              <motion.div variants={fadeInLeft}>
-                <span className="section-subtitle" style={{ color: theme.green }}>
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <div className="w-full lg:w-1/2">
+              <motion.div variants={fadeInLeft} className="space-y-6">
+                <span className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: theme.green }}>
                   <Activity size={18} /> Our Services
                 </span>
-                <h2 className="section-title" style={{ color: theme.textDark }}>
+                <h2 className="text-3xl lg:text-4xl font-bold" style={{ color: theme.textDark }}>
                   Premium Healthcare Services
                 </h2>
-                <p className="services-text" style={{ color: `${theme.textDark}99` }}>
+                <p className="text-gray-600 text-lg">
                   We offer a comprehensive range of medical services with cutting-edge technology 
                   and experienced healthcare professionals dedicated to your well-being.
                 </p>
-                <ul className="services-list" style={{ listStyle: 'none', padding: 0 }}>
-                  <li style={{ 
-                    marginBottom: '15px', 
-                    display: 'flex', 
-                    alignItems: 'center',
-                    color: theme.textDark
-                  }}>
-                    <Ambulance size={20} style={{ color: theme.red, marginRight: '12px' }} />
-                    <span>24/7 Emergency Care</span>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-3">
+                    <Ambulance size={20} style={{ color: theme.red }} />
+                    <span className="text-gray-800">24/7 Emergency Care</span>
                   </li>
-                  <li style={{ 
-                    marginBottom: '15px', 
-                    display: 'flex', 
-                    alignItems: 'center',
-                    color: theme.textDark
-                  }}>
-                    <Activity size={20} style={{ color: theme.blue, marginRight: '12px' }} />
-                    <span>Advanced Diagnostic Services</span>
+                  <li className="flex items-center gap-3">
+                    <Activity size={20} style={{ color: theme.blue }} />
+                    <span className="text-gray-800">Advanced Diagnostic Services</span>
                   </li>
-                  <li style={{ 
-                    marginBottom: '15px', 
-                    display: 'flex', 
-                    alignItems: 'center',
-                    color: theme.textDark
-                  }}>
-                    <Heart size={20} style={{ color: theme.red, marginRight: '12px' }} />
-                    <span>Specialized Treatment Programs</span>
+                  <li className="flex items-center gap-3">
+                    <Heart size={20} style={{ color: theme.red }} />
+                    <span className="text-gray-800">Specialized Treatment Programs</span>
                   </li>
-                  <li style={{ 
-                    marginBottom: '15px', 
-                    display: 'flex', 
-                    alignItems: 'center',
-                    color: theme.textDark
-                  }}>
-                    <Shield size={20} style={{ color: theme.green, marginRight: '12px' }} />
-                    <span>Preventive Healthcare</span>
+                  <li className="flex items-center gap-3">
+                    <Shield size={20} style={{ color: theme.green }} />
+                    <span className="text-gray-800">Preventive Healthcare</span>
                   </li>
-                  <li style={{ 
-                    marginBottom: '15px', 
-                    display: 'flex', 
-                    alignItems: 'center',
-                    color: theme.textDark
-                  }}>
-                    <Users size={20} style={{ color: theme.blue, marginRight: '12px' }} />
-                    <span>Patient-Centered Care</span>
+                  <li className="flex items-center gap-3">
+                    <Users size={20} style={{ color: theme.blue }} />
+                    <span className="text-gray-800">Patient-Centered Care</span>
                   </li>
                 </ul>
                 <button 
-                  className="btn btn-services"
+                  className="px-6 py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2 mt-6"
                   style={{ 
                     backgroundColor: theme.blue,
-                    borderColor: theme.blue,
                     color: '#ffffff'
                   }}
                   onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
                   onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
                 >
-                  View All Services <ArrowRight size={18} className="ms-2" />
+                  View All Services <ArrowRight size={18} />
                 </button>
               </motion.div>
             </div>
-            <div className="col-lg-6">
+            <div className="w-full lg:w-1/2">
               <motion.div 
-                className="services-image-wrapper"
+                className="relative"
                 variants={fadeInRight}
               >
                 <img 
                   src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=400&fit=crop" 
                   alt="Medical Services" 
-                  className="services-main-image"
+                  className="rounded-2xl shadow-xl w-full"
                 />
-                <div className="service-card" style={{ 
-                  backgroundColor: '#ffffff',
-                  boxShadow: `0 10px 30px ${theme.red}20`
-                }}>
+                <div 
+                  className="absolute -bottom-6 -left-6 bg-white rounded-xl p-6 flex items-center gap-4"
+                  style={{ boxShadow: `0 10px 30px ${theme.red}20` }}
+                >
                   <Clock size={28} style={{ color: theme.red }} />
                   <div>
-                    <h4 style={{ color: theme.textDark }}>Quick Appointment</h4>
-                    <p style={{ color: `${theme.textDark}99` }}>Book instantly online</p>
+                    <h4 className="font-bold text-lg" style={{ color: theme.textDark }}>Quick Appointment</h4>
+                    <p className="text-gray-600 text-sm">Book instantly online</p>
                   </div>
                 </div>
               </motion.div>
@@ -676,36 +636,34 @@ function Home() {
 
       {/* Contact Section */}
       <motion.section 
-        className="contact-section"
+        className="py-16 bg-gray-50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
-        style={{ backgroundColor: theme.lightBg }}
       >
-        <div className="container">
-          <div className="contact-wrapper" style={{ 
-            background: `linear-gradient(135deg, ${theme.red}, ${theme.red}dd)`,
-            borderRadius: '20px',
-            padding: '50px'
-          }}>
-            <div className="row align-items-center">
-              <div className="col-lg-6 mb-4 mb-lg-0">
-                <h2 className="contact-title" style={{ color: '#ffffff' }}>
+        <div className="container mx-auto px-4">
+          <div 
+            className="rounded-3xl p-8 lg:p-12"
+            style={{ 
+              background: `linear-gradient(135deg, ${theme.red}, ${theme.red}dd)`,
+            }}
+          >
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+              <div className="text-center lg:text-left">
+                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                   Ready to Get Started?
                 </h2>
-                <p className="contact-text" style={{ color: '#ffffffcc' }}>
+                <p className="text-white/80 text-lg">
                   Book your appointment today and experience world-class healthcare services.
                 </p>
               </div>
-              <div className="col-lg-6 text-lg-end">
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-end">
                 <button 
-                  className="btn btn-contact-large"
+                  className="px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2"
                   style={{ 
                     backgroundColor: '#ffffff',
-                    borderColor: '#ffffff',
                     color: theme.red,
-                    marginRight: '10px'
                   }}
                   onMouseOver={(e) => {
                     e.target.style.backgroundColor = theme.blue;
@@ -716,19 +674,18 @@ function Home() {
                     e.target.style.color = theme.red;
                   }}
                 >
-                  <Phone size={20} className="me-2" /> Call: +1 (234) 567-8900
+                  <Phone size={20} /> Call: +1 (234) 567-8900
                 </button>
                 <button 
-                  className="btn btn-appointment-large"
+                  className="px-6 py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2"
                   style={{ 
                     backgroundColor: theme.blue,
-                    borderColor: theme.blue,
                     color: '#ffffff'
                   }}
                   onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
                   onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
                 >
-                  <Calendar size={20} className="me-2" /> Book Appointment
+                  <Calendar size={20} /> Book Appointment
                 </button>
               </div>
             </div>
