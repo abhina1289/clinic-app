@@ -8,8 +8,8 @@ const {
   changePassword,
   getAllUsers,
   deleteUser
-} = require('../controllers/userController');
-const { protect, authorize } = require('../middleware/auth');
+} = require('../controller/Usercontroller');
+const { protect, authorize } = require('../middleware/Auth');
 
 // Public routes
 router.post('/register', register);

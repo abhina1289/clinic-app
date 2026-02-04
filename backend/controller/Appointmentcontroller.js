@@ -1,5 +1,5 @@
-const Appointment = require('../models/Appointment');
-const User = require('../models/User');
+const Appointment = require('../models/AppointmentModel');
+const User = require('../models/UserModel');
 
 // @desc    Create new appointment
 // @route   POST /api/appointments

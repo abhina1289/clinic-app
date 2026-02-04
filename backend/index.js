@@ -36,8 +36,8 @@ app.use('/api', rateLimit({
 }));
 
 // Routes
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/appointments', require('./routes/appointmentRoutes'));
+app.use('/api/users', require('./routes/Userroutes'));
+app.use('/api/appointments', require('./routes/ Appointmentroutes'));
 
 // Health
 app.get('/api/health', (req, res) => {

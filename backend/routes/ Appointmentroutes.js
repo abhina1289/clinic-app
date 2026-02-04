@@ -11,8 +11,8 @@ const {
   cancelAppointment,
   deleteAppointment,
   getAppointmentStats
-} = require('../controllers/appointmentController');
-const { protect, authorize, optionalAuth } = require('../middleware/auth');
+} = require('../controller/Appointmentcontroller');
+const { protect, authorize, optionalAuth } = require('../middleware/Auth');
 
 // Public routes
 router.post('/', optionalAuth, createAppointment);
