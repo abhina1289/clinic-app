@@ -1,26 +1,37 @@
-import { useState } from "react";
-import { motion } from 'framer-motion';
-import { 
-  Calendar, 
-  Heart, 
-  Award, 
-  Clock, 
-  Phone, 
-  Mail, 
-  MapPin, 
-  User, 
-  Shield, 
-  Activity,
-  Stethoscope,
-  Ambulance,
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  Calendar,
+  Heart,
+  Award,
+  Clock,
+  Phone,
+  Mail,
+  User,
+  Shield,
   Users,
   CheckCircle,
   Star,
-  ArrowRight
-} from 'lucide-react';
+  Activity,
+  Ear,
+  Stethoscope,
+  Settings,
+  RefreshCw,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+
+// import unitron from "../assets/brands/unitron.png";
+// import resound from "../assets/brands/resound.png";
+// import oticon from "../assets/brands/oticon.png";
+// import phonak from "../assets/brands/phonak.png";
+// import widex from "../assets/brands/widex.png";
+// import starkey from "../assets/brands/starkey.png";
+// import signia from "../assets/brands/signia.png";
+
 
 function Home() {
-  // Naavika Theme
   const theme = {
     red: "#c92424",
     blue: "#4484c4",
@@ -29,669 +40,758 @@ function Home() {
     textDark: "#222",
   };
 
+  // Carousel State
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const carouselSlides = [
+    {
+      image:
+        "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&h=600&fit=crop",
+      title: "Comprehensive Hearing Tests",
+      subtitle: "Advanced diagnostic assessments with certified audiologists",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&h=600&fit=crop",
+      title: "Premium Hearing Aid Solutions",
+      subtitle: "Latest technology from world-leading manufacturers",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=600&fit=crop",
+      title: "Expert Audiology Care",
+      subtitle: "Personalized consultation and ongoing support",
+    },
+  ];
+
+  // Auto-advance carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(
+      (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length,
+    );
+  };
+
+  // Form State
   const [formData, setFormData] = useState({
-    name: '',
-    gender: '',
-    email: '',
-    phone: ''
+    name: "",
+    gender: "",
+    email: "",
+    phone: "",
   });
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Appointment booked successfully!');
+    console.log("Form submitted:", formData);
+    alert("Appointment booked successfully!");
   };
 
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
 
-  const fadeInLeft = {
-    hidden: { opacity: 0, x: -60 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
 
-  const fadeInRight = {
-    hidden: { opacity: 0, x: 60 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
+  // Services Data
+  const services = [
+    {
+      icon: Activity,
+      title: "Comprehensive Hearing Tests",
+      description:
+        "Advanced diagnostic assessments to identify your hearing needs",
+      color: theme.blue,
+    },
+    {
+      icon: Ear,
+      title: "Premium Hearing Aids",
+      description: "Latest digital hearing aids from world-leading brands",
+      color: theme.green,
+    },
+    {
+      icon: RefreshCw,
+      title: "Hearing Aid Reprogramming",
+      description: "Expert fine-tuning for optimal hearing performance",
+      color: theme.red,
+    },
+    {
+      icon: Settings,
+      title: "Service & Repair",
+      description: "Professional maintenance with authorized lab support",
+      color: theme.blue,
+    },
+    {
+      icon: Stethoscope,
+      title: "Audiology Consultation",
+      description: "One-on-one guidance from experienced audiologists",
+      color: theme.green,
+    },
+  ];
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const scaleIn = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" }
-    }
-  };
+  // Hearing Aid Products
+  const hearingAidProducts = [
+    {
+      title: "Behind the Ear (BTE)",
+      description:
+        "Popular hearing aids sit perfectly behind your ear, connected to a custom ear mold for ultimate comfort.",
+      image:
+        "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=300&fit=crop",
+    },
+    {
+      title: "Receiver in the Canal (RIC)",
+      description:
+        "Advanced hearing aids that sit comfortably behind the ear with a thin wire for superior sound quality.",
+      image:
+        "https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400&h=300&fit=crop",
+    },
+    {
+      title: "Invisible Custom Hearing Aids (IIC & CIC)",
+      description:
+        "Custom-made to fit completely in the ear canal, offering comfort and near invisibility in everyday use.",
+      image:
+        "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=300&fit=crop",
+    },
+    {
+      title: "In the Canal (ITC)",
+      description:
+        "Custom-designed to fit your ear's unique shape, more visible than IIC & CIC, allowing greater power and advanced features.",
+      image:
+        "https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=400&h=300&fit=crop",
+    },
+    {
+      title: "Rechargeable Hearing Aids",
+      description:
+        "Charge your hearing aid like you charge your phone - convenient and hassle-free for uninterrupted performance.",
+      image:
+        "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=400&h=300&fit=crop",
+    },
+    {
+      title: "Bluetooth Hearing Aids",
+      description:
+        "Connect wirelessly to your smartphone for calls, music, and media streaming with crystal-clear sound.",
+      image:
+        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop",
+    },
+  ];
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="py-16 lg:py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* Appointment Form */}
-            <motion.div 
-              className="w-full lg:w-5/12"
-              initial="hidden"
-              animate="visible"
-              variants={fadeInLeft}
-            >
-              <div className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden">
-                <div 
-                  className="p-6 flex items-center gap-3"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
-                  }}
-                >
-                  <Calendar className="text-white" size={24} />
-                  <h3 className="text-xl font-bold text-white">Book Appointment</h3>
+      {/* Hero Carousel Section */}
+      <section className="relative h-[500px] lg:h-[600px] overflow-hidden bg-gray-900">
+        {carouselSlides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+            <div className="absolute inset-0 flex items-center">
+              <div className="container mx-auto px-4">
+                <div className="max-w-2xl">
+                  <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4">
+                    {slide.title}
+                  </h1>
+                  <p className="text-xl lg:text-2xl text-white/90 mb-8">
+                    {slide.subtitle}
+                  </p>
+                  <Link to="/book-appointment">
+                    <button
+                      className="px-8 py-4 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                      style={{ backgroundColor: theme.blue }}
+                    >
+                      Book Appointment <ArrowRight size={20} />
+                    </button>
+                  </Link>
                 </div>
-                <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                  <div>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: theme.blue }}>
-                        <User size={18} />
-                      </span>
-                      <input
-                        type="text"
-                        className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-                        placeholder="Full Name*"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <select
-                      className="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-gray-800"
-                      name="gender"
-                      value={formData.gender}
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Carousel Controls */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all"
+        >
+          <ChevronRight size={24} />
+        </button>
+
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+          {carouselSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                index === currentSlide
+                  ? "bg-white w-8"
+                  : "bg-white/50 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Appointment Form Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden">
+              <div
+                className="p-6 flex items-center gap-3"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
+                }}
+              >
+                <Calendar className="text-white" size={24} />
+                <h3 className="text-xl font-bold text-white">
+                  Book Your Appointment
+                </h3>
+              </div>
+              <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                <div>
+                  <div className="relative">
+                    <span
+                      className="absolute left-3 top-1/2 -translate-y-1/2"
+                      style={{ color: theme.blue }}
+                    >
+                      <User size={18} />
+                    </span>
+                    <input
+                      type="text"
+                      className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Full Name*"
+                      name="name"
+                      value={formData.name}
                       onChange={handleInputChange}
                       required
+                    />
+                  </div>
+                </div>
+                <div>
+                  <select
+                    className="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <div className="relative">
+                    <span
+                      className="absolute left-3 top-1/2 -translate-y-1/2"
+                      style={{ color: theme.blue }}
                     >
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
+                      <Mail size={18} />
+                    </span>
+                    <input
+                      type="email"
+                      className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Email Address*"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
-                  <div>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: theme.blue }}>
-                        <Mail size={18} />
-                      </span>
-                      <input
-                        type="email"
-                        className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-                        placeholder="Email Address*"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </div>
+                </div>
+                <div>
+                  <div className="relative">
+                    <span
+                      className="absolute left-3 top-1/2 -translate-y-1/2"
+                      style={{ color: theme.blue }}
+                    >
+                      <Phone size={18} />
+                    </span>
+                    <input
+                      type="tel"
+                      className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Phone Number*"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                    />
                   </div>
-                  <div>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: theme.blue }}>
-                        <Phone size={18} />
-                      </span>
-                      <input
-                        type="tel"
-                        className="w-full pl-10 pr-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-                        placeholder="Phone Number*"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <button 
-                    type="submit" 
-                    className="w-full py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center justify-center gap-2"
-                    style={{ backgroundColor: theme.red, color: '#ffffff' }}
-                    onMouseOver={(e) => e.target.style.backgroundColor = '#a51d1d'}
-                    onMouseOut={(e) => e.target.style.backgroundColor = theme.red}
-                  >
-                    Book Now <ArrowRight size={18} />
-                  </button>
-                </form>
-              </div>
-            </motion.div>
-
-            {/* Hero Content */}
-            <motion.div 
-              className="w-full lg:w-7/12"
-              initial="hidden"
-              animate="visible"
-              variants={fadeInRight}
-            >
-              <div className="space-y-6">
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3 rounded-lg font-semibold text-white transition-colors duration-300 flex items-center justify-center gap-2"
+                  style={{ backgroundColor: theme.red }}
                 >
-                  <span 
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border"
-                    style={{ 
-                      backgroundColor: `${theme.green}15`,
-                      color: theme.green,
-                      borderColor: theme.green
-                    }}
-                  >
-                    <Award size={16} /> Trusted Healthcare
-                  </span>
-                </motion.div>
-                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight" style={{ color: theme.textDark }}>
-                  The Best Medical & Treatment Center for You
-                </h1>
-                <p className="text-lg text-gray-600">
-                  Experience world-class healthcare with our team of expert doctors 
-                  and state-of-the-art facilities.
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle size={20} style={{ color: theme.green }} />
-                    <span className="text-gray-800">24/7 Emergency Care</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle size={20} style={{ color: theme.green }} />
-                    <span className="text-gray-800">Expert Specialists</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle size={20} style={{ color: theme.green }} />
-                    <span className="text-gray-800">Modern Equipment</span>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-4 pt-4">
-                  <button 
-                    className="px-6 py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2"
-                    style={{ 
-                      backgroundColor: theme.blue,
-                      color: '#ffffff'
-                    }}
-                    onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
-                    onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
-                  >
-                    Learn More <ArrowRight size={18} />
-                  </button>
-                  <button 
-                    className="px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 border-2"
-                    style={{ 
-                      backgroundColor: 'transparent',
-                      borderColor: theme.red,
-                      color: theme.red
-                    }}
-                    onMouseOver={(e) => {
-                      e.target.style.backgroundColor = theme.red;
-                      e.target.style.color = '#ffffff';
-                    }}
-                    onMouseOut={(e) => {
-                      e.target.style.backgroundColor = 'transparent';
-                      e.target.style.color = theme.red;
-                    }}
-                  >
-                    <Phone size={18} /> Contact Us
-                  </button>
-                </div>
-              </div>
-              <div className="relative mt-12">
-                <motion.img 
-                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=700&fit=crop" 
-                  alt="Medical Professional" 
-                  className="rounded-2xl shadow-2xl w-full max-w-md mx-auto lg:mx-0"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <div 
-                  className="absolute top-8 -right-4 bg-white rounded-xl shadow-xl p-4 flex items-center gap-3"
-                  style={{ boxShadow: `0 10px 30px ${theme.blue}20` }}
-                >
-                  <Heart className="w-8 h-8" style={{ color: theme.red }} />
-                  <div>
-                    <h4 className="text-2xl font-bold" style={{ color: theme.textDark }}>98%</h4>
-                    <p className="text-sm text-gray-600">Success Rate</p>
-                  </div>
-                </div>
-                <div 
-                  className="absolute bottom-8 -left-4 bg-white rounded-xl shadow-xl p-4 flex items-center gap-3"
-                  style={{ boxShadow: `0 10px 30px ${theme.green}20` }}
-                >
-                  <Users className="w-8 h-8" style={{ color: theme.green }} />
-                  <div>
-                    <h4 className="text-2xl font-bold" style={{ color: theme.textDark }}>5000+</h4>
-                    <p className="text-sm text-gray-600">Happy Patients</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+                  Book Now <ArrowRight size={18} />
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Stats Bar */}
-      <motion.section 
-        className="py-12"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-        style={{ 
-          background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
-        }}
-      >
+      {/* <section className="py-14 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <motion.div variants={scaleIn}>
-              <div className="flex items-center gap-4">
-                <div className="text-white">
-                  <Users size={32} />
+          <h2 className="text-center text-2xl md:text-3xl font-semibold mb-10">
+            Trusted Hearing Aid Brands
+          </h2> */}
+
+          {/* Slider */}
+          {/* <div className="relative w-full overflow-hidden">
+            <div className="flex gap-12 animate-scroll hover:[animation-play-state:paused]">
+              {[...logos, ...logos].map((logo, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-center min-w-[160px] md:min-w-[200px]"
+                >
+                  <img
+                    src={logo}
+                    alt="Brand Logo"
+                    className="h-16 md:h-20 object-contain grayscale hover:grayscale-0 transition duration-300"
+                  />
                 </div>
-                <div>
-                  <h3 className="text-3xl font-bold text-white">600+</h3>
-                  <p className="text-white/80">Patients Treated</p>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div variants={scaleIn}>
-              <div className="flex items-center gap-4">
-                <div className="text-white">
-                  <Stethoscope size={32} />
-                </div>
-                <div>
-                  <h3 className="text-3xl font-bold text-white">30+</h3>
-                  <p className="text-white/80">Expert Doctors</p>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div variants={scaleIn}>
-              <div className="flex items-center gap-4">
-                <div className="text-white">
-                  <Award size={32} />
-                </div>
-                <div>
-                  <h3 className="text-3xl font-bold text-white">60+</h3>
-                  <p className="text-white/80">Years Experience</p>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div variants={scaleIn}>
-              <div className="flex items-center gap-4">
-                <div className="text-white">
-                  <Star size={32} />
-                </div>
-                <div>
-                  <h3 className="text-3xl font-bold text-white">4.9/5</h3>
-                  <p className="text-white/80">Patient Rating</p>
-                </div>
-              </div>
-            </motion.div>
+              ))}
+            </div>
           </div>
         </div>
-      </motion.section>
+      </section> */}
 
       {/* About Section */}
-      <motion.section 
-        className="py-16 lg:py-24 bg-white"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeInUp}
-      >
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="w-full lg:w-1/2">
-              <motion.div className="relative" variants={fadeInLeft}>
-                <img 
-                  src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop" 
-                  alt="Medical Center" 
+              <div className="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop"
+                  alt="Naavika Hearing Center"
                   className="rounded-2xl shadow-xl w-full"
                 />
-                <div 
+                <div
                   className="absolute bottom-6 left-6 rounded-xl p-4 flex items-center gap-3"
-                  style={{ 
+                  style={{
                     backgroundColor: theme.green,
-                    color: '#ffffff'
+                    color: "#ffffff",
                   }}
                 >
                   <Shield size={24} />
                   <span className="font-semibold">Certified Healthcare</span>
                 </div>
-              </motion.div>
+              </div>
             </div>
             <div className="w-full lg:w-1/2">
-              <motion.div variants={fadeInRight} className="space-y-6">
-                <span className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: theme.red }}>
+              <div className="space-y-6">
+                <span
+                  className="inline-flex items-center gap-2 text-sm font-semibold"
+                  style={{ color: theme.red }}
+                >
                   <Heart size={18} /> About Us
                 </span>
-                <h2 className="text-3xl lg:text-4xl font-bold" style={{ color: theme.textDark }}>
-                  About Our Center MindCare
+                <h2
+                  className="text-3xl lg:text-4xl font-bold"
+                  style={{ color: theme.textDark }}
+                >
+                  About Naavika Hearing
                 </h2>
-                <p className="text-gray-600 text-lg">
-                  We provide comprehensive medical care with state-of-the-art facilities and 
-                  experienced medical professionals. Our mission is to deliver exceptional 
-                  healthcare services with compassion and excellence.
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  We provide comprehensive hearing care with state-of-the-art
+                  facilities and experienced audiologists. Our mission is to
+                  deliver exceptional hearing solutions with compassion and
+                  excellence, helping you reconnect with the sounds you love.
                 </p>
                 <div className="space-y-4">
                   <div className="flex gap-4">
-                    <Activity className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: theme.blue }} />
+                    <Activity
+                      className="w-6 h-6 flex-shrink-0 mt-1"
+                      style={{ color: theme.blue }}
+                    />
                     <div>
-                      <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>Advanced Technology</h5>
-                      <p className="text-gray-600">Latest medical equipment and diagnostic tools</p>
+                      <h5
+                        className="font-bold mb-1"
+                        style={{ color: theme.textDark }}
+                      >
+                        Advanced Technology
+                      </h5>
+                      <p className="text-gray-600">
+                        Latest hearing equipment and diagnostic tools
+                      </p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <Shield className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: theme.green }} />
+                    <Shield
+                      className="w-6 h-6 flex-shrink-0 mt-1"
+                      style={{ color: theme.green }}
+                    />
                     <div>
-                      <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>Patient Safety</h5>
-                      <p className="text-gray-600">Highest standards of safety and hygiene</p>
+                      <h5
+                        className="font-bold mb-1"
+                        style={{ color: theme.textDark }}
+                      >
+                        Patient Care
+                      </h5>
+                      <p className="text-gray-600">
+                        Highest standards of safety and personalized service
+                      </p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <Clock className="w-6 h-6 flex-shrink-0 mt-1" style={{ color: theme.red }} />
+                    <Clock
+                      className="w-6 h-6 flex-shrink-0 mt-1"
+                      style={{ color: theme.red }}
+                    />
                     <div>
-                      <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>24/7 Support</h5>
-                      <p className="text-gray-600">Round-the-clock emergency services</p>
+                      <h5
+                        className="font-bold mb-1"
+                        style={{ color: theme.textDark }}
+                      >
+                        Lifetime Support
+                      </h5>
+                      <p className="text-gray-600">
+                        Ongoing care and maintenance for your hearing aids
+                      </p>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
-      </motion.section>
-
-      {/* Specialists Section */}
-      <motion.section 
-        className="py-16 lg:py-24 bg-gray-50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer}
-      >
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 space-y-4">
-            <motion.span className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: theme.blue }} variants={fadeInUp}>
-              <Stethoscope size={18} /> Our Team
-            </motion.span>
-            <motion.h2 className="text-3xl lg:text-4xl font-bold" style={{ color: theme.textDark }} variants={fadeInUp}>
-              Expert Specialists
-            </motion.h2>
-            <motion.p className="text-gray-600 max-w-2xl mx-auto" variants={fadeInUp}>
-              Meet our team of highly qualified medical professionals
-            </motion.p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                name: 'Dr. Michael Anderson',
-                specialty: 'Cardiologist',
-                image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop',
-                rating: '4.9',
-                patients: '1200+'
-              },
-              {
-                name: 'Dr. Robert Wilson',
-                specialty: 'Neurologist',
-                image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&h=300&fit=crop',
-                rating: '4.8',
-                patients: '980+'
-              },
-              {
-                name: 'Dr. Chris Martin',
-                specialty: 'Orthopedic Surgeon',
-                image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&h=300&fit=crop',
-                rating: '5.0',
-                patients: '1500+'
-              },
-              {
-                name: 'Dr. Sarah Parker',
-                specialty: 'Pediatrician',
-                image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop',
-                rating: '4.9',
-                patients: '2000+'
-              }
-            ].map((doctor, index) => (
-              <motion.div 
-                key={index}
-                variants={scaleIn}
-                whileHover={{ 
-                  y: -10,
-                  transition: { duration: 0.3 }
-                }}
-              >
-                <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-blue-100">
-                  <div className="relative">
-                    <img 
-                      src={doctor.image} 
-                      alt={doctor.name} 
-                      className="w-full h-64 object-cover"
-                    />
-                    <div 
-                      className="absolute top-4 right-4 px-3 py-1 rounded-full flex items-center gap-1 text-sm font-semibold"
-                      style={{ 
-                        backgroundColor: theme.green,
-                        color: '#ffffff'
-                      }}
-                    >
-                      <Star size={14} fill="currentColor" />
-                      <span>{doctor.rating}</span>
-                    </div>
-                  </div>
-                  <div className="p-6 space-y-3">
-                    <h4 className="text-xl font-bold" style={{ color: theme.textDark }}>
-                      {doctor.name}
-                    </h4>
-                    <p className="flex items-center gap-2 font-semibold" style={{ color: theme.blue }}>
-                      <Stethoscope size={16} /> {doctor.specialty}
-                    </p>
-                    <div className="flex items-center gap-2 text-gray-600 text-sm">
-                      <Users size={14} /> {doctor.patients} Patients
-                    </div>
-                    <button 
-                      className="w-full py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 border-2"
-                      style={{ 
-                        backgroundColor: 'transparent',
-                        borderColor: theme.red,
-                        color: theme.red
-                      }}
-                      onMouseOver={(e) => {
-                        e.target.style.backgroundColor = theme.red;
-                        e.target.style.color = '#ffffff';
-                      }}
-                      onMouseOut={(e) => {
-                        e.target.style.backgroundColor = 'transparent';
-                        e.target.style.color = theme.red;
-                      }}
-                    >
-                      View Profile <ArrowRight size={16} />
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+      </section>
 
       {/* Services Section */}
-      <motion.section 
-        className="py-16 lg:py-24 bg-white"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeInUp}
-      >
+      <section className="py-16 lg:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="w-full lg:w-1/2">
-              <motion.div variants={fadeInLeft} className="space-y-6">
-                <span className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: theme.green }}>
-                  <Activity size={18} /> Our Services
-                </span>
-                <h2 className="text-3xl lg:text-4xl font-bold" style={{ color: theme.textDark }}>
-                  Premium Healthcare Services
-                </h2>
-                <p className="text-gray-600 text-lg">
-                  We offer a comprehensive range of medical services with cutting-edge technology 
-                  and experienced healthcare professionals dedicated to your well-being.
-                </p>
-                <ul className="space-y-4">
-                  <li className="flex items-center gap-3">
-                    <Ambulance size={20} style={{ color: theme.red }} />
-                    <span className="text-gray-800">24/7 Emergency Care</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Activity size={20} style={{ color: theme.blue }} />
-                    <span className="text-gray-800">Advanced Diagnostic Services</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Heart size={20} style={{ color: theme.red }} />
-                    <span className="text-gray-800">Specialized Treatment Programs</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Shield size={20} style={{ color: theme.green }} />
-                    <span className="text-gray-800">Preventive Healthcare</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <Users size={20} style={{ color: theme.blue }} />
-                    <span className="text-gray-800">Patient-Centered Care</span>
-                  </li>
-                </ul>
-                <button 
-                  className="px-6 py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2 mt-6"
-                  style={{ 
-                    backgroundColor: theme.blue,
-                    color: '#ffffff'
-                  }}
-                  onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
-                  onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
-                >
-                  View All Services <ArrowRight size={18} />
-                </button>
-              </motion.div>
-            </div>
-            <div className="w-full lg:w-1/2">
-              <motion.div 
-                className="relative"
-                variants={fadeInRight}
+          <div className="text-center mb-12">
+            <span
+              className="inline-flex items-center gap-2 text-sm font-semibold mb-4"
+              style={{ color: theme.green }}
+            >
+              <Activity size={18} /> Our Services
+            </span>
+            <h2
+              className="text-3xl lg:text-4xl font-bold mb-4"
+              style={{ color: theme.textDark }}
+            >
+              Specialized Hearing Care Services
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Comprehensive solutions tailored to your unique hearing needs
+            </p>
+          </div>
+
+          {/* Services Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=400&fit=crop" 
-                  alt="Medical Services" 
-                  className="rounded-2xl shadow-xl w-full"
-                />
-                <div 
-                  className="absolute -bottom-6 -left-6 bg-white rounded-xl p-6 flex items-center gap-4"
-                  style={{ boxShadow: `0 10px 30px ${theme.red}20` }}
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
+                  style={{ backgroundColor: `${service.color}15` }}
                 >
-                  <Clock size={28} style={{ color: theme.red }} />
-                  <div>
-                    <h4 className="font-bold text-lg" style={{ color: theme.textDark }}>Quick Appointment</h4>
-                    <p className="text-gray-600 text-sm">Book instantly online</p>
+                  <service.icon size={28} style={{ color: service.color }} />
+                </div>
+                <h3
+                  className="text-xl font-bold mb-2"
+                  style={{ color: theme.textDark }}
+                >
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  {service.description}
+                </p>
+                <Link to="/service">
+                  <button
+                    className="text-sm font-semibold inline-flex items-center gap-1 hover:gap-2 transition-all"
+                    style={{ color: service.color }}
+                  >
+                    Learn More <ArrowRight size={16} />
+                  </button>
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          {/* Hearing Aid Products - Inside Services Section */}
+          <div className="mt-16">
+            <div className="text-center mb-12">
+              <h2
+                className="text-3xl lg:text-4xl font-bold mb-4"
+                style={{ color: theme.textDark }}
+              >
+                Discover and Experience Our Latest Hearing Aids
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Explore different types of hearing aids designed for comfort,
+                performance, and a natural hearing experience
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {hearingAidProducts.map((product, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                >
+                  <div className="flex items-center justify-center p-6 bg-gray-50 h-48">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="h-full w-full object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="p-6 text-center space-y-3">
+                    <h3
+                      className="text-xl font-bold"
+                      style={{ color: theme.textDark }}
+                    >
+                      {product.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {product.description}
+                    </p>
                   </div>
                 </div>
-              </motion.div>
+              ))}
             </div>
           </div>
-        </div>
-      </motion.section>
 
-      {/* Contact Section */}
-      <motion.section 
-        className="py-16 bg-gray-50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeInUp}
+          {/* View All Services Button */}
+          <div className="text-center mt-12">
+            <Link to="/service">
+              <button
+                className="px-8 py-3 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 inline-flex items-center gap-2"
+                style={{ backgroundColor: theme.blue }}
+              >
+                View All Services <ArrowRight size={18} />
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className="py-16 lg:py-24 bg-gradient-to-br from-blue-50 to-teal-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span
+              className="inline-flex items-center gap-2 text-sm font-semibold mb-4"
+              style={{ color: theme.blue }}
+            >
+              <Star size={18} /> Patient Reviews
+            </span>
+            <h2
+              className="text-3xl lg:text-4xl font-bold mb-4"
+              style={{ color: theme.textDark }}
+            >
+              What Our Patients Say
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Real experiences from people who trust Naavika for their hearing
+              care
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Review 1 */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center">
+                <img
+                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop"
+                  alt="Happy patient"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      className="fill-amber-400 text-amber-400"
+                    />
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4 italic">
+                  "Excellent service! Dr. Priya was very patient and thorough in
+                  explaining my hearing condition. The hearing aids recommended
+                  have truly changed my quality of life."
+                </p>
+                <div className="border-t pt-4">
+                  <div className="font-semibold text-gray-800">
+                    Rajesh Kumar
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Thiruvananthapuram
+                  </div>
+                  <div
+                    className="text-xs font-medium mt-1"
+                    style={{ color: theme.blue }}
+                  >
+                    Hearing Aid Fitting
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 2 */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="h-48 overflow-hidden bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
+                <img
+                  src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=300&fit=crop"
+                  alt="Satisfied customer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      className="fill-amber-400 text-amber-400"
+                    />
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4 italic">
+                  "The staff at Naavika are incredibly professional and caring.
+                  They took time to understand my needs and provided the perfect
+                  solution."
+                </p>
+                <div className="border-t pt-4">
+                  <div className="font-semibold text-gray-800">Meera Nair</div>
+                  <div className="text-sm text-gray-600">Kollam</div>
+                  <div
+                    className="text-xs font-medium mt-1"
+                    style={{ color: theme.green }}
+                  >
+                    Hearing Assessment
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 3 */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="h-48 overflow-hidden bg-gradient-to-br from-teal-100 to-green-100 flex items-center justify-center">
+                <img
+                  src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=400&h=300&fit=crop"
+                  alt="Happy elderly patient"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      className="fill-amber-400 text-amber-400"
+                    />
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4 italic">
+                  "I was hesitant about getting hearing aids, but the team at
+                  Naavika made the entire process comfortable. Thank you for
+                  giving me my confidence back!"
+                </p>
+                <div className="border-t pt-4">
+                  <div className="font-semibold text-gray-800">
+                    Anand Pillai
+                  </div>
+                  <div className="text-sm text-gray-600">Kochi</div>
+                  <div
+                    className="text-xs font-medium mt-1"
+                    style={{ color: theme.blue }}
+                  >
+                    Tinnitus Management
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <Link to="/review">
+              <button
+                className="px-8 py-3 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 inline-flex items-center gap-2 shadow-lg"
+                style={{ backgroundColor: theme.green }}
+              >
+                View All Reviews <ArrowRight size={18} />
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section
+        className="py-16"
+        style={{
+          background: `linear-gradient(135deg, ${theme.red}, ${theme.red}dd)`,
+        }}
       >
         <div className="container mx-auto px-4">
-          <div 
-            className="rounded-3xl p-8 lg:p-12"
-            style={{ 
-              background: `linear-gradient(135deg, ${theme.red}, ${theme.red}dd)`,
-            }}
-          >
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-              <div className="text-center lg:text-left">
-                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                  Ready to Get Started?
-                </h2>
-                <p className="text-white/80 text-lg">
-                  Book your appointment today and experience world-class healthcare services.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-end">
-                <button 
-                  className="px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2"
-                  style={{ 
-                    backgroundColor: '#ffffff',
-                    color: theme.red,
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = theme.blue;
-                    e.target.style.color = '#ffffff';
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.backgroundColor = '#ffffff';
-                    e.target.style.color = theme.red;
-                  }}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+            <div>
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+                Ready to Get Started?
+              </h2>
+              <p className="text-white/90 text-lg">
+                Book your appointment today and experience world-class hearing
+                care services
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-end">
+              <a href="tel:+1234567890">
+                <button
+                  className="px-6 py-3 rounded-lg font-semibold bg-white transition-all duration-300 hover:scale-105 inline-flex items-center gap-2"
+                  style={{ color: theme.red }}
                 >
-                  <Phone size={20} /> Call: +1 (234) 567-8900
+                  <Phone size={20} /> Call Us Now
                 </button>
-                <button 
-                  className="px-6 py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2"
-                  style={{ 
-                    backgroundColor: theme.blue,
-                    color: '#ffffff'
-                  }}
-                  onMouseOver={(e) => e.target.style.backgroundColor = '#3a6fa0'}
-                  onMouseOut={(e) => e.target.style.backgroundColor = theme.blue}
+              </a>
+              <Link to="/book-appointment">
+                <button
+                  className="px-6 py-3 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 inline-flex items-center gap-2"
+                  style={{ backgroundColor: theme.blue }}
                 >
                   <Calendar size={20} /> Book Appointment
                 </button>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 }

@@ -1,31 +1,32 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import { Toaster } from 'sonner';
 import Header from "./components/Header";
+import Footer from './components/Footer';
 import Home from "./pages/Home";
-import About from "./pages/About";
+import Services from './pages/Services';
+import Contact from './pages/Contact';
+import Reviews from './pages/Reviews';
 import BookAppointment from "./pages/BookAppointment";
 
 function App() {
   return (
     <>
-      <Toaster 
+      {/* <Toaster 
         position="top-right" 
         richColors 
         expand={false}
         duration={4000}
         closeButton
-      />
+      /> */}
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
         <Route path="/book-appointment" element={<BookAppointment />} />
-        <Route path="/service" element={<div className="p-20 text-center">Services Page - Coming Soon</div>} />
-        <Route path="/team" element={<div className="p-20 text-center">Team Page - Coming Soon</div>} />
-        <Route path="/blog" element={<div className="p-20 text-center">Blog Page - Coming Soon</div>} />
-        <Route path="/contact" element={<div className="p-20 text-center">Contact Page - Coming Soon</div>} />
+        <Route path="/service" element={<Services/>} />
+        <Route path="/review" element={<Reviews/>} />
+        <Route path="/contact" element={<Contact/>} />
       </Routes>
+      <Footer/>
     </>
   );
 }
