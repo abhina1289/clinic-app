@@ -18,6 +18,7 @@ import {
   Star,
   ArrowRight
 } from 'lucide-react';
+import testimg from "@/assets/react.svg"
 
 function Home() {
   // Naavika Theme
@@ -274,7 +275,7 @@ function Home() {
               </div>
               <div className="relative mt-12">
                 <motion.img 
-                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=700&fit=crop" 
+                  src={testimg} 
                   alt="Medical Professional" 
                   className="rounded-2xl shadow-2xl w-full max-w-md mx-auto lg:mx-0"
                   whileHover={{ scale: 1.02 }}
