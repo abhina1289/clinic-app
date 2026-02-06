@@ -1,4 +1,5 @@
 const Appointment = require('../models/AppointmentModel');
+const { sendAppointmentEmail } = require('../services/emailService');
 
 // @desc    Create new appointment
 // @route   POST /api/appointments
@@ -31,8 +32,7 @@ exports.createAppointment = async (req, res) => {
       source: 'website'
     });
 
-    // TODO: Send confirmation email
-    // await sendAppointmentConfirmationEmail(appointment);
+    await sendAppointmentEmail(appointment);
 
     res.status(201).json({
       success: true,
