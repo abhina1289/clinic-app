@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
+import { Toaster } from 'sonner';
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -8,6 +9,13 @@ import BookAppointment from "./pages/BookAppointment";
 function App() {
   return (
     <>
+      <Toaster 
+        position="top-right" 
+        richColors 
+        expand={false}
+        duration={4000}
+        closeButton
+      />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

@@ -1,5 +1,4 @@
 const Appointment = require('../models/AppointmentModel');
-const User = require('../models/UserModel');
 
 // @desc    Create new appointment
 // @route   POST /api/appointments
@@ -16,15 +15,11 @@ exports.createAppointment = async (req, res) => {
       notes
     } = req.body;
 
-    // Get user ID if authenticated
-    const userId = req.user ? req.user.id : null;
-
     // Get IP address
     const ipAddress = req.ip || req.connection.remoteAddress;
 
     // Create appointment
     const appointment = await Appointment.create({
-      user: userId,
       name,
       phone,
       email,
@@ -68,6 +63,14 @@ exports.createAppointment = async (req, res) => {
       });
     }
 
+    // Handle duplicate confirmation number (rare case)
+    if (error.code === 11000) {
+      return res.status(500).json({
+        success: false,
+        message: 'Error generating confirmation number. Please try again.'
+      });
+    }
+
     res.status(500).json({
       success: false,
       message: 'Server error while booking appointment'
@@ -97,7 +100,6 @@ exports.getAllAppointments = async (req, res) => {
     }
 
     const appointments = await Appointment.find(query)
-      .populate('user', 'fullName email phoneNumber')
       .limit(limit)
       .skip(skip)
       .sort('-createdAt');
@@ -127,11 +129,10 @@ exports.getAllAppointments = async (req, res) => {
 
 // @desc    Get appointment by ID
 // @route   GET /api/appointments/:id
-// @access  Public (with confirmation number) / Private
+// @access  Private/Admin
 exports.getAppointmentById = async (req, res) => {
   try {
-    const appointment = await Appointment.findById(req.params.id)
-      .populate('user', 'fullName email phoneNumber');
+    const appointment = await Appointment.findById(req.params.id);
 
     if (!appointment) {
       return res.status(404).json({
@@ -182,30 +183,6 @@ exports.getAppointmentByConfirmation = async (req, res) => {
   }
 };
 
-// @desc    Get user's appointments
-// @route   GET /api/appointments/my-appointments
-// @access  Private
-exports.getMyAppointments = async (req, res) => {
-  try {
-    const appointments = await Appointment.find({ user: req.user.id })
-      .sort('-bookingDate');
-
-    res.status(200).json({
-      success: true,
-      data: {
-        appointments,
-        count: appointments.length
-      }
-    });
-  } catch (error) {
-    console.error('Get My Appointments Error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Server error'
-    });
-  }
-};
-
 // @desc    Update appointment status
 // @route   PUT /api/appointments/:id/status
 // @access  Private/Admin
@@ -234,7 +211,6 @@ exports.updateAppointmentStatus = async (req, res) => {
     // Handle confirmation
     if (status === 'confirmed') {
       appointment.confirmedAt = new Date();
-      appointment.confirmedBy = req.user.id;
     }
 
     // Handle cancellation

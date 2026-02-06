@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
 import {
   Calendar,
   Clock,
@@ -16,6 +17,7 @@ import {
   MapPin,
   Bell
 } from 'lucide-react';
+import { createAppointment } from '../../services/allApis'; 
 
 function BookAppointment() {
   const theme = {
@@ -32,11 +34,13 @@ function BookAppointment() {
     email: '',
     bookingDate: '',
     appointmentWith: '',
-    appointmentFor: ''
+    appointmentFor: '',
+    notes: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [confirmationNumber, setConfirmationNumber] = useState('');
   const [errors, setErrors] = useState({});
 
   const audiologists = [
@@ -54,7 +58,8 @@ function BookAppointment() {
     'Follow-up Visit',
     'Pediatric Hearing Test',
     'Ear Wax Removal',
-    'Hearing Aid Repair'
+    'Hearing Aid Repair',
+    'Other'
   ];
 
   const handleInputChange = (e) => {
@@ -76,13 +81,26 @@ function BookAppointment() {
     const newErrors = {};
     
     if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone is required';
+    } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(formData.phone)) {
+      newErrors.phone = 'Please provide a valid phone number';
+    }
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
     }
-    if (!formData.bookingDate) newErrors.bookingDate = 'Booking date is required';
+    if (!formData.bookingDate) {
+      newErrors.bookingDate = 'Booking date is required';
+    } else {
+      const selectedDate = new Date(formData.bookingDate);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (selectedDate < today) {
+        newErrors.bookingDate = 'Booking date cannot be in the past';
+      }
+    }
     if (!formData.appointmentWith) newErrors.appointmentWith = 'Please select an audiologist';
     if (!formData.appointmentFor) newErrors.appointmentFor = 'Please select appointment type';
 
@@ -93,28 +111,59 @@ function BookAppointment() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      toast.error('Please fill in all required fields correctly');
+      return;
+    }
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setShowSuccess(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setShowSuccess(false);
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        bookingDate: '',
-        appointmentWith: '',
-        appointmentFor: ''
-      });
-    }, 3000);
+    try {
+      const response = await createAppointment(formData);
+      
+      if (response.data.success) {
+        const appointmentData = response.data.data.appointment;
+        setConfirmationNumber(appointmentData.confirmationNumber);
+        setShowSuccess(true);
+        
+        toast.success('Appointment booked successfully!', {
+          description: `Confirmation #: ${appointmentData.confirmationNumber}`
+        });
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setShowSuccess(false);
+          setFormData({
+            name: '',
+            phone: '',
+            email: '',
+            bookingDate: '',
+            appointmentWith: '',
+            appointmentFor: '',
+            notes: ''
+          });
+          setConfirmationNumber('');
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('Appointment booking error:', error);
+      
+      if (error.response?.data?.message) {
+        toast.error('Booking Failed', {
+          description: error.response.data.message
+        });
+      } else if (error.message) {
+        toast.error('Booking Failed', {
+          description: error.message
+        });
+      } else {
+        toast.error('Failed to book appointment', {
+          description: 'Please try again later or contact support'
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Animation variants
@@ -445,7 +494,15 @@ function BookAppointment() {
                         <h3 className="text-2xl font-bold mb-2" style={{ color: theme.green }}>
                           Appointment Booked!
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 mb-3">
+                          Confirmation Number:
+                        </p>
+                        <div className="inline-block px-4 py-2 bg-blue-50 rounded-lg">
+                          <span className="text-xl font-mono font-bold" style={{ color: theme.blue }}>
+                            {confirmationNumber}
+                          </span>
+                        </div>
+                        <p className="text-gray-500 mt-4 text-sm">
                           We'll send you a confirmation email shortly.
                         </p>
                       </motion.div>
@@ -641,6 +698,26 @@ function BookAppointment() {
                               {errors.appointmentFor}
                             </motion.p>
                           )}
+                        </motion.div>
+
+                        {/* Notes (Optional) */}
+                        <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
+                          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                            <Bell size={16} style={{ color: theme.blue }} />
+                            Additional Notes (Optional)
+                          </label>
+                          <textarea
+                            name="notes"
+                            value={formData.notes}
+                            onChange={handleInputChange}
+                            placeholder="Any special requirements or notes..."
+                            rows="3"
+                            maxLength="500"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all resize-none"
+                          />
+                          <p className="text-xs text-gray-500 text-right">
+                            {formData.notes.length}/500 characters
+                          </p>
                         </motion.div>
 
                         {/* Submit Button */}

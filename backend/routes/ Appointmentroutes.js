@@ -5,24 +5,20 @@ const {
   getAllAppointments,
   getAppointmentById,
   getAppointmentByConfirmation,
-  getMyAppointments,
   updateAppointmentStatus,
   updateAppointment,
   cancelAppointment,
   deleteAppointment,
   getAppointmentStats
 } = require('../controller/Appointmentcontroller');
-const { protect, authorize, optionalAuth } = require('../middleware/Auth');
+const { protect, authorize } = require('../middleware/Auth');
 
 // Public routes
-router.post('/', optionalAuth, createAppointment);
+router.post('/', createAppointment);
 router.get('/confirmation/:confirmationNumber', getAppointmentByConfirmation);
 router.put('/:id/cancel', cancelAppointment);
 
-// Protected routes (authenticated users)
-router.get('/my-appointments', protect, getMyAppointments);
-
-// Admin routes
+// Admin routes (require authentication and admin role)
 router.get('/', protect, authorize('admin'), getAllAppointments);
 router.get('/stats', protect, authorize('admin'), getAppointmentStats);
 router.get('/:id', protect, authorize('admin'), getAppointmentById);

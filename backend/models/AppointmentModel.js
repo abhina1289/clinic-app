@@ -1,13 +1,6 @@
 const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
-  // User reference (if user is logged in)
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    default: null
-  },
-  
   // Basic Information
   name: {
     type: String,
@@ -97,11 +90,6 @@ const appointmentSchema = new mongoose.Schema({
     type: Date,
     default: null
   },
-  confirmedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    default: null
-  },
   
   // Cancellation Details
   cancelledAt: {
@@ -162,7 +150,6 @@ appointmentSchema.pre('save', function(next) {
 appointmentSchema.index({ bookingDate: 1, status: 1 });
 appointmentSchema.index({ email: 1 });
 appointmentSchema.index({ confirmationNumber: 1 });
-appointmentSchema.index({ user: 1 });
 
 // Virtual for formatted date
 appointmentSchema.virtual('formattedDate').get(function() {
