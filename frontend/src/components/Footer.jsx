@@ -60,10 +60,11 @@ export default function NaavikaFooter() {
           {/* Brand */}
           <div className="space-y-4 animate-slide-up">
             <img
-              src="/brands/icon.png"
+              src="/brands/Naavika Logo.png"
               alt="Icon"
-              className="h-12 w-auto transition-transform duration-300 hover:scale-105"
+              className="h-20 w-auto transition-transform duration-300 hover:scale-105"
             />
+            {/* <h6>Naavika Hearing Health Clinc</h6> */}
             <p className="text-sm text-blue-100 leading-relaxed">
               Your trusted partner in hearing health. Providing comprehensive
               audiological care with cutting-edge technology and compassionate

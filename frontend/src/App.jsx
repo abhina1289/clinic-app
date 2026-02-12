@@ -7,17 +7,19 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import Reviews from './pages/Reviews';
 import BookAppointment from "./pages/BookAppointment";
+import { Toaster } from "sonner"; 
+
 
 function App() {
   return (
     <>
-      {/* <Toaster 
+      <Toaster 
         position="top-right" 
         richColors 
         expand={false}
         duration={4000}
         closeButton
-      /> */}
+      />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
