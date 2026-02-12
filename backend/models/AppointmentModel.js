@@ -20,9 +20,9 @@ const appointmentSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, 'Please provide your email'],
     lowercase: true,
     trim: true,
+    default: null,
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       'Please provide a valid email'
@@ -43,26 +43,22 @@ const appointmentSchema = new mongoose.Schema({
   },
   appointmentTime: {
     type: String,
-    default: null // e.g., "10:00 AM" - can be set by admin/system
+    default: null // e.g., "10:00 AM" - will be set by admin after confirmation call
   },
   appointmentWith: {
     type: String,
-    required: [true, 'Please select an audiologist'],
+    default: 'To Be Assigned',
     trim: true
   },
   appointmentFor: {
     type: String,
     required: [true, 'Please select appointment type'],
     enum: [
-      'Hearing Assessment',
-      'Hearing Aid Fitting',
-      'Hearing Aid Adjustment',
-      'Tinnitus Consultation',
-      'Follow-up Visit',
-      'Pediatric Hearing Test',
-      'Ear Wax Removal',
-      'Hearing Aid Repair',
-      'Other'
+      'Hearing Test',
+      'Hearing Aids',
+      'Audiology Consultation',
+      'Hearing Aid Reprogramming',
+      'Services & Repairs'
     ]
   },
   
@@ -90,6 +86,10 @@ const appointmentSchema = new mongoose.Schema({
     type: Date,
     default: null
   },
+  confirmedBy: {
+    type: String,
+    default: null // Admin/Staff who confirmed
+  },
   
   // Cancellation Details
   cancelledAt: {
@@ -102,12 +102,20 @@ const appointmentSchema = new mongoose.Schema({
     default: null
   },
   
-  // Reminder Sent
+  // Call/Reminder Tracking
   reminderSent: {
     type: Boolean,
     default: false
   },
   reminderSentAt: {
+    type: Date,
+    default: null
+  },
+  confirmationCallMade: {
+    type: Boolean,
+    default: false
+  },
+  confirmationCallMadeAt: {
     type: Date,
     default: null
   },
@@ -148,8 +156,9 @@ appointmentSchema.pre('save', function(next) {
 
 // Index for faster queries
 appointmentSchema.index({ bookingDate: 1, status: 1 });
-appointmentSchema.index({ email: 1 });
+appointmentSchema.index({ phone: 1 });
 appointmentSchema.index({ confirmationNumber: 1 });
+appointmentSchema.index({ createdAt: -1 });
 
 // Virtual for formatted date
 appointmentSchema.virtual('formattedDate').get(function() {
@@ -169,6 +178,17 @@ appointmentSchema.methods.canModify = function() {
   
   // Can modify if appointment is more than 24 hours away and not completed/cancelled
   return hoursDifference > 24 && !['completed', 'cancelled'].includes(this.status);
+};
+
+// Method to mark as confirmed
+appointmentSchema.methods.confirmAppointment = function(time, confirmedBy) {
+  this.status = 'confirmed';
+  this.appointmentTime = time;
+  this.confirmedAt = new Date();
+  this.confirmedBy = confirmedBy || 'Admin';
+  this.confirmationCallMade = true;
+  this.confirmationCallMadeAt = new Date();
+  return this.save();
 };
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);

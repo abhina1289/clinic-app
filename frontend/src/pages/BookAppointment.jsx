@@ -5,9 +5,7 @@ import {
   Calendar,
   Clock,
   User,
-  Mail,
   Phone,
-  Stethoscope,
   CheckCircle,
   ArrowRight,
   Sparkles,
@@ -15,6 +13,7 @@ import {
   Shield,
   Award,
   MapPin,
+  Mail,
   Bell
 } from 'lucide-react';
 import { createAppointment } from '../../services/allApis'; 
@@ -31,11 +30,8 @@ function BookAppointment() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    email: '',
     bookingDate: '',
-    appointmentWith: '',
-    appointmentFor: '',
-    notes: ''
+    appointmentFor: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,23 +39,13 @@ function BookAppointment() {
   const [confirmationNumber, setConfirmationNumber] = useState('');
   const [errors, setErrors] = useState({});
 
-  const audiologists = [
-    'Dr. Sarah Johnson - Senior Audiologist',
-    'Dr. Michael Chen - Pediatric Specialist',
-    'Dr. Emily Rodriguez - Hearing Aid Expert',
-    'Dr. James Wilson - Tinnitus Specialist'
-  ];
-
+  // ✅ Only these appointment types
   const appointmentTypes = [
-    'Hearing Assessment',
-    'Hearing Aid Fitting',
-    'Hearing Aid Adjustment',
-    'Tinnitus Consultation',
-    'Follow-up Visit',
-    'Pediatric Hearing Test',
-    'Ear Wax Removal',
-    'Hearing Aid Repair',
-    'Other'
+    'Hearing Test',
+    'Hearing Aids',
+    'Audiology Consultation',
+    'Hearing Aid Reprogramming',
+    'Services & Repairs'
   ];
 
   const handleInputChange = (e) => {
@@ -86,11 +72,6 @@ function BookAppointment() {
     } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(formData.phone)) {
       newErrors.phone = 'Please provide a valid phone number';
     }
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
     if (!formData.bookingDate) {
       newErrors.bookingDate = 'Booking date is required';
     } else {
@@ -101,7 +82,6 @@ function BookAppointment() {
         newErrors.bookingDate = 'Booking date cannot be in the past';
       }
     }
-    if (!formData.appointmentWith) newErrors.appointmentWith = 'Please select an audiologist';
     if (!formData.appointmentFor) newErrors.appointmentFor = 'Please select appointment type';
 
     setErrors(newErrors);
@@ -119,15 +99,26 @@ function BookAppointment() {
     setIsSubmitting(true);
     
     try {
-      const response = await createAppointment(formData);
+      // ✅ Send only required fields
+      const appointmentData = {
+        name: formData.name,
+        phone: formData.phone,
+        email: `${formData.phone}@noemail.com`, // Dummy email if required by backend
+        bookingDate: formData.bookingDate,
+        appointmentWith: 'To Be Assigned', // Default value
+        appointmentFor: formData.appointmentFor,
+        notes: ''
+      };
+
+      const response = await createAppointment(appointmentData);
       
       if (response.data.success) {
-        const appointmentData = response.data.data.appointment;
-        setConfirmationNumber(appointmentData.confirmationNumber);
+        const appointment = response.data.data.appointment;
+        setConfirmationNumber(appointment.confirmationNumber);
         setShowSuccess(true);
         
         toast.success('Appointment booked successfully!', {
-          description: `Confirmation #: ${appointmentData.confirmationNumber}`
+          description: `Confirmation #: ${appointment.confirmationNumber}`
         });
         
         // Reset form after 5 seconds
@@ -136,11 +127,8 @@ function BookAppointment() {
           setFormData({
             name: '',
             phone: '',
-            email: '',
             bookingDate: '',
-            appointmentWith: '',
-            appointmentFor: '',
-            notes: ''
+            appointmentFor: ''
           });
           setConfirmationNumber('');
         }, 5000);
@@ -184,17 +172,6 @@ function BookAppointment() {
       opacity: 1,
       y: 0,
       transition: { duration: 0.5, ease: "easeOut" }
-    }
-  };
-
-  const floatVariants = {
-    animate: {
-      y: [0, -10, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
     }
   };
 
@@ -503,7 +480,7 @@ function BookAppointment() {
                           </span>
                         </div>
                         <p className="text-gray-500 mt-4 text-sm">
-                          We'll send you a confirmation email shortly.
+                          We'll call you to confirm the appointment shortly.
                         </p>
                       </motion.div>
                     ) : (
@@ -514,154 +491,89 @@ function BookAppointment() {
                         exit={{ opacity: 0 }}
                         className="space-y-6"
                       >
-                        {/* Name & Phone Row */}
-                        <div className="grid md:grid-cols-2 gap-4">
-                          <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
-                            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                              <User size={16} style={{ color: theme.blue }} />
-                              Name <span className="text-red-500">*</span>
-                            </label>
-                            <input
-                              type="text"
-                              name="name"
-                              value={formData.name}
-                              onChange={handleInputChange}
-                              placeholder="Enter your full name"
-                              className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
-                                errors.name
-                                  ? 'border-red-300 focus:border-red-500'
-                                  : 'border-gray-200 focus:border-blue-500'
-                              }`}
-                            />
-                            {errors.name && (
-                              <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-red-500 text-xs"
-                              >
-                                {errors.name}
-                              </motion.p>
-                            )}
-                          </motion.div>
-
-                          <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
-                            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                              <Phone size={16} style={{ color: theme.green }} />
-                              Phone <span className="text-red-500">*</span>
-                            </label>
-                            <input
-                              type="tel"
-                              name="phone"
-                              value={formData.phone}
-                              onChange={handleInputChange}
-                              placeholder="Enter phone number"
-                              className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
-                                errors.phone
-                                  ? 'border-red-300 focus:border-red-500'
-                                  : 'border-gray-200 focus:border-blue-500'
-                              }`}
-                            />
-                            {errors.phone && (
-                              <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-red-500 text-xs"
-                              >
-                                {errors.phone}
-                              </motion.p>
-                            )}
-                          </motion.div>
-                        </div>
-
-                        {/* Email & Date Row */}
-                        <div className="grid md:grid-cols-2 gap-4">
-                          <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
-                            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                              <Mail size={16} style={{ color: theme.red }} />
-                              Email <span className="text-red-500">*</span>
-                            </label>
-                            <input
-                              type="email"
-                              name="email"
-                              value={formData.email}
-                              onChange={handleInputChange}
-                              placeholder="Enter your email"
-                              className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
-                                errors.email
-                                  ? 'border-red-300 focus:border-red-500'
-                                  : 'border-gray-200 focus:border-blue-500'
-                              }`}
-                            />
-                            {errors.email && (
-                              <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-red-500 text-xs"
-                              >
-                                {errors.email}
-                              </motion.p>
-                            )}
-                          </motion.div>
-
-                          <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
-                            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                              <Calendar size={16} style={{ color: theme.blue }} />
-                              Booking Date <span className="text-red-500">*</span>
-                            </label>
-                            <input
-                              type="date"
-                              name="bookingDate"
-                              value={formData.bookingDate}
-                              onChange={handleInputChange}
-                              min={new Date().toISOString().split('T')[0]}
-                              className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
-                                errors.bookingDate
-                                  ? 'border-red-300 focus:border-red-500'
-                                  : 'border-gray-200 focus:border-blue-500'
-                              }`}
-                            />
-                            {errors.bookingDate && (
-                              <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-red-500 text-xs"
-                              >
-                                {errors.bookingDate}
-                              </motion.p>
-                            )}
-                          </motion.div>
-                        </div>
-
-                        {/* Appointment With */}
+                        {/* Name */}
                         <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
                           <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                            <Stethoscope size={16} style={{ color: theme.green }} />
-                            Appointment With <span className="text-red-500">*</span>
+                            <User size={16} style={{ color: theme.blue }} />
+                            Name <span className="text-red-500">*</span>
                           </label>
-                          <select
-                            name="appointmentWith"
-                            value={formData.appointmentWith}
+                          <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
                             onChange={handleInputChange}
-                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all appearance-none bg-white ${
-                              errors.appointmentWith
+                            placeholder="Enter your full name"
+                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
+                              errors.name
                                 ? 'border-red-300 focus:border-red-500'
                                 : 'border-gray-200 focus:border-blue-500'
                             }`}
-                          >
-                            <option value="">Select Audiologist</option>
-                            {audiologists.map((audiologist, index) => (
-                              <option key={index} value={audiologist}>
-                                {audiologist}
-                              </option>
-                            ))}
-                          </select>
-                          {errors.appointmentWith && (
+                          />
+                          {errors.name && (
                             <motion.p
                               initial={{ opacity: 0, y: -10 }}
                               animate={{ opacity: 1, y: 0 }}
                               className="text-red-500 text-xs"
                             >
-                              {errors.appointmentWith}
+                              {errors.name}
+                            </motion.p>
+                          )}
+                        </motion.div>
+
+                        {/* Phone */}
+                        <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
+                          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                            <Phone size={16} style={{ color: theme.green }} />
+                            Phone Number <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="tel"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            placeholder="Enter phone number"
+                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
+                              errors.phone
+                                ? 'border-red-300 focus:border-red-500'
+                                : 'border-gray-200 focus:border-blue-500'
+                            }`}
+                          />
+                          {errors.phone && (
+                            <motion.p
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="text-red-500 text-xs"
+                            >
+                              {errors.phone}
+                            </motion.p>
+                          )}
+                        </motion.div>
+
+                        {/* Booking Date */}
+                        <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
+                          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                            <Calendar size={16} style={{ color: theme.blue }} />
+                            Booking Date <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="date"
+                            name="bookingDate"
+                            value={formData.bookingDate}
+                            onChange={handleInputChange}
+                            min={new Date().toISOString().split('T')[0]}
+                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
+                              errors.bookingDate
+                                ? 'border-red-300 focus:border-red-500'
+                                : 'border-gray-200 focus:border-blue-500'
+                            }`}
+                          />
+                          {errors.bookingDate && (
+                            <motion.p
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="text-red-500 text-xs"
+                            >
+                              {errors.bookingDate}
                             </motion.p>
                           )}
                         </motion.div>
@@ -698,26 +610,6 @@ function BookAppointment() {
                               {errors.appointmentFor}
                             </motion.p>
                           )}
-                        </motion.div>
-
-                        {/* Notes (Optional) */}
-                        <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
-                          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                            <Bell size={16} style={{ color: theme.blue }} />
-                            Additional Notes (Optional)
-                          </label>
-                          <textarea
-                            name="notes"
-                            value={formData.notes}
-                            onChange={handleInputChange}
-                            placeholder="Any special requirements or notes..."
-                            rows="3"
-                            maxLength="500"
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 transition-all resize-none"
-                          />
-                          <p className="text-xs text-gray-500 text-right">
-                            {formData.notes.length}/500 characters
-                          </p>
                         </motion.div>
 
                         {/* Submit Button */}
@@ -759,7 +651,7 @@ function BookAppointment() {
                         >
                           <Bell size={20} style={{ color: theme.blue }} className="flex-shrink-0 mt-0.5" />
                           <p className="text-sm text-gray-600">
-                            You'll receive a confirmation email with appointment details within 24 hours.
+                            You'll receive a confirmation call within 24 hours to confirm your appointment time.
                           </p>
                         </motion.div>
                       </motion.div>
@@ -777,7 +669,7 @@ function BookAppointment() {
               >
                 {[
                   { text: '🔒 Secure Booking', color: theme.green },
-                  { text: '⚡ Instant Confirmation', color: theme.blue },
+                  { text: '⚡ Quick Process', color: theme.blue },
                   { text: '💯 100% Safe', color: theme.red }
                 ].map((badge, index) => (
                   <motion.div
