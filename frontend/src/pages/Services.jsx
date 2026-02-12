@@ -9,7 +9,11 @@ import {
   Settings,
   RefreshCw,
 } from "lucide-react";
+import { Phone, Calendar } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
+
 
 function Services() {
   const theme = {
@@ -28,8 +32,10 @@ function Services() {
       title: "Comprehensive Hearing Tests",
       icon: Activity,
       color: theme.blue,
-      image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&h=500&fit=crop",
-      description: "Get a complete picture of your hearing health with our advanced diagnostic assessments. Our certified audiologists use state-of-the-art equipment to identify your specific needs and create a personalized care plan.",
+      image:
+        "https://audiologists.org/wp-content/uploads/2025/04/audiometry-test.jpg",
+      description:
+        "Get a complete picture of your hearing health with our advanced diagnostic assessments. Our certified audiologists use state-of-the-art equipment to identify your specific needs and create a personalized care plan.",
       features: [
         "Pure Tone Audiometry - Measures hearing sensitivity across frequencies",
         "Speech Understanding Tests - Evaluates clarity in real-world scenarios",
@@ -44,8 +50,10 @@ function Services() {
       title: "Premium Hearing Aids",
       icon: Ear,
       color: theme.green,
-      image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=500&fit=crop",
-      description: "Experience life in full sound with our range of advanced hearing aids. From invisible designs to powerful digital solutions, we'll find the perfect fit for your lifestyle, comfort, and budget.",
+      image:
+        "https://www.denvercoloradoearnosethroatallergysinusdoctors.com/wp-content/uploads/2022/02/Cochlear-Implant-Blog-AOO--scaled.jpg",
+      description:
+        "Experience life in full sound with our range of advanced hearing aids. From invisible designs to powerful digital solutions, we'll find the perfect fit for your lifestyle, comfort, and budget.",
       features: [
         "Latest Digital Technology - Crystal-clear sound with smart features",
         "Rechargeable Options - Eco-friendly and hassle-free power",
@@ -60,8 +68,10 @@ function Services() {
       title: "Hearing Aid Reprogramming",
       icon: RefreshCw,
       color: theme.teal,
-      image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=800&h=500&fit=crop",
-      description: "Our expert audiologists reprogram and fine-tune your hearing aids to ensure optimal performance tailored to your changing needs and listening environments.",
+      image:
+        "https://www.ferringhearingcentre.co.uk/wp-content/uploads/2015/10/inside-a-hearing-aid-how-a-hearing-aid-works.jpg",
+      description:
+        "Our expert audiologists reprogram and fine-tune your hearing aids to ensure optimal performance tailored to your changing needs and listening environments.",
       features: [
         "Frequency Adjustments - Optimize sound across different pitches",
         "Volume Optimization - Perfect balance for comfort and clarity",
@@ -76,8 +86,10 @@ function Services() {
       title: "Service & Repair",
       icon: Settings,
       color: theme.orange,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop",
-      description: "Professional maintenance and repair services to keep your hearing aids in perfect working condition. We send hearing aids needing service or repair to our partnered authorized labs.",
+      image:
+        "https://s3.amazonaws.com/media.audiologydesign.com/wp-content/uploads/sites/552/2022/06/15183025/hearing-aids-8.jpg",
+      description:
+        "Professional maintenance and repair services to keep your hearing aids in perfect working condition. We send hearing aids needing service or repair to our partnered authorized labs.",
       features: [
         "Deep Cleaning Service - Thorough professional cleaning",
         "Component Replacement - Genuine parts from manufacturers",
@@ -92,8 +104,10 @@ function Services() {
       title: "Audiology Consultation",
       icon: Stethoscope,
       color: theme.purple,
-      image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=500&fit=crop",
-      description: "One-on-one consultation with our experienced audiologists to discuss your hearing concerns, lifestyle needs, and develop a personalized care plan just for you.",
+      image:
+        "https://www.audibel.com/wp-content/uploads/2023/01/testing-hearing-loss-1024x682.webp",
+      description:
+        "One-on-one consultation with our experienced audiologists to discuss your hearing concerns, lifestyle needs, and develop a personalized care plan just for you.",
       features: [
         "Hearing Health Assessment - Comprehensive evaluation of your hearing",
         "Lifestyle Analysis - Understanding your daily hearing challenges",
@@ -108,33 +122,45 @@ function Services() {
   const hearingAidProducts = [
     {
       title: "Behind the Ear (BTE)",
-      description: "Popular hearing aids sit perfectly behind your ear, connected to a custom ear mold or thin tubing for ultimate comfort.",
-      image: "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/05/Untitled-design-2024-05-22T004412.431.png",
+      description:
+        "Popular hearing aids sit perfectly behind your ear, connected to a custom ear mold or thin tubing for ultimate comfort.",
+      image:
+        "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/05/Untitled-design-2024-05-22T004412.431.png",
     },
     {
       title: "Receiver in the Canal (RIC)",
-      description: "The more advanced hearing aids sits comfortably behind the ear and has a electric wire instead of a tube and gives superior quality of sound",
-      image: "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/08/Untitled-332-x-216-px-1.png",
+      description:
+        "The more advanced hearing aids sits comfortably behind the ear and has a electric wire instead of a tube and gives superior quality of sound",
+      image:
+        "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/08/Untitled-332-x-216-px-1.png",
     },
     {
       title: "Invisible Custom Hearing Aids (IIC & CIC)",
-      description: "These hearing aids are custom-made to fit completely in the ear and are very small. They offer comfort and are nearly invisible in everyday use.",
-      image: "https://cdn.signia.net/-/media/signia/global/images/products/signia-ix/insio-ix/insio-ix_iic_mocha_pair_side_1000x1000.jpg?rev=a8fe469c7665485eb53523b23b49b970&hash=39691E768403A479B9EF7ADB1F513480",
+      description:
+        "These hearing aids are custom-made to fit completely in the ear and are very small. They offer comfort and are nearly invisible in everyday use.",
+      image:
+        "https://cdn.signia.net/-/media/signia/global/images/products/signia-ix/insio-ix/insio-ix_iic_mocha_pair_side_1000x1000.jpg?rev=a8fe469c7665485eb53523b23b49b970&hash=39691E768403A479B9EF7ADB1F513480",
     },
     {
       title: "In the Canal (ITC)",
-      description: "Custom-designed to fit your ear's unique shape, this model is slightly more visible than IIC & CIC options, allowing for greater power and advanced features.",
-      image: "https://www.starkey.com/-/media/ConsumerSites/Images/Renderings/ItemSource/StylesBox/Starkey/product-utica-itc.png?h=400&w=240&la=en&hash=E2A4E34A48902B02144F7D2497D4CECF098B92DD",
+      description:
+        "Custom-designed to fit your ear's unique shape, this model is slightly more visible than IIC & CIC options, allowing for greater power and advanced features.",
+      image:
+        "https://tse2.mm.bing.net/th/id/OIP.pZu7LapMFvgp1PegPHoqtAAAAA?pid=Api&P=0&h=180",
     },
     {
       title: "Rechargeable Hearing Aids",
-      description: "Charge your hearing aid like you charge your phone - convenient and hassle-free for uninterrupted performance.",
-      image: "https://cdn-ilecnob.nitrocdn.com/xucGLkdcELYzlzMRzHKiwyoMxNiNcfUk/assets/images/optimized/rev-4ceaece/www.hearingyourbest.com/wp-content/uploads/2020/09/Packshot_Phonak_Mini_Charger_Case_open_with_HI-846x846.png",
+      description:
+        "Charge your hearing aid like you charge your phone - convenient and hassle-free for uninterrupted performance.",
+      image:
+        "https://www.hearingaidknow.com/assets/img/rechargeable-marvel.jpg",
     },
     {
       title: "Bluetooth Hearing Aids",
-      description: "It turns into a Bluetooth headset for clear phone calls and connects wirelessly to your smartphone for streaming music and media.",
-      image: "https://res.cloudinary.com/dhqvlsb3l/image/upload/f_auto,q_auto:best/v1/assets/na/seo-website/go-ix-hearing-aids-box-black.jpg",
+      description:
+        "It turns into a Bluetooth headset for clear phone calls and connects wirelessly to your smartphone for streaming music and media.",
+      image:
+        "https://5.imimg.com/data5/SELLER/Default/2021/10/PT/FL/ID/125578747/slim-ric-hearing-aid-1000x1000.jpg",
     },
   ];
 
@@ -194,13 +220,19 @@ function Services() {
                       className="w-full h-[400px] object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    
+
                     {/* Icon Badge */}
                     <div
                       className="absolute top-6 right-6 rounded-full p-4 shadow-lg"
-                      style={{ backgroundColor: `${service.color}15`, backdropFilter: 'blur(10px)' }}
+                      style={{
+                        backgroundColor: `${service.color}15`,
+                        backdropFilter: "blur(10px)",
+                      }}
                     >
-                      <service.icon size={32} style={{ color: service.color }} />
+                      <service.icon
+                        size={32}
+                        style={{ color: service.color }}
+                      />
                     </div>
 
                     {/* Badge */}
@@ -241,9 +273,7 @@ function Services() {
                           style={{ color: service.color }}
                           className="mt-1 flex-shrink-0"
                         />
-                        <p className="text-gray-700">
-                          {feature}
-                        </p>
+                        <p className="text-gray-700">{feature}</p>
                       </div>
                     ))}
                   </div>
@@ -336,7 +366,8 @@ function Services() {
             solution for your hearing needs together.
           </p>
           <Link to="/book-appointment">
-            <button className="px-10 py-5 bg-white rounded-full font-bold text-lg inline-flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:shadow-2xl shadow-xl"
+            <button
+              className="px-10 py-5 bg-white rounded-full font-bold text-lg inline-flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:shadow-2xl shadow-xl"
               style={{ color: theme.blue }}
             >
               Schedule Your Consultation <ArrowRight size={24} />
@@ -359,6 +390,81 @@ function Services() {
           </div>
         </div>
       </section>
+      {/* Floating Action Buttons */}
+      <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-5">
+        {/* Call */}
+        <a
+          href="tel:+919876543210"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-red-600 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-red-300
+               transition-all duration-300
+               animate-pulse"
+          title="Call Us"
+        >
+          <Phone size={24} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-red-600 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            Call Us
+          </span>
+        </a>
+
+        {/* WhatsApp */}
+        <a
+          href="https://wa.me/919876543210"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-green-500 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-green-300
+               transition-all duration-300
+               animate-pulse"
+          title="WhatsApp"
+        >
+          <FaWhatsapp size={26} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-green-500 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            WhatsApp
+          </span>
+        </a>
+
+        {/* Appointment */}
+        <Link
+          to="/book-appointment"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-blue-600 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-blue-300
+               transition-all duration-300"
+          title="Book Appointment"
+        >
+          <Calendar size={24} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-blue-600 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            Book Appointment
+          </span>
+        </Link>
+      </div>
     </div>
   );
 }

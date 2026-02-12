@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import naavika from"../assets/Brands/naavika.png"
+import { NavLink } from "react-router-dom";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,6 +14,9 @@ function Header() {
     lightBg: "#f9fafb",
     textDark: "#222",
   };
+  const navLinkClass = ({ isActive }) =>
+    `font-medium no-underline transition-colors duration-300
+   ${isActive ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`;
 
   return (
     <nav
@@ -25,40 +28,41 @@ function Header() {
     >
       <div className="container mx-auto px-8 py-5">
         <div className="flex items-center justify-between">
-
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 no-underline">
             <img
-              src={naavika}
-              alt="naavika logo"
-              className="h-18 w-auto object-contain"
+              src="/brands/Naavika Logo.png"
+              alt="Naavika Logo"
+              className="h-22 w-auto"
             />
-
-
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-6">
-            <Link to="/" className="font-medium text-blue-500 no-underline">
+            <NavLink to="/" className={navLinkClass}>
               Home
-            </Link>
-            <Link to="/service" className="font-medium text-gray-700 no-underline">
-              Services
-            </Link>
-            <Link to="/review" className="font-medium text-gray-700 no-underline">
-              Reviews
-            </Link>
-            <Link to="/contact" className="font-medium text-gray-700 no-underline">
-              Contact Us
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink to="/service" className={navLinkClass}>
+              Services
+            </NavLink>
+
+            <NavLink to="/review" className={navLinkClass}>
+              Reviews
+            </NavLink>
+
+            <NavLink to="/contact" className={navLinkClass}>
+              Contact Us
+            </NavLink>
+
+            <NavLink
               to="/book-appointment"
-              className="rounded-full px-6 py-2 font-medium text-white no-underline"
+              className="rounded-full px-6 py-2 font-medium text-white no-underline
+               transition-transform duration-300 hover:scale-105"
               style={{ backgroundColor: theme.green }}
             >
               Book Appointment
-            </Link>
+            </NavLink>
           </div>
 
           {/* Mobile Menu Button */}
@@ -78,18 +82,49 @@ function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 space-y-3">
-            <Link to="/" className="block px-4 py-2" onClick={() => setIsMenuOpen(false)}>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `block px-4 py-2 font-medium transition-colors duration-300
+     ${isActive ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`
+              }
+              onClick={() => setIsMenuOpen(false)}
+            >
               Home
-            </Link>
-            <Link to="/service" className="block px-4 py-2" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+
+            <NavLink
+              to="/service"
+              className={({ isActive }) =>
+                `block px-4 py-2 font-medium transition-colors duration-300
+     ${isActive ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`
+              }
+              onClick={() => setIsMenuOpen(false)}
+            >
               Services
-            </Link>
-            <Link to="/review" className="block px-4 py-2" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+
+            <NavLink
+              to="/review"
+              className={({ isActive }) =>
+                `block px-4 py-2 font-medium transition-colors duration-300
+     ${isActive ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`
+              }
+              onClick={() => setIsMenuOpen(false)}
+            >
               Reviews
-            </Link>
-            <Link to="/contact" className="block px-4 py-2" onClick={() => setIsMenuOpen(false)}>
+            </NavLink>
+
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `block px-4 py-2 font-medium transition-colors duration-300
+     ${isActive ? "text-blue-500" : "text-gray-700 hover:text-blue-500"}`
+              }
+              onClick={() => setIsMenuOpen(false)}
+            >
               Contact Us
-            </Link>
+            </NavLink>
 
             <Link
               to="/book-appointment"

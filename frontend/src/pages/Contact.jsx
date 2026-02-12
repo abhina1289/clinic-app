@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
+
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function NaavikaContact() {
   const [isVisible, setIsVisible] = useState(false);
@@ -282,6 +285,81 @@ export default function NaavikaContact() {
           </p>
         </div>
       </div> */}
+            {/* Floating Action Buttons */}
+      <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-5">
+        {/* Call */}
+        <a
+          href="tel:+919876543210"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-red-600 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-red-300
+               transition-all duration-300
+               animate-pulse"
+          title="Call Us"
+        >
+          <Phone size={24} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-red-600 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            Call Us
+          </span>
+        </a>
+
+        {/* WhatsApp */}
+        <a
+          href="https://wa.me/919876543210"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-green-500 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-green-300
+               transition-all duration-300
+               animate-pulse"
+          title="WhatsApp"
+        >
+          <FaWhatsapp size={26} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-green-500 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            WhatsApp
+          </span>
+        </a>
+
+        {/* Appointment */}
+        <Link
+          to="/book-appointment"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-blue-600 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-blue-300
+               transition-all duration-300"
+          title="Book Appointment"
+        >
+          <Calendar size={24} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-blue-600 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            Book Appointment
+          </span>
+        </Link>
+      </div>
     </div>
   );
 }

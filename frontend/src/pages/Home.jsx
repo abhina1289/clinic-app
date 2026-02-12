@@ -21,6 +21,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 // import unitron from "../assets/brands/unitron.png";
 // import resound from "../assets/brands/resound.png";
@@ -29,7 +30,6 @@ import {
 // import widex from "../assets/brands/widex.png";
 // import starkey from "../assets/brands/starkey.png";
 // import signia from "../assets/brands/signia.png";
-
 
 function Home() {
   const theme = {
@@ -103,8 +103,6 @@ function Home() {
     alert("Appointment booked successfully!");
   };
 
-
-
   // Services Data
   const services = [
     {
@@ -147,43 +145,52 @@ function Home() {
       description:
         "Popular hearing aids sit perfectly behind your ear, connected to a custom ear mold for ultimate comfort.",
       image:
-        "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=300&fit=crop",
+        "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/05/Untitled-design-2024-05-22T004412.431.png",
     },
     {
       title: "Receiver in the Canal (RIC)",
       description:
         "Advanced hearing aids that sit comfortably behind the ear with a thin wire for superior sound quality.",
       image:
-        "https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400&h=300&fit=crop",
+        "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/08/Untitled-332-x-216-px-1.png",
     },
     {
       title: "Invisible Custom Hearing Aids (IIC & CIC)",
       description:
         "Custom-made to fit completely in the ear canal, offering comfort and near invisibility in everyday use.",
       image:
-        "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=300&fit=crop",
+        "https://cdn.signia.net/-/media/signia/global/images/products/signia-ix/insio-ix/insio-ix_iic_mocha_pair_side_1000x1000.jpg?rev=a8fe469c7665485eb53523b23b49b970&hash=39691E768403A479B9EF7ADB1F513480",
     },
     {
       title: "In the Canal (ITC)",
       description:
         "Custom-designed to fit your ear's unique shape, more visible than IIC & CIC, allowing greater power and advanced features.",
       image:
-        "https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=400&h=300&fit=crop",
+        "https://tse2.mm.bing.net/th/id/OIP.pZu7LapMFvgp1PegPHoqtAAAAA?pid=Api&P=0&h=180",
     },
     {
       title: "Rechargeable Hearing Aids",
       description:
         "Charge your hearing aid like you charge your phone - convenient and hassle-free for uninterrupted performance.",
       image:
-        "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=400&h=300&fit=crop",
+        "https://www.hearingaidknow.com/assets/img/rechargeable-marvel.jpg",
     },
     {
       title: "Bluetooth Hearing Aids",
       description:
         "Connect wirelessly to your smartphone for calls, music, and media streaming with crystal-clear sound.",
       image:
-        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop",
+        "https://5.imimg.com/data5/SELLER/Default/2021/10/PT/FL/ID/125578747/slim-ric-hearing-aid-1000x1000.jpg",
     },
+  ];
+
+  const brandLogos = [
+    "/brands/pic1.png",
+    "/brands/pic2.png",
+    "/brands/pic3.png",
+    "/brands/pic4.png",
+    "/brands/pic5.png",
+    "/brands/pic6.png",
   ];
 
   return (
@@ -364,8 +371,8 @@ function Home() {
             Trusted Hearing Aid Brands
           </h2> */}
 
-          {/* Slider */}
-          {/* <div className="relative w-full overflow-hidden">
+      {/* Slider */}
+      {/* <div className="relative w-full overflow-hidden">
             <div className="flex gap-12 animate-scroll hover:[animation-play-state:paused]">
               {[...logos, ...logos].map((logo, index) => (
                 <div
@@ -383,6 +390,51 @@ function Home() {
           </div>
         </div>
       </section> */}
+      {/* Brand Logos Section */}
+      <section className="py-14 bg-white">
+        <div className="container mx-auto px-4">
+          {/* Section Title */}
+          <h2 className="text-center text-2xl md:text-3xl font-semibold text-gray-800 mb-10">
+            Trusted Hearing Aid Brands
+          </h2>
+
+          {/* Carousel */}
+          <div className="relative overflow-hidden w-full">
+            <div
+              className="flex gap-14 items-center"
+              style={{
+                animation: "scroll 25s linear infinite",
+                width: "max-content",
+              }}
+            >
+              {[...brandLogos, ...brandLogos].map((logo, index) => (
+                <div
+                  key={index}
+                  className="min-w-[180px] flex items-center justify-center"
+                >
+                  <img
+                    src={logo}
+                    alt="Hearing Aid Brand"
+                    className="h-16 md:h-18 w-auto object-contain
+                         transition-transform duration-300
+                         hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Inline animation */}
+            <style>
+              {`
+          @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+        `}
+            </style>
+          </div>
+        </div>
+      </section>
 
       {/* About Section */}
       <section className="py-16 lg:py-24 bg-white">
@@ -562,7 +614,7 @@ function Home() {
                   key={index}
                   className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
                 >
-                  <div className="flex items-center justify-center p-6 bg-gray-50 h-48">
+                  <div className="flex items-center justify-center p-6 bg-gray-50 h-60">
                     <img
                       src={product.image}
                       alt={product.title}
@@ -626,7 +678,7 @@ function Home() {
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
               <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center">
                 <img
-                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop"
+                  src="https://static.vecteezy.com/system/resources/previews/014/388/508/non_2x/avatar-portrait-of-a-young-caucasian-boy-man-in-round-blue-frame-illustration-in-cartoon-flat-style-vector.jpg"
                   alt="Happy patient"
                   className="w-full h-full object-cover"
                 />
@@ -667,7 +719,7 @@ function Home() {
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
               <div className="h-48 overflow-hidden bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
                 <img
-                  src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=300&fit=crop"
+                  src="https://static.vecteezy.com/system/resources/previews/024/183/520/original/female-avatar-portrait-of-a-cute-brunette-woman-illustration-of-a-female-character-in-a-modern-color-style-vector.jpg"
                   alt="Satisfied customer"
                   className="w-full h-full object-cover"
                 />
@@ -704,7 +756,7 @@ function Home() {
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
               <div className="h-48 overflow-hidden bg-gradient-to-br from-teal-100 to-green-100 flex items-center justify-center">
                 <img
-                  src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=400&h=300&fit=crop"
+                  src="https://static.vecteezy.com/system/resources/previews/029/271/062/non_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg"
                   alt="Happy elderly patient"
                   className="w-full h-full object-cover"
                 />
@@ -792,6 +844,81 @@ function Home() {
           </div>
         </div>
       </section>
+      {/* Floating Action Buttons */}
+      <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-5">
+        {/* Call */}
+        <a
+          href="tel:+919876543210"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-red-600 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-red-300
+               transition-all duration-300
+               animate-pulse"
+          title="Call Us"
+        >
+          <Phone size={24} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-red-600 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            Call Us
+          </span>
+        </a>
+
+        {/* WhatsApp */}
+        <a
+          href="https://wa.me/919876543210"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-green-500 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-green-300
+               transition-all duration-300
+               animate-pulse"
+          title="WhatsApp"
+        >
+          <FaWhatsapp size={26} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-green-500 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            WhatsApp
+          </span>
+        </a>
+
+        {/* Appointment */}
+        <Link
+          to="/book-appointment"
+          className="group relative flex items-center justify-center 
+               w-14 h-14 rounded-full 
+               bg-blue-600 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-blue-300
+               transition-all duration-300"
+          title="Book Appointment"
+        >
+          <Calendar size={24} />
+
+          {/* Tooltip */}
+          <span
+            className="absolute right-16 opacity-0 group-hover:opacity-100 
+                     bg-blue-600 text-white text-sm px-3 py-1 rounded-md 
+                     whitespace-nowrap transition"
+          >
+            Book Appointment
+          </span>
+        </Link>
+      </div>
     </div>
   );
 }
