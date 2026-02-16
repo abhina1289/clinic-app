@@ -313,7 +313,7 @@ export default function Reviews() {
       <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-5">
         {/* Call */}
         <a
-          href="tel:+919876543210"
+          href="tel:+918123379944"
           className="group relative flex items-center justify-center 
                w-14 h-14 rounded-full 
                bg-red-600 text-white shadow-xl
@@ -337,7 +337,7 @@ export default function Reviews() {
 
         {/* WhatsApp */}
         <a
-          href="https://wa.me/919876543210"
+          href="https://wa.me/918123379944"
           target="_blank"
           rel="noopener noreferrer"
           className="group relative flex items-center justify-center 

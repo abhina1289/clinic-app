@@ -165,11 +165,11 @@ export default function NaavikaFooter() {
               <div className="flex items-start space-x-3 transition-all duration-300 hover:translate-x-1">
                 <MapPin className="w-5 h-5 text-[#7ed957] animate-bounce-slow" />
                 <p className="text-sm">
-                  Medical College Road,
+                  Kothnur Dinne Main Rd, JP Nagar 7th Phase,
                   <br />
-                  Thiruvananthapuram,
+                  Bengaluru,
                   <br />
-                  Kerala – 695011
+                  Karnataka – 560078
                 </p>
               </div>
 
@@ -179,7 +179,7 @@ export default function NaavikaFooter() {
                   href="tel:+919876543210"
                   className="hover:text-white transition-colors duration-300"
                 >
-                  +91 98765 43210
+                  +91 8123379944
                 </a>
               </div>
 

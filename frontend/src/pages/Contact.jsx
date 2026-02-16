@@ -39,19 +39,19 @@ export default function NaavikaContact() {
     {
       icon: MapPin,
       title: "Visit Us",
-      details: ["Naavika Hearing Health Clinic", "Medical College Road", "Thiruvananthapuram, Kerala 695011"],
+      details: ["Naavika Hearing Health Clinic", "Kothnur Dinne Main Rd", "Bengaluru, Karnataka-560078"],
       color: "teal"
     },
     {
       icon: Phone,
       title: "Call Us",
-      details: ["+91 98765 43210", "+91 87654 32109"],
+      details: ["+91 8123379944"],
       color: "blue"
     },
     {
       icon: Mail,
       title: "Email Us",
-      details: ["info@naavika.com", "support@naavika.com"],
+      details: ["info@naavikahearing.com"],
       color: "teal"
     },
     // {
@@ -101,7 +101,7 @@ export default function NaavikaContact() {
         >
           <div className="relative h-96 md:h-[500px] w-full">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.6589384245745!2d76.94481107501433!3d8.524647691544442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bbb1f4c5b6c5%3A0x5c4b7d5a8c8a8c8a!2sMedical%20College%2C%20Thiruvananthapuram!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.3542070120548!2d77.58002887483981!3d12.884930587422526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15c884806c5f%3A0x142304dd806114bf!2sNaavika%20Hearing%20Health%20clinic%20-%20J%20P%20Nagar!5e0!3m2!1sen!2sin!4v1771233552070!5m2!1sen!2sin" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -289,7 +289,7 @@ export default function NaavikaContact() {
       <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-5">
         {/* Call */}
         <a
-          href="tel:+919876543210"
+          href="tel:+918123379944"
           className="group relative flex items-center justify-center 
                w-14 h-14 rounded-full 
                bg-red-600 text-white shadow-xl
@@ -313,7 +313,7 @@ export default function NaavikaContact() {
 
         {/* WhatsApp */}
         <a
-          href="https://wa.me/919876543210"
+          href="https://wa.me/918123379944"
           target="_blank"
           rel="noopener noreferrer"
           className="group relative flex items-center justify-center 
