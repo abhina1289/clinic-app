@@ -800,6 +800,59 @@ function BookAppointment() {
           </span>
         </a>
       </div>
+      {/* Floating Action Buttons - Mobile Only */}
+<div
+  className="fixed right-4 top-1/2 -translate-y-1/2 
+             z-50 flex flex-col gap-4 
+             md:hidden"
+>
+  {/* Call */}
+  <a
+    href="tel:+918123379944"
+    className="group relative flex items-center justify-center 
+               w-12 h-12 rounded-full 
+               bg-red-600 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-red-300
+               transition-all duration-300
+               animate-pulse"
+    title="Call Us"
+  >
+    <Phone size={22} />
+  </a>
+
+  {/* WhatsApp */}
+  <a
+    href="https://wa.me/918123379944"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group relative flex items-center justify-center 
+               w-12 h-12 rounded-full 
+               bg-green-500 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-green-300
+               transition-all duration-300
+               animate-pulse"
+    title="WhatsApp"
+  >
+    <FaWhatsapp size={24} />
+  </a>
+
+  {/* Appointment */}
+  {/* <Link
+    to="/book-appointment"
+    className="group relative flex items-center justify-center 
+               w-12 h-12 rounded-full 
+               bg-blue-600 text-white shadow-xl
+               hover:scale-110 hover:shadow-2xl
+               hover:ring-4 hover:ring-blue-300
+               transition-all duration-300
+               animate-pulse"
+    title="Book Appointment"
+  >
+    <Calendar size={22} />
+  </Link> */}
+</div>
     </div>
   );
 }
