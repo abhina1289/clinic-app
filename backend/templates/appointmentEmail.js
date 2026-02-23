@@ -56,29 +56,9 @@ const generateAppointmentTemplate = (data) => {
                 ${row("Phone", data.phone)}
                 ${row("Email", data.email)}
                 ${row("Date", new Date(data.bookingDate).toDateString())}
-                ${row("Time", data.appointmentTime || "Not specified")}
-                ${row("Doctor", data.appointmentWith)}
                 ${row("Service", data.appointmentFor)}
                 ${row("Status", data.status)}
-                ${row("Source", data.source)}
-                ${row("IP", data.ipAddress)}
               </table>
-
-              <div style="margin-top:32px;">
-                <p style="font-size:13px; color:#6b7280; margin-bottom:6px;">
-                  Notes
-                </p>
-                <div style="
-                  background:#f9fafb;
-                  border:1px solid #e5e7eb;
-                  border-radius:10px;
-                  padding:14px;
-                  font-size:14px;
-                ">
-                  ${data.notes || "None"}
-                </div>
-              </div>
-
             </td>
           </tr>
 

@@ -1,5 +1,5 @@
-const Appointment = require('../models/AppointmentModel');
-const { sendAppointmentEmail } = require('../services/emailService');
+const Appointment = require("../models/AppointmentModel");
+const { sendAppointmentEmail } = require("../services/emailService");
 
 // @desc    Create new appointment
 // @route   POST /api/appointments
@@ -13,7 +13,7 @@ exports.createAppointment = async (req, res) => {
       bookingDate,
       appointmentWith,
       appointmentFor,
-      notes
+      notes,
     } = req.body;
 
     // Get IP address
@@ -29,14 +29,19 @@ exports.createAppointment = async (req, res) => {
       appointmentFor,
       notes,
       ipAddress,
-      source: 'website'
+      source: "website",
     });
 
-    await sendAppointmentEmail(appointment);
+    (async () => {
+      console.log("Sending appointment email");
+      await sendAppointmentEmail(appointment);
+      console.log("appointment email sent!");
+    })();
 
     res.status(201).json({
       success: true,
-      message: 'Appointment booked successfully! You will receive a confirmation email shortly.',
+      message:
+        "Appointment booked successfully! You will receive a confirmation email shortly.",
       data: {
         appointment: {
           id: appointment._id,
@@ -47,19 +52,19 @@ exports.createAppointment = async (req, res) => {
           bookingDate: appointment.bookingDate,
           appointmentWith: appointment.appointmentWith,
           appointmentFor: appointment.appointmentFor,
-          status: appointment.status
-        }
-      }
+          status: appointment.status,
+        },
+      },
     });
   } catch (error) {
-    console.error('Create Appointment Error:', error);
-    
+    console.error("Create Appointment Error:", error);
+
     // Handle validation errors
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(err => err.message);
+    if (error.name === "ValidationError") {
+      const messages = Object.values(error.errors).map((err) => err.message);
       return res.status(400).json({
         success: false,
-        message: messages.join(', ')
+        message: messages.join(", "),
       });
     }
 
@@ -67,13 +72,13 @@ exports.createAppointment = async (req, res) => {
     if (error.code === 11000) {
       return res.status(500).json({
         success: false,
-        message: 'Error generating confirmation number. Please try again.'
+        message: "Error generating confirmation number. Please try again.",
       });
     }
 
     res.status(500).json({
       success: false,
-      message: 'Server error while booking appointment'
+      message: "Server error while booking appointment",
     });
   }
 };
@@ -102,7 +107,7 @@ exports.getAllAppointments = async (req, res) => {
     const appointments = await Appointment.find(query)
       .limit(limit)
       .skip(skip)
-      .sort('-createdAt');
+      .sort("-createdAt");
 
     const total = await Appointment.countDocuments(query);
 
@@ -114,15 +119,15 @@ exports.getAllAppointments = async (req, res) => {
           page,
           limit,
           total,
-          pages: Math.ceil(total / limit)
-        }
-      }
+          pages: Math.ceil(total / limit),
+        },
+      },
     });
   } catch (error) {
-    console.error('Get All Appointments Error:', error);
+    console.error("Get All Appointments Error:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: "Server error",
     });
   }
 };
@@ -137,19 +142,19 @@ exports.getAppointmentById = async (req, res) => {
     if (!appointment) {
       return res.status(404).json({
         success: false,
-        message: 'Appointment not found'
+        message: "Appointment not found",
       });
     }
 
     res.status(200).json({
       success: true,
-      data: { appointment }
+      data: { appointment },
     });
   } catch (error) {
-    console.error('Get Appointment Error:', error);
+    console.error("Get Appointment Error:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: "Server error",
     });
   }
 };
@@ -160,25 +165,25 @@ exports.getAppointmentById = async (req, res) => {
 exports.getAppointmentByConfirmation = async (req, res) => {
   try {
     const appointment = await Appointment.findOne({
-      confirmationNumber: req.params.confirmationNumber
+      confirmationNumber: req.params.confirmationNumber,
     });
 
     if (!appointment) {
       return res.status(404).json({
         success: false,
-        message: 'Appointment not found'
+        message: "Appointment not found",
       });
     }
 
     res.status(200).json({
       success: true,
-      data: { appointment }
+      data: { appointment },
     });
   } catch (error) {
-    console.error('Get Appointment by Confirmation Error:', error);
+    console.error("Get Appointment by Confirmation Error:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: "Server error",
     });
   }
 };
@@ -193,7 +198,7 @@ exports.updateAppointmentStatus = async (req, res) => {
     if (!status) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide status'
+        message: "Please provide status",
       });
     }
 
@@ -202,19 +207,19 @@ exports.updateAppointmentStatus = async (req, res) => {
     if (!appointment) {
       return res.status(404).json({
         success: false,
-        message: 'Appointment not found'
+        message: "Appointment not found",
       });
     }
 
     appointment.status = status;
 
     // Handle confirmation
-    if (status === 'confirmed') {
+    if (status === "confirmed") {
       appointment.confirmedAt = new Date();
     }
 
     // Handle cancellation
-    if (status === 'cancelled') {
+    if (status === "cancelled") {
       appointment.cancelledAt = new Date();
       if (cancellationReason) {
         appointment.cancellationReason = cancellationReason;
@@ -228,14 +233,14 @@ exports.updateAppointmentStatus = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: 'Appointment status updated successfully',
-      data: { appointment }
+      message: "Appointment status updated successfully",
+      data: { appointment },
     });
   } catch (error) {
-    console.error('Update Appointment Status Error:', error);
+    console.error("Update Appointment Status Error:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: "Server error",
     });
   }
 };
@@ -250,7 +255,7 @@ exports.updateAppointment = async (req, res) => {
       appointmentTime,
       appointmentWith,
       appointmentFor,
-      notes
+      notes,
     } = req.body;
 
     const appointment = await Appointment.findById(req.params.id);
@@ -258,7 +263,7 @@ exports.updateAppointment = async (req, res) => {
     if (!appointment) {
       return res.status(404).json({
         success: false,
-        message: 'Appointment not found'
+        message: "Appointment not found",
       });
     }
 
@@ -273,23 +278,23 @@ exports.updateAppointment = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: 'Appointment updated successfully',
-      data: { appointment }
+      message: "Appointment updated successfully",
+      data: { appointment },
     });
   } catch (error) {
-    console.error('Update Appointment Error:', error);
-    
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(err => err.message);
+    console.error("Update Appointment Error:", error);
+
+    if (error.name === "ValidationError") {
+      const messages = Object.values(error.errors).map((err) => err.message);
       return res.status(400).json({
         success: false,
-        message: messages.join(', ')
+        message: messages.join(", "),
       });
     }
 
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: "Server error",
     });
   }
 };
@@ -306,7 +311,7 @@ exports.cancelAppointment = async (req, res) => {
     if (!appointment) {
       return res.status(404).json({
         success: false,
-        message: 'Appointment not found'
+        message: "Appointment not found",
       });
     }
 
@@ -314,22 +319,22 @@ exports.cancelAppointment = async (req, res) => {
     if (appointment.email !== email) {
       return res.status(403).json({
         success: false,
-        message: 'Email does not match appointment records'
+        message: "Email does not match appointment records",
       });
     }
 
     // Check if appointment can be cancelled
-    if (appointment.status === 'cancelled') {
+    if (appointment.status === "cancelled") {
       return res.status(400).json({
         success: false,
-        message: 'Appointment is already cancelled'
+        message: "Appointment is already cancelled",
       });
     }
 
-    if (appointment.status === 'completed') {
+    if (appointment.status === "completed") {
       return res.status(400).json({
         success: false,
-        message: 'Cannot cancel a completed appointment'
+        message: "Cannot cancel a completed appointment",
       });
     }
 
@@ -337,11 +342,12 @@ exports.cancelAppointment = async (req, res) => {
     if (!appointment.canModify()) {
       return res.status(400).json({
         success: false,
-        message: 'Cannot cancel appointment less than 24 hours before scheduled time'
+        message:
+          "Cannot cancel appointment less than 24 hours before scheduled time",
       });
     }
 
-    appointment.status = 'cancelled';
+    appointment.status = "cancelled";
     appointment.cancelledAt = new Date();
     appointment.cancellationReason = cancellationReason;
 
@@ -349,13 +355,13 @@ exports.cancelAppointment = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: 'Appointment cancelled successfully'
+      message: "Appointment cancelled successfully",
     });
   } catch (error) {
-    console.error('Cancel Appointment Error:', error);
+    console.error("Cancel Appointment Error:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: "Server error",
     });
   }
 };
@@ -370,19 +376,19 @@ exports.deleteAppointment = async (req, res) => {
     if (!appointment) {
       return res.status(404).json({
         success: false,
-        message: 'Appointment not found'
+        message: "Appointment not found",
       });
     }
 
     res.status(200).json({
       success: true,
-      message: 'Appointment deleted successfully'
+      message: "Appointment deleted successfully",
     });
   } catch (error) {
-    console.error('Delete Appointment Error:', error);
+    console.error("Delete Appointment Error:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: "Server error",
     });
   }
 };
@@ -393,10 +399,10 @@ exports.deleteAppointment = async (req, res) => {
 exports.getAppointmentStats = async (req, res) => {
   try {
     const total = await Appointment.countDocuments();
-    const pending = await Appointment.countDocuments({ status: 'pending' });
-    const confirmed = await Appointment.countDocuments({ status: 'confirmed' });
-    const cancelled = await Appointment.countDocuments({ status: 'cancelled' });
-    const completed = await Appointment.countDocuments({ status: 'completed' });
+    const pending = await Appointment.countDocuments({ status: "pending" });
+    const confirmed = await Appointment.countDocuments({ status: "confirmed" });
+    const cancelled = await Appointment.countDocuments({ status: "cancelled" });
+    const completed = await Appointment.countDocuments({ status: "completed" });
 
     // Today's appointments
     const today = new Date();
@@ -405,7 +411,7 @@ exports.getAppointmentStats = async (req, res) => {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     const todayAppointments = await Appointment.countDocuments({
-      bookingDate: { $gte: today, $lt: tomorrow }
+      bookingDate: { $gte: today, $lt: tomorrow },
     });
 
     res.status(200).json({
@@ -416,14 +422,14 @@ exports.getAppointmentStats = async (req, res) => {
         confirmed,
         cancelled,
         completed,
-        todayAppointments
-      }
+        todayAppointments,
+      },
     });
   } catch (error) {
-    console.error('Get Stats Error:', error);
+    console.error("Get Stats Error:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: "Server error",
     });
   }
 };

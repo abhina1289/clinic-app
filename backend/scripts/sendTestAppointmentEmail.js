@@ -11,9 +11,6 @@ const fakeAppointment = {
   appointmentWith: "Dr. Anjali Sharma",
   appointmentFor: "Hearing Test",
   status: "Confirmed",
-  source: "Website",
-  ipAddress: "127.0.0.1",
-  notes: "This is a test appointment.",
   createdAt: new Date(),
 };
 
