@@ -1,405 +1,126 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { toast } from "sonner";
+import React from "react";
+import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 import {
-  Calendar,
-  Clock,
-  User,
-  Phone,
-  CheckCircle,
-  ArrowRight,
-  Sparkles,
-  Heart,
-  Shield,
-  Award,
-  MapPin,
-  Mail,
-  Bell,
+  Phone, Mail, MapPin, Shield, Award, Heart, Sparkles,
 } from "lucide-react";
-import { createAppointment } from "../../services/allApis";
+import BookingForm from "../components/BookingForm"; // ✅ Import the form component
+
+const theme = {
+  red: "#c92424",
+  blue: "#4484c4",
+  green: "#3a9f43",
+  textDark: "#222",
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+const pulseVariants = {
+  animate: { scale: [1, 1.05, 1], transition: { duration: 2, repeat: Infinity, ease: "easeInOut" } },
+};
 
 function BookAppointment() {
-  const theme = {
-    red: "#c92424",
-    blue: "#4484c4",
-    green: "#3a9f43",
-    lightBg: "#f9fafb",
-    textDark: "#222",
-  };
-
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    bookingDate: "",
-    appointmentFor: "",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [confirmationNumber, setConfirmationNumber] = useState("");
-  const [errors, setErrors] = useState({});
-
-  // ✅ Only these appointment types
-  const appointmentTypes = [
-    "Hearing Test",
-    "Hearing Aids",
-    "Audiology Consultation",
-    "Hearing Aid Reprogramming",
-    "Services & Repairs",
-  ];
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Phone is required";
-    } else if (
-      !/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(
-        formData.phone,
-      )
-    ) {
-      newErrors.phone = "Please provide a valid phone number";
-    }
-    if (!formData.bookingDate) {
-      newErrors.bookingDate = "Booking date is required";
-    } else {
-      const selectedDate = new Date(formData.bookingDate);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      if (selectedDate < today) {
-        newErrors.bookingDate = "Booking date cannot be in the past";
-      }
-    }
-    if (!formData.appointmentFor)
-      newErrors.appointmentFor = "Please select appointment type";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      toast.error("Please fill in all required fields correctly");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // ✅ Send only required fields
-      const appointmentData = {
-        name: formData.name,
-        phone: formData.phone,
-        email: `${formData.phone}@noemail.com`, // Dummy email if required by backend
-        bookingDate: formData.bookingDate,
-        appointmentWith: "To Be Assigned", // Default value
-        appointmentFor: formData.appointmentFor,
-        notes: "",
-      };
-
-      const response = await createAppointment(appointmentData);
-
-      if (response.data.success) {
-        const appointment = response.data.data.appointment;
-        setConfirmationNumber(appointment.confirmationNumber);
-        setShowSuccess(true);
-
-        toast.success("Appointment booked successfully!", {
-          description: `Confirmation #: ${appointment.confirmationNumber}`,
-        });
-
-        // Reset form after 5 seconds
-        setTimeout(() => {
-          setShowSuccess(false);
-          setFormData({
-            name: "",
-            phone: "",
-            bookingDate: "",
-            appointmentFor: "",
-          });
-          setConfirmationNumber("");
-        }, 5000);
-      }
-    } catch (error) {
-      console.error("Appointment booking error:", error);
-
-      if (error.response?.data?.message) {
-        toast.error("Booking Failed", {
-          description: error.response.data.message,
-        });
-      } else if (error.message) {
-        toast.error("Booking Failed", {
-          description: error.message,
-        });
-      } else {
-        toast.error("Failed to book appointment", {
-          description: "Please try again later or contact support",
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
-
-  const pulseVariants = {
-    animate: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 relative overflow-hidden">
-      {/* Animated Background Elements */}
+      {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-green-200/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-red-200/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+        <motion.div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl"
+          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.div className="absolute bottom-20 right-10 w-96 h-96 bg-green-200/20 rounded-full blur-3xl"
+          animate={{ x: [0, -30, 0], y: [0, 50, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.div className="absolute top-1/2 left-1/2 w-64 h-64 bg-red-200/10 rounded-full blur-3xl"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }} />
       </div>
 
       <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="max-w-7xl mx-auto">
-          {/* Header Section */}
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          {/* Page Header */}
+          <motion.div className="text-center mb-12"
+            initial={{ opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}>
             <motion.div
               className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg mb-6"
               style={{ border: `2px solid ${theme.blue}30` }}
-              whileHover={{ scale: 1.05 }}
-            >
+              whileHover={{ scale: 1.05 }}>
               <Sparkles size={20} style={{ color: theme.green }} />
-              <span
-                className="text-sm font-semibold"
-                style={{ color: theme.blue }}
-              >
-                Book Your Visit Today
-              </span>
+              <span className="text-sm font-semibold" style={{ color: theme.blue }}>Book Your Visit Today</span>
             </motion.div>
-
-            <h1
-              className="text-5xl md:text-6xl font-bold mb-4"
-              style={{ color: theme.textDark }}
-            >
+            <h1 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: theme.textDark }}>
               Schedule Your{" "}
-              <span
-                className="relative inline-block"
-                style={{ color: theme.blue }}
-              >
+              <span className="relative inline-block" style={{ color: theme.blue }}>
                 Appointment
-                <motion.div
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r rounded-full"
-                  style={{
-                    background: `linear-gradient(90deg, ${theme.blue}, ${theme.green})`,
-                  }}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
-                />
+                <motion.div className="absolute -bottom-2 left-0 right-0 h-1 rounded-full"
+                  style={{ background: `linear-gradient(90deg, ${theme.blue}, ${theme.green})` }}
+                  initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.5, duration: 0.8 }} />
               </span>
             </h1>
-
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Take the first step towards better hearing health. Our expert
-              audiologists are ready to help you.
+              Take the first step towards better hearing health. Our expert audiologists are ready to help you.
             </p>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-8 items-start">
-            {/* Left Side - Features & Info */}
-            <motion.div
-              className="space-y-6"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {/* Why Choose Us Cards */}
+            {/* Left — Info Cards */}
+            <motion.div className="space-y-6"
+              variants={containerVariants} initial="hidden" animate="visible">
               {[
-                {
-                  icon: <Shield size={32} />,
-                  title: "Expert Care",
-                  description:
-                    "Certified audiologists with 10+ years experience",
-                  color: theme.blue,
-                  gradient: "from-blue-500 to-blue-600",
-                },
-                {
-                  icon: <Award size={32} />,
-                  title: "State-of-the-Art",
-                  description: "Latest diagnostic equipment and technology",
-                  color: theme.green,
-                  gradient: "from-green-500 to-green-600",
-                },
-                {
-                  icon: <Heart size={32} />,
-                  title: "Personalized Service",
-                  description: "Customized treatment plans for your needs",
-                  color: theme.red,
-                  gradient: "from-red-500 to-red-600",
-                },
+                { icon: <Shield size={32} />, title: "Expert Care", description: "Certified audiologists with 10+ years experience", color: theme.blue, gradient: "from-blue-500 to-blue-600" },
+                { icon: <Award size={32} />, title: "State-of-the-Art", description: "Latest diagnostic equipment and technology", color: theme.green, gradient: "from-green-500 to-green-600" },
+                { icon: <Heart size={32} />, title: "Personalized Service", description: "Customized treatment plans for your needs", color: theme.red, gradient: "from-red-500 to-red-600" },
               ].map((feature, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
+                <motion.div key={index} variants={itemVariants}
                   whileHover={{ scale: 1.02, x: 10 }}
                   className="bg-white rounded-2xl p-6 shadow-xl border"
-                  style={{ borderColor: `${feature.color}20` }}
-                >
+                  style={{ borderColor: `${feature.color}20` }}>
                   <div className="flex items-start gap-4">
-                    <motion.div
-                      className={`p-4 rounded-xl bg-gradient-to-br ${feature.gradient} text-white`}
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
+                    <motion.div className={`p-4 rounded-xl bg-gradient-to-br ${feature.gradient} text-white`}
+                      whileHover={{ rotate: 360 }} transition={{ duration: 0.6 }}>
                       {feature.icon}
                     </motion.div>
                     <div>
-                      <h3
-                        className="text-xl font-bold mb-2"
-                        style={{ color: theme.textDark }}
-                      >
-                        {feature.title}
-                      </h3>
+                      <h3 className="text-xl font-bold mb-2" style={{ color: theme.textDark }}>{feature.title}</h3>
                       <p className="text-gray-600">{feature.description}</p>
                     </div>
                   </div>
                 </motion.div>
               ))}
 
-              {/* Quick Stats */}
-              <motion.div
-                variants={itemVariants}
-                className="bg-gradient-to-br rounded-2xl p-8 text-white"
-                style={{
-                  background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)`,
-                }}
-              >
+              {/* Stats */}
+              <motion.div variants={itemVariants} className="rounded-2xl p-8 text-white"
+                style={{ background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)` }}>
                 <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <motion.div
-                      className="text-4xl font-bold mb-1"
-                      variants={pulseVariants}
-                      animate="animate"
-                    >
-                      5000+
-                    </motion.div>
-                    <div className="text-white/80 text-sm">Happy Patients</div>
-                  </div>
-                  <div>
-                    <motion.div
-                      className="text-4xl font-bold mb-1"
-                      variants={pulseVariants}
-                      animate="animate"
-                      transition={{ delay: 0.2 }}
-                    >
-                      98%
-                    </motion.div>
-                    <div className="text-white/80 text-sm">Success Rate</div>
-                  </div>
-                  <div>
-                    <motion.div
-                      className="text-4xl font-bold mb-1"
-                      variants={pulseVariants}
-                      animate="animate"
-                      transition={{ delay: 0.4 }}
-                    >
-                      15+
-                    </motion.div>
-                    <div className="text-white/80 text-sm">Specialists</div>
-                  </div>
+                  {[
+                    { value: "5000+", label: "Happy Patients" },
+                    { value: "98%", label: "Success Rate" },
+                    { value: "15+", label: "Specialists" },
+                  ].map((stat, i) => (
+                    <div key={i}>
+                      <motion.div className="text-4xl font-bold mb-1"
+                        variants={pulseVariants} animate="animate"
+                        transition={{ delay: i * 0.2 }}>
+                        {stat.value}
+                      </motion.div>
+                      <div className="text-white/80 text-sm">{stat.label}</div>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
 
               {/* Contact Info */}
-              <motion.div
-                variants={itemVariants}
-                className="bg-white rounded-2xl p-6 shadow-lg"
-              >
-                <h3
-                  className="text-xl font-bold mb-4"
-                  style={{ color: theme.textDark }}
-                >
-                  Need Help?
-                </h3>
+              <motion.div variants={itemVariants} className="bg-white rounded-2xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold mb-4" style={{ color: theme.textDark }}>Need Help?</h3>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-gray-600">
                     <Phone size={20} style={{ color: theme.green }} />
@@ -417,329 +138,25 @@ function BookAppointment() {
               </motion.div>
             </motion.div>
 
-            {/* Right Side - Booking Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <div
-                className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2"
-                style={{ borderColor: `${theme.blue}20` }}
-              >
-                {/* Form Header */}
-                <div
-                  className="p-8 text-white relative overflow-hidden"
-                  style={{
-                    background: `linear-gradient(135deg, ${theme.blue}, ${theme.green})`,
-                  }}
-                >
-                  <motion.div
-                    className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 90, 0],
-                    }}
-                    transition={{
-                      duration: 10,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                  <motion.div
-                    className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full -ml-16 -mb-16"
-                    animate={{
-                      scale: [1, 1.3, 1],
-                      rotate: [0, -90, 0],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                  <div className="relative z-10 flex items-center gap-3">
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    >
-                      <Calendar size={32} />
-                    </motion.div>
-                    <div>
-                      <h2 className="text-3xl font-bold">Book Appointment</h2>
-                      <p className="text-white/80 mt-1">
-                        Fill in your details below
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Form Body */}
-                <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                  <AnimatePresence mode="wait">
-                    {showSuccess ? (
-                      <motion.div
-                        key="success"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0, opacity: 0 }}
-                        className="text-center py-12"
-                      >
-                        <motion.div
-                          className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6"
-                          style={{ backgroundColor: `${theme.green}20` }}
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1 }}
-                        >
-                          <CheckCircle
-                            size={48}
-                            style={{ color: theme.green }}
-                          />
-                        </motion.div>
-                        <h3
-                          className="text-2xl font-bold mb-2"
-                          style={{ color: theme.green }}
-                        >
-                          Appointment Booked!
-                        </h3>
-                        <p className="text-gray-600 mb-3">
-                          Confirmation Number:
-                        </p>
-                        <div className="inline-block px-4 py-2 bg-blue-50 rounded-lg">
-                          <span
-                            className="text-xl font-mono font-bold"
-                            style={{ color: theme.blue }}
-                          >
-                            {confirmationNumber}
-                          </span>
-                        </div>
-                        <p className="text-gray-500 mt-4 text-sm">
-                          We'll call you to confirm the appointment shortly.
-                        </p>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="form"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="space-y-6"
-                      >
-                        {/* Name */}
-                        <motion.div
-                          whileFocus={{ scale: 1.02 }}
-                          className="space-y-2"
-                        >
-                          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                            <User size={16} style={{ color: theme.blue }} />
-                            Name <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            placeholder="Enter your full name"
-                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
-                              errors.name
-                                ? "border-red-300 focus:border-red-500"
-                                : "border-gray-200 focus:border-blue-500"
-                            }`}
-                          />
-                          {errors.name && (
-                            <motion.p
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="text-red-500 text-xs"
-                            >
-                              {errors.name}
-                            </motion.p>
-                          )}
-                        </motion.div>
-
-                        {/* Phone */}
-                        <motion.div
-                          whileFocus={{ scale: 1.02 }}
-                          className="space-y-2"
-                        >
-                          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                            <Phone size={16} style={{ color: theme.green }} />
-                            Phone Number <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="tel"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            placeholder="Enter phone number"
-                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
-                              errors.phone
-                                ? "border-red-300 focus:border-red-500"
-                                : "border-gray-200 focus:border-blue-500"
-                            }`}
-                          />
-                          {errors.phone && (
-                            <motion.p
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="text-red-500 text-xs"
-                            >
-                              {errors.phone}
-                            </motion.p>
-                          )}
-                        </motion.div>
-
-                        {/* Booking Date */}
-                        <motion.div
-                          whileFocus={{ scale: 1.02 }}
-                          className="space-y-2"
-                        >
-                          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                            <Calendar size={16} style={{ color: theme.blue }} />
-                            Booking Date <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="date"
-                            name="bookingDate"
-                            value={formData.bookingDate}
-                            onChange={handleInputChange}
-                            min={new Date().toISOString().split("T")[0]}
-                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all ${
-                              errors.bookingDate
-                                ? "border-red-300 focus:border-red-500"
-                                : "border-gray-200 focus:border-blue-500"
-                            }`}
-                          />
-                          {errors.bookingDate && (
-                            <motion.p
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="text-red-500 text-xs"
-                            >
-                              {errors.bookingDate}
-                            </motion.p>
-                          )}
-                        </motion.div>
-
-                        {/* Appointment For */}
-                        <motion.div
-                          whileFocus={{ scale: 1.02 }}
-                          className="space-y-2"
-                        >
-                          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                            <Clock size={16} style={{ color: theme.red }} />
-                            Appointment For{" "}
-                            <span className="text-red-500">*</span>
-                          </label>
-                          <select
-                            name="appointmentFor"
-                            value={formData.appointmentFor}
-                            onChange={handleInputChange}
-                            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all appearance-none bg-white ${
-                              errors.appointmentFor
-                                ? "border-red-300 focus:border-red-500"
-                                : "border-gray-200 focus:border-blue-500"
-                            }`}
-                          >
-                            <option value="">Select Appointment Type</option>
-                            {appointmentTypes.map((type, index) => (
-                              <option key={index} value={type}>
-                                {type}
-                              </option>
-                            ))}
-                          </select>
-                          {errors.appointmentFor && (
-                            <motion.p
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="text-red-500 text-xs"
-                            >
-                              {errors.appointmentFor}
-                            </motion.p>
-                          )}
-                        </motion.div>
-
-                        {/* Submit Button */}
-                        <motion.button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className="w-full py-4 rounded-xl font-bold text-lg text-white flex items-center justify-center gap-3 transition-all"
-                          style={{
-                            background: isSubmitting
-                              ? "#9ca3af"
-                              : `linear-gradient(135deg, ${theme.blue}, ${theme.green})`,
-                          }}
-                          whileHover={
-                            !isSubmitting ? { scale: 1.02, y: -2 } : {}
-                          }
-                          whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-                        >
-                          {isSubmitting ? (
-                            <>
-                              <motion.div
-                                className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-                                animate={{ rotate: 360 }}
-                                transition={{
-                                  duration: 1,
-                                  repeat: Infinity,
-                                  ease: "linear",
-                                }}
-                              />
-                              Booking...
-                            </>
-                          ) : (
-                            <>
-                              Book Appointment
-                              <ArrowRight size={20} />
-                            </>
-                          )}
-                        </motion.button>
-
-                        {/* Additional Info */}
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.5 }}
-                          className="flex items-start gap-2 p-4 bg-blue-50 rounded-xl"
-                        >
-                          <Bell
-                            size={20}
-                            style={{ color: theme.blue }}
-                            className="flex-shrink-0 mt-0.5"
-                          />
-                          <p className="text-sm text-gray-600">
-                            You'll receive a confirmation call within 24 hours
-                            to confirm your appointment time.
-                          </p>
-                        </motion.div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </form>
-              </div>
+            {/* Right — BookingForm Component */}
+            <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}>
+              {/* ✅ BookingForm component used here */}
+              <BookingForm />
 
               {/* Trust Badges */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="mt-6 flex flex-wrap items-center justify-center gap-4"
-              >
+                className="mt-6 flex flex-wrap items-center justify-center gap-4">
                 {[
                   { text: "🔒 Secure Booking", color: theme.green },
                   { text: "⚡ Quick Process", color: theme.blue },
                   { text: "💯 100% Safe", color: theme.red },
                 ].map((badge, index) => (
-                  <motion.div
-                    key={index}
+                  <motion.div key={index}
                     className="px-4 py-2 bg-white rounded-full shadow-md text-sm font-semibold"
                     whileHover={{ scale: 1.05, y: -2 }}
-                    style={{ color: badge.color }}
-                  >
+                    style={{ color: badge.color }}>
                     {badge.text}
                   </motion.div>
                 ))}
@@ -748,111 +165,34 @@ function BookAppointment() {
           </div>
         </div>
       </div>
-      {/* Floating Action Buttons */}
+
+      {/* Floating Buttons — Desktop */}
       <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-5">
-        {/* Call */}
-        <a
-          href="tel:+918123379944"
-          className="group relative flex items-center justify-center 
-                     w-14 h-14 rounded-full 
-                     bg-red-600 text-white shadow-xl
-                     hover:scale-110 hover:shadow-2xl
-                     hover:ring-4 hover:ring-red-300
-                     transition-all duration-300
-                     animate-pulse"
-          title="Call Us"
-        >
+        <a href="tel:+918123379944"
+          className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-red-600 text-white shadow-xl hover:scale-110 hover:ring-4 hover:ring-red-300 transition-all duration-300 animate-pulse"
+          title="Call Us">
           <Phone size={24} />
-
-          {/* Tooltip */}
-          <span
-            className="absolute right-16 opacity-0 group-hover:opacity-100 
-                           bg-red-600 text-white text-sm px-3 py-1 rounded-md 
-                           whitespace-nowrap transition"
-          >
-            Call Us
-          </span>
+          <span className="absolute right-16 opacity-0 group-hover:opacity-100 bg-red-600 text-white text-sm px-3 py-1 rounded-md whitespace-nowrap transition">Call Us</span>
         </a>
-
-        {/* WhatsApp */}
-        <a
-          href="https://wa.me/918123379944"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative flex items-center justify-center 
-                     w-14 h-14 rounded-full 
-                     bg-green-500 text-white shadow-xl
-                     hover:scale-110 hover:shadow-2xl
-                     hover:ring-4 hover:ring-green-300
-                     transition-all duration-300
-                     animate-pulse"
-          title="WhatsApp"
-        >
+        <a href="https://wa.me/918123379944" target="_blank" rel="noopener noreferrer"
+          className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-green-500 text-white shadow-xl hover:scale-110 hover:ring-4 hover:ring-green-300 transition-all duration-300 animate-pulse"
+          title="WhatsApp">
           <FaWhatsapp size={26} />
-
-          {/* Tooltip */}
-          <span
-            className="absolute right-16 opacity-0 group-hover:opacity-100 
-                           bg-green-500 text-white text-sm px-3 py-1 rounded-md 
-                           whitespace-nowrap transition"
-          >
-            WhatsApp
-          </span>
+          <span className="absolute right-16 opacity-0 group-hover:opacity-100 bg-green-500 text-white text-sm px-3 py-1 rounded-md whitespace-nowrap transition">WhatsApp</span>
         </a>
       </div>
-      {/* Floating Action Buttons - Mobile Only */}
-<div
-  className="fixed right-4 top-1/2 -translate-y-1/2 
-             z-50 flex flex-col gap-4 
-             md:hidden"
->
-  {/* Call */}
-  <a
-    href="tel:+918123379944"
-    className="group relative flex items-center justify-center 
-               w-12 h-12 rounded-full 
-               bg-red-600 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-red-300
-               transition-all duration-300
-               animate-pulse"
-    title="Call Us"
-  >
-    <Phone size={22} />
-  </a>
 
-  {/* WhatsApp */}
-  <a
-    href="https://wa.me/918123379944"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group relative flex items-center justify-center 
-               w-12 h-12 rounded-full 
-               bg-green-500 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-green-300
-               transition-all duration-300
-               animate-pulse"
-    title="WhatsApp"
-  >
-    <FaWhatsapp size={24} />
-  </a>
-
-  {/* Appointment */}
-  {/* <Link
-    to="/book-appointment"
-    className="group relative flex items-center justify-center 
-               w-12 h-12 rounded-full 
-               bg-blue-600 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-blue-300
-               transition-all duration-300
-               animate-pulse"
-    title="Book Appointment"
-  >
-    <Calendar size={22} />
-  </Link> */}
-</div>
+      {/* Floating Buttons — Mobile */}
+      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 md:hidden">
+        <a href="tel:+918123379944"
+          className="flex items-center justify-center w-12 h-12 rounded-full bg-red-600 text-white shadow-xl hover:scale-110 transition-all duration-300 animate-pulse">
+          <Phone size={22} />
+        </a>
+        <a href="https://wa.me/918123379944" target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white shadow-xl hover:scale-110 transition-all duration-300 animate-pulse">
+          <FaWhatsapp size={24} />
+        </a>
+      </div>
     </div>
   );
 }
