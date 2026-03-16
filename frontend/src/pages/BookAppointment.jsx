@@ -98,7 +98,7 @@ function BookAppointment() {
               ))}
 
               {/* Stats */}
-              <motion.div variants={itemVariants} className="rounded-2xl p-8 text-white"
+              {/* <motion.div variants={itemVariants} className="rounded-2xl p-8 text-white"
                 style={{ background: `linear-gradient(135deg, ${theme.blue}, ${theme.blue}dd)` }}>
                 <div className="grid grid-cols-3 gap-4 text-center">
                   {[
@@ -116,7 +116,7 @@ function BookAppointment() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </motion.div> */}
 
               {/* Contact Info */}
               <motion.div variants={itemVariants} className="bg-white rounded-2xl p-6 shadow-lg">

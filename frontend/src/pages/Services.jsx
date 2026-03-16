@@ -5,14 +5,22 @@ import {
   ArrowRight,
   Shield,
   Clock,
-  Stethoscope,
   Settings,
   RefreshCw,
 } from "lucide-react";
 import { Phone, Calendar } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { Stethoscope } from "lucide-react";
+
 
 import { Link } from "react-router-dom";
+import test from "../assets/brands/test.jpg"
+import hearingaid from "../assets/brands/hearingaid.jpg"
+import service from "../assets/brands/service.jpg"
+import hearingtest from "../assets/brands/hearingtest.jpg"
+import earaid1 from "../assets/brands/earaid1.jpg"
+import earaid2 from "../assets/brands/earaid2.jpg"
+import earaid4 from "../assets/brands/earaid4.jpg"
 
 
 function Services() {
@@ -32,8 +40,7 @@ function Services() {
       title: "Comprehensive Hearing Tests",
       icon: Activity,
       color: theme.blue,
-      image:
-        "https://audiologists.org/wp-content/uploads/2025/04/audiometry-test.jpg",
+      image: test,
       description:
         "Get a complete picture of your hearing health with our advanced diagnostic assessments. Our certified audiologists use state-of-the-art equipment to identify your specific needs and create a personalized care plan.",
       features: [
@@ -50,8 +57,8 @@ function Services() {
       title: "Premium Hearing Aids",
       icon: Ear,
       color: theme.green,
-      image:
-        "https://www.denvercoloradoearnosethroatallergysinusdoctors.com/wp-content/uploads/2022/02/Cochlear-Implant-Blog-AOO--scaled.jpg",
+      image:hearingaid,
+       
       description:
         "Experience life in full sound with our range of advanced hearing aids. From invisible designs to powerful digital solutions, we'll find the perfect fit for your lifestyle, comfort, and budget.",
       features: [
@@ -86,8 +93,7 @@ function Services() {
       title: "Service & Repair",
       icon: Settings,
       color: theme.orange,
-      image:
-        "https://s3.amazonaws.com/media.audiologydesign.com/wp-content/uploads/sites/552/2022/06/15183025/hearing-aids-8.jpg",
+      image: service,
       description:
         "Professional maintenance and repair services to keep your hearing aids in perfect working condition. We send hearing aids needing service or repair to our partnered authorized labs.",
       features: [
@@ -104,8 +110,7 @@ function Services() {
       title: "Audiology Consultation",
       icon: Stethoscope,
       color: theme.purple,
-      image:
-        "https://www.audibel.com/wp-content/uploads/2023/01/testing-hearing-loss-1024x682.webp",
+      image:hearingtest,
       description:
         "One-on-one consultation with our experienced audiologists to discuss your hearing concerns, lifestyle needs, and develop a personalized care plan just for you.",
       features: [
@@ -124,15 +129,13 @@ function Services() {
       title: "Behind the Ear (BTE)",
       description:
         "Popular hearing aids sit perfectly behind your ear, connected to a custom ear mold or thin tubing for ultimate comfort.",
-      image:
-        "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/05/Untitled-design-2024-05-22T004412.431.png",
+      image:earaid1,
     },
     {
       title: "Receiver in the Canal (RIC)",
       description:
         "The more advanced hearing aids sits comfortably behind the ear and has a electric wire instead of a tube and gives superior quality of sound",
-      image:
-        "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/08/Untitled-332-x-216-px-1.png",
+      image:earaid2,
     },
     {
       title: "Invisible Custom Hearing Aids (IIC & CIC)",
@@ -153,7 +156,7 @@ function Services() {
       description:
         "Charge your hearing aid like you charge your phone - convenient and hassle-free for uninterrupted performance.",
       image:
-        "https://www.hearingaidknow.com/assets/img/rechargeable-marvel.jpg",
+        earaid4,
     },
     {
       title: "Bluetooth Hearing Aids",
@@ -189,9 +192,9 @@ function Services() {
       </section>
 
       {/* Services Section - One by One Layout */}
-      <section className="py-16 lg:py-20">
+      <section className="py-15 lg:py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2
               className="text-3xl lg:text-4xl font-bold mb-4"
               style={{ color: theme.textDark }}
@@ -326,11 +329,11 @@ function Services() {
                 key={index}
                 className="bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
               >
-                <div className="flex items-center justify-center p-6 bg-gray-50 h-56">
+                <div className="flex items-center justify-center p-5 bg-gray-45 h-60">
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="h-full w-full object-cover rounded-lg"
+                    className="h-full w-100 object-cover rounded-lg"
                   />
                 </div>
                 <div className="p-6 text-center space-y-3">

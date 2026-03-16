@@ -25,6 +25,10 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import BookingForm from "../components/BookingForm";
 
+import earaid1 from "../assets/brands/earaid1.jpg"
+import earaid2 from "../assets/brands/earaid2.jpg"
+import earaid4 from "../assets/brands/earaid4.jpg"
+
 // import unitron from "../assets/brands/unitron.png";
 // import resound from "../assets/brands/resound.png";
 // import oticon from "../assets/brands/oticon.png";
@@ -146,15 +150,14 @@ function Home() {
       title: "Behind the Ear (BTE)",
       description:
         "Popular hearing aids sit perfectly behind your ear, connected to a custom ear mold for ultimate comfort.",
-      image:
-        "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/05/Untitled-design-2024-05-22T004412.431.png",
+      image:earaid1
     },
     {
       title: "Receiver in the Canal (RIC)",
       description:
         "Advanced hearing aids that sit comfortably behind the ear with a thin wire for superior sound quality.",
       image:
-        "https://www.hearingwellnesscentre.com/wp-content/uploads/2024/08/Untitled-332-x-216-px-1.png",
+      earaid2,
     },
     {
       title: "Invisible Custom Hearing Aids (IIC & CIC)",
@@ -175,7 +178,7 @@ function Home() {
       description:
         "Charge your hearing aid like you charge your phone - convenient and hassle-free for uninterrupted performance.",
       image:
-        "https://www.hearingaidknow.com/assets/img/rechargeable-marvel.jpg",
+        earaid4,
     },
     {
       title: "Bluetooth Hearing Aids",
