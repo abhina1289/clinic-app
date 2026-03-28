@@ -36,6 +36,14 @@ import earaid4 from "../assets/brands/earaid4.jpg"
 // import widex from "../assets/brands/widex.png";
 // import starkey from "../assets/brands/starkey.png";
 // import signia from "../assets/brands/signia.png";
+import pic1 from "../assets/brands/pic1.png";
+import pic2 from "../assets/brands/pic2.png";
+import pic3 from "../assets/brands/pic3.png";
+import pic4 from "../assets/brands/pic4.png";
+import pic5 from "../assets/brands/pic5.png";
+import pic6 from "../assets/brands/pic6.png";
+
+const brandLogos = [pic1, pic2, pic3, pic4, pic5, pic6];
 
 function Home() {
   const theme = {
@@ -189,14 +197,14 @@ function Home() {
     },
   ];
 
-  const brandLogos = [
-    "/brands/pic1.png",
-    "/brands/pic2.png",
-    "/brands/pic3.png",
-    "/brands/pic4.png",
-    "/brands/pic5.png",
-    "/brands/pic6.png",
-  ];
+  // const brandLogos = [
+  //   "../assets/brands/pic1.png",
+  //   "../assets/brands/pic2.png",
+  //   "../assets/brands/pic3.png",
+  //   "../assets/brands/pic4.png",
+  //   "../assets/brands/pic5.png",
+  //   "../assets/brands/pic6.png",
+  // ];
 
   return (
     <div className="min-h-screen">
@@ -573,9 +581,9 @@ function Home() {
               <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
                 <div className="h-48 overflow-hidden bg-gradient-to-br from-blue-100 to-teal-100 flex items-center justify-center">
                   <img
-                    src="https://static.vecteezy.com/system/resources/previews/014/388/508/non_2x/avatar-portrait-of-a-young-caucasian-boy-man-in-round-blue-frame-illustration-in-cartoon-flat-style-vector.jpg"
+                    src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid&w=740&q=80"
                     alt="Happy patient"
-                    className="w-full h-full object-cover"
+                    className="w-60 h-60 object-contain mx-auto mt-6"
                   />
                 </div>
                 <div className="p-6">
@@ -614,9 +622,10 @@ function Home() {
               <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
                 <div className="h-48 overflow-hidden bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
                   <img
-                    src="https://static.vecteezy.com/system/resources/previews/024/183/520/original/female-avatar-portrait-of-a-cute-brunette-woman-illustration-of-a-female-character-in-a-modern-color-style-vector.jpg"
+                    src="https://st2.depositphotos.com/1007566/11574/v/450/depositphotos_115748268-stock-illustration-young-executive-woman-profile-icon.jpg"
                     alt="Satisfied customer"
-                    className="w-full h-full object-cover"
+                    className="w-80 h-54 object-contain mx-auto mt-6"
+
                   />
                 </div>
                 <div className="p-6">
@@ -655,7 +664,7 @@ function Home() {
                   <img
                     src="https://static.vecteezy.com/system/resources/previews/029/271/062/non_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg"
                     alt="Happy elderly patient"
-                    className="w-full h-full object-cover"
+                    className="w-60 h-80 object-cover"
                   />
                 </div>
                 <div className="p-6">

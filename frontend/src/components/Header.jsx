@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import Naavikalogo from "../assets/brands/Naavikalogo.png"
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,7 +32,7 @@ function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 no-underline">
             <img
-              src="/brands/Naavika Logo.png"
+              src={Naavikalogo}
               alt="Naavika Logo"
               className="h-22 w-auto"
             />

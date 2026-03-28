@@ -11,6 +11,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import Naavikalogo from "../assets/brands/Naavikalogo.png"
 
 export default function NaavikaFooter() {
   const [hoveredService, setHoveredService] = useState(null);
@@ -60,7 +61,7 @@ export default function NaavikaFooter() {
           {/* Brand */}
           <div className="space-y-4 animate-slide-up">
             <img
-              src="/brands/Naavika Logo.png"
+              src={Naavikalogo}
               alt="Icon"
               className="h-20 w-auto transition-transform duration-300 hover:scale-105"
             />
