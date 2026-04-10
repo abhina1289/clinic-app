@@ -76,8 +76,8 @@ function BookAppointment() {
             <motion.div className="space-y-6"
               variants={containerVariants} initial="hidden" animate="visible">
               {[
-                { icon: <Shield size={32} />, title: "Expert Care", description: "Certified audiologists with 10+ years experience", color: theme.blue, gradient: "from-blue-500 to-blue-600" },
-                { icon: <Award size={32} />, title: "State-of-the-Art", description: "Latest diagnostic equipment and technology", color: theme.green, gradient: "from-green-500 to-green-600" },
+                { icon: <Shield size={32} />, title: "Expert Care", description: "Certified audiologists with 15+ years experience", color: theme.blue, gradient: "from-blue-500 to-blue-600" },
+                { icon: <Award size={32} />, title: "State-of-the-Art", description: "Latest diagnostic equipment and hearing aids", color: theme.green, gradient: "from-green-500 to-green-600" },
                 { icon: <Heart size={32} />, title: "Personalized Service", description: "Customized treatment plans for your needs", color: theme.red, gradient: "from-red-500 to-red-600" },
               ].map((feature, index) => (
                 <motion.div key={index} variants={itemVariants}
@@ -124,15 +124,15 @@ function BookAppointment() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-gray-600">
                     <Phone size={20} style={{ color: theme.green }} />
-                    <span>+1 (234) 567-8900</span>
+                    <span>+91 8123379944</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-600">
                     <Mail size={20} style={{ color: theme.blue }} />
-                    <span>info@naavikaclinic.com</span>
+                    <span>info@naavikahearing.com</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-600">
                     <MapPin size={20} style={{ color: theme.red }} />
-                    <span>123 Health Street, Bangalore</span>
+                    <span>Naavika Hearing Health Clinic , Kothnur Dinne Main Rd Bengaluru, Karnataka-560078</span>
                   </div>
                 </div>
               </motion.div>

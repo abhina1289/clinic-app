@@ -63,7 +63,7 @@ export default function NaavikaFooter() {
             <img
               src={Naavikalogo}
               alt="Icon"
-              className="h-20 w-auto transition-transform duration-300 hover:scale-105"
+              className="h-20 w-auto transition-transform duration-300 hover:scale-105 bg-amber-50 rounded-lg "
             />
             {/* <h6>Naavika Hearing Health Clinc</h6> */}
             <p className="text-sm text-blue-100 leading-relaxed">

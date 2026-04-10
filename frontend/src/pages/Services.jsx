@@ -14,13 +14,16 @@ import { Stethoscope } from "lucide-react";
 
 
 import { Link } from "react-router-dom";
-import test from "../assets/brands/test.jpg"
-import hearingaid from "../assets/brands/hearingaid.jpg"
+import comprehensiveservice from "../assets/brands/comprehensiveservice.png"
+import premiumhearingaids from "../assets/brands/premiumhearingaids.jpg"
+import hearingaidrepro from "../assets/brands/hearingaidrepro.png"
 import service from "../assets/brands/service.jpg"
 import hearingtest from "../assets/brands/hearingtest.jpg"
 import earaid1 from "../assets/brands/earaid1.jpg"
 import earaid2 from "../assets/brands/earaid2.jpg"
 import earaid4 from "../assets/brands/earaid4.jpg"
+import audiology from "../assets/brands/audiology.png"
+import itc from "../assets/brands/itc.jpg"
 
 
 function Services() {
@@ -40,7 +43,7 @@ function Services() {
       title: "Comprehensive Hearing Tests",
       icon: Activity,
       color: theme.blue,
-      image: test,
+      image: comprehensiveservice,
       description:
         "Get a complete picture of your hearing health with our advanced diagnostic assessments. Our certified audiologists use state-of-the-art equipment to identify your specific needs and create a personalized care plan.",
       features: [
@@ -49,7 +52,7 @@ function Services() {
         "Detailed Hearing Report - Easy-to-understand results and recommendations",
         "Expert Consultation - Personalized advice from our specialists",
       ],
-      duration: "30-45 minutes",
+      duration: "20-40 minutes",
       badge: "Painless & Accurate",
     },
     {
@@ -57,7 +60,7 @@ function Services() {
       title: "Premium Hearing Aids",
       icon: Ear,
       color: theme.green,
-      image:hearingaid,
+      image:premiumhearingaids,
        
       description:
         "Experience life in full sound with our range of advanced hearing aids. From invisible designs to powerful digital solutions, we'll find the perfect fit for your lifestyle, comfort, and budget.",
@@ -75,8 +78,8 @@ function Services() {
       title: "Hearing Aid Reprogramming",
       icon: RefreshCw,
       color: theme.teal,
-      image:
-        "https://www.ferringhearingcentre.co.uk/wp-content/uploads/2015/10/inside-a-hearing-aid-how-a-hearing-aid-works.jpg",
+      image:hearingaidrepro
+        ,
       description:
         "Our expert audiologists reprogram and fine-tune your hearing aids to ensure optimal performance tailored to your changing needs and listening environments.",
       features: [
@@ -102,7 +105,7 @@ function Services() {
         "Quick Turnaround Time - Most repairs completed promptly",
         "Genuine Parts Only - Quality assurance with authorized components",
       ],
-      duration: "Same Day Available",
+      duration: "3-4 Business days",
       badge: "Authorized Service",
     },
     {
@@ -110,7 +113,7 @@ function Services() {
       title: "Audiology Consultation",
       icon: Stethoscope,
       color: theme.purple,
-      image:hearingtest,
+      image:audiology,
       description:
         "One-on-one consultation with our experienced audiologists to discuss your hearing concerns, lifestyle needs, and develop a personalized care plan just for you.",
       features: [
@@ -148,8 +151,7 @@ function Services() {
       title: "In the Canal (ITC)",
       description:
         "Custom-designed to fit your ear's unique shape, this model is slightly more visible than IIC & CIC options, allowing for greater power and advanced features.",
-      image:
-        "https://tse2.mm.bing.net/th/id/OIP.pZu7LapMFvgp1PegPHoqtAAAAA?pid=Api&P=0&h=180",
+      image:itc,
     },
     {
       title: "Rechargeable Hearing Aids",
