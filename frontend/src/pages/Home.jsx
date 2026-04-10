@@ -359,11 +359,12 @@ function Home() {
                     About Naavika Hearing
                   </h2>
                   <p className="text-gray-600 text-lg leading-relaxed">
-                    Hear Solutions, based on Namma Bangalore, delivers premier
-                    hearing health care through our centers. Our top-rated
-                    professionals offers expert advice on hearing loss
-                    diagnosis,the latest hearing aid technology, and
-                    comprehensive after care services.
+                    Naavika Hearing, founded by <b>Abhishek Gowda</b>, alumnus of the prestigious <b>All India Institute Of Speech and Hearing(AIISH),</b>is built on one belief-Hearing care should be personal and compassionate.
+                    <br />
+                    We don't just fit hearing aids . We listen, with advanced diagnostics and clinical precision, we restore confidence, connection, and the joy of everyday sounds.
+                    <br />
+                    At Naavika Hearing, excellence is our standard- and every patient is family.
+
                   </p>
                   <div className="space-y-4">
                     <div className="flex gap-4">
