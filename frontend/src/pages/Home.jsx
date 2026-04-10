@@ -543,7 +543,6 @@ function Home() {
           </div>
         </section>
 
-        {/* Reviews Section */}
 {/* Reviews Section */}
 <section className="py-16 lg:py-24 bg-gradient-to-br from-blue-50 to-teal-50">
   <div className="container mx-auto px-4">
