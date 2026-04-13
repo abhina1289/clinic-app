@@ -249,7 +249,7 @@ function Home() {
   ))}
 
   {/* Prev Arrow */}
-  <button
+  {/* <button
     onClick={() =>
       setCurrentSlide(
         (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length
@@ -263,10 +263,10 @@ function Home() {
                transition-all duration-200"
   >
     ‹
-  </button>
+  </button> */}
 
   {/* Next Arrow */}
-  <button
+  {/* <button
     onClick={() =>
       setCurrentSlide((prev) => (prev + 1) % carouselSlides.length)
     }
@@ -278,7 +278,7 @@ function Home() {
                transition-all duration-200"
   >
     ›
-  </button>
+  </button> */}
 
   {/* Dot Indicators */}
   <div className="absolute bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
