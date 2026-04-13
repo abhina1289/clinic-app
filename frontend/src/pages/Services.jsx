@@ -222,7 +222,7 @@ function Services() {
                     <img
                       src={service.image}
                       alt={service.title}
-                      className="w-full h-[400px] object-cover"
+                      className="w-full h-[500px] object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
 
@@ -335,7 +335,7 @@ function Services() {
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="h-full w-100 object-cover rounded-lg"
+                    className="h-full w-full object-cover rounded-lg"
                   />
                 </div>
                 <div className="p-6 text-center space-y-3">

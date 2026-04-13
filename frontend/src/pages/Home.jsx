@@ -46,7 +46,7 @@ import premiumlanding from "../assets/brands/premiumlanding.png";
 import comprehensivelanding from "../assets/brands/comprehensivelanding.png";
 import expertlanding from "../assets/brands/expertlanding.png";
 import about from "../assets/brands/about.png";
-import itc from "../assets/brands/itc.jpg"
+import itc from "../assets/brands/itc.jpg";
 
 const brandLogos = [pic1, pic2, pic3, pic4, pic5, pic6];
 
@@ -64,12 +64,13 @@ function Home() {
 
   const carouselSlides = [
     {
-      image: premiumlanding,
+      image: comprehensivelanding,
+
       title: "Comprehensive Hearing Tests",
       subtitle: "Advanced diagnostic assessments with certified audiologists",
     },
     {
-      image: comprehensivelanding,
+      image: premiumlanding,
       title: "Premium Hearing Aid Solutions",
       subtitle: "Latest technology from world-leading manufacturers",
     },
@@ -179,8 +180,7 @@ function Home() {
       title: "In the Canal (ITC)",
       description:
         "Custom-designed to fit your ear's unique shape, more visible than IIC & CIC, allowing greater power and advanced features.",
-      image:
-       itc,
+      image: itc,
     },
     {
       title: "Rechargeable Hearing Aids",
@@ -208,56 +208,93 @@ function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Carousel Section */}
-      <section className="relative h-[500px] lg:h-[600px] overflow-hidden bg-gray-900">
-        {carouselSlides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="w-full h-full object-cover object-[65%_center] lg:object-[70%_center]"
-            />
+    {/* Hero Carousel Section */}
+<section className="relative h-[260px] sm:h-[380px] md:h-[500px] lg:h-[600px] overflow-hidden">
+  {carouselSlides.map((slide, index) => (
+    <div
+      key={index}
+      className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+        index === currentSlide ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      {/* Image */}
+      <img
+        src={slide.image}
+        alt={slide.title}
+        className="w-full h-full object-cover object-center"
+      />
 
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
 
-            <div className="absolute inset-0 flex items-center">
-              <div className="container mx-auto px-4">
-                <div className="max-w-2xl">
-                  <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4">
-                    {slide.title}
-                  </h1>
-                  <p className="text-xl lg:text-2xl text-white/90 mb-8">
-                    {slide.subtitle}
-                  </p>
-
-                  <Link to="/book-appointment">
-                    <button className="px-8 py-4 rounded-lg font-semibold text-white bg-blue-600 hover:scale-105 transition-all duration-300">
-                      Book Appointment
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+      {/* Content */}
+      <div className="absolute inset-0 flex items-center">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-[90%] sm:max-w-xl lg:max-w-2xl">
+            <h1 className="text-lg sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-tight">
+              {slide.title}
+            </h1>
+            <p className="text-xs sm:text-base md:text-xl lg:text-2xl text-white/90 mb-3 sm:mb-8 leading-snug">
+              {slide.subtitle}
+            </p>
+            <Link to="/book-appointment">
+              <button className="px-3 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base rounded-lg font-semibold text-white bg-blue-600 hover:scale-105 transition-all duration-300">
+                Book Appointment
+              </button>
+            </Link>
           </div>
-        ))}
-
-        {/* Indicators (keep or remove — optional) */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
-          {carouselSlides.map((_, index) => (
-            <div
-              key={index}
-              className={`h-2 rounded-full transition-all ${
-                index === currentSlide ? "w-8 bg-white" : "w-2 bg-white/50"
-              }`}
-            />
-          ))}
         </div>
-      </section>
+      </div>
+    </div>
+  ))}
+
+  {/* Prev Arrow */}
+  <button
+    onClick={() =>
+      setCurrentSlide(
+        (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length
+      )
+    }
+    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10
+               w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11
+               rounded-full bg-white/20 hover:bg-white/40
+               flex items-center justify-center
+               text-white text-lg sm:text-xl
+               transition-all duration-200"
+  >
+    ‹
+  </button>
+
+  {/* Next Arrow */}
+  <button
+    onClick={() =>
+      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length)
+    }
+    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10
+               w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11
+               rounded-full bg-white/20 hover:bg-white/40
+               flex items-center justify-center
+               text-white text-lg sm:text-xl
+               transition-all duration-200"
+  >
+    ›
+  </button>
+
+  {/* Dot Indicators */}
+  <div className="absolute bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
+    {carouselSlides.map((_, index) => (
+      <button
+        key={index}
+        onClick={() => setCurrentSlide(index)}
+        className={`h-1.5 sm:h-2 rounded-full transition-all ${
+          index === currentSlide
+            ? "w-5 sm:w-8 bg-white"
+            : "w-1.5 sm:w-2 bg-white/50"
+        }`}
+      />
+    ))}
+  </div>
+</section>
       <div
         className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2"
         style={{ borderColor: `${theme.blue}20` }}
@@ -353,18 +390,24 @@ function Home() {
                     <Heart size={18} /> About Us
                   </span>
                   <h2
-                    className="text-3xl lg:text-4xl font-bold"
+                    className="text-3xl lg:text-4xl font-bold text-center"
                     style={{ color: theme.textDark }}
                   >
                     About Naavika Hearing
                   </h2>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    Naavika Hearing, founded by <b>Abhishek Gowda</b>, alumnus of the prestigious <b>All India Institute Of Speech and Hearing(AIISH),</b>is built on one belief-Hearing care should be personal and compassionate.
+                  <p className="text-gray-600 text-lg leading-relaxed text-justify">
+                    Naavika Hearing, founded by <b>Abhishek Gowda</b>, alumnus
+                    of the prestigious{" "}
+                    <b>All India Institute Of Speech and Hearing(AIISH),</b> is
+                    built on one belief-Hearing care should be personal and
+                    compassionate.
                     <br />
-                    We don't just fit hearing aids . We listen, with advanced diagnostics and clinical precision, we restore confidence, connection, and the joy of everyday sounds.
+                    We don't just fit hearing aids. We listen, with advanced
+                    diagnostics and clinical precision, we restore confidence,
+                    connection, and the joy of everyday sounds.
                     <br />
-                    At Naavika Hearing, excellence is our standard- and every patient is family.
-
+                    At Naavika Hearing, excellence is our standard- and every
+                    patient is family.
                   </p>
                   <div className="space-y-4">
                     <div className="flex gap-4">
@@ -480,55 +523,55 @@ function Home() {
               ))}
             </div>
 
-{/* Hearing Aid Products - Inside Services Section */}
-<div className="mt-16">
-  <div className="text-center mb-12">
-    <h2
-      className="text-3xl lg:text-4xl font-bold mb-4"
-      style={{ color: theme.textDark }}
-    >
-      Discover and Experience Our Latest Hearing Aids
-    </h2>
-    <p className="text-gray-600 max-w-2xl mx-auto">
-      Explore different types of hearing aids designed for comfort,
-      performance, and a natural hearing experience
-    </p>
-  </div>
+            {/* Hearing Aid Products - Inside Services Section */}
+            <div className="mt-16">
+              <div className="text-center mb-12">
+                <h2
+                  className="text-3xl lg:text-4xl font-bold mb-4"
+                  style={{ color: theme.textDark }}
+                >
+                  Discover and Experience Our Latest Hearing Aids
+                </h2>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  Explore different types of hearing aids designed for comfort,
+                  performance, and a natural hearing experience
+                </p>
+              </div>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    {hearingAidProducts.map((product, index) => (
-      <div
-        key={index}
-        className="bg-white rounded-2xl shadow-md  overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-      >
-        {/* Image Area - Full clean fit */}
-        <div className="flex items-center justify-center bg-white h-56 p-6">
-          <img
-            src={product.image}
-            alt={product.title}
-            className="max-h-full max-w-full scale-150 object-contain"
-          />
-        </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {hearingAidProducts.map((product, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-2xl shadow-md  overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                  >
+                    {/* Image Area - Full clean fit */}
+                    <div className="flex items-center justify-center bg-white h-56 p-6">
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="max-h-full max-w-full scale-150 object-contain"
+                      />
+                    </div>
 
-        {/* Divider */}
-        <div className="border-none border-gray-100" />
+                    {/* Divider */}
+                    <div className="border-none border-gray-100" />
 
-        {/* Text Content */}
-        <div className="p-6 text-center space-y-2">
-          <h3
-            className="text-xl font-bold"
-            style={{ color: theme.textDark }}
-          >
-            {product.title}
-          </h3>
-          {/* <p className="text-gray-500 text-sm leading-relaxed">
+                    {/* Text Content */}
+                    <div className="p-6 text-center space-y-2">
+                      <h3
+                        className="text-xl font-bold"
+                        style={{ color: theme.textDark }}
+                      >
+                        {product.title}
+                      </h3>
+                      {/* <p className="text-gray-500 text-sm leading-relaxed">
             {product.description}
           </p> */}
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
             {/* View All Services Button */}
             <div className="text-center mt-12">
@@ -544,140 +587,166 @@ function Home() {
           </div>
         </section>
 
-{/* Reviews Section */}
-<section className="py-16 lg:py-24 bg-gradient-to-br from-blue-50 to-teal-50">
-  <div className="container mx-auto px-4">
+        {/* Reviews Section */}
+        <section className="py-16 lg:py-24 bg-gradient-to-br from-blue-50 to-teal-50">
+          <div className="container mx-auto px-4">
+            {/* Header */}
+            <div className="text-center mb-12">
+              <span
+                className="inline-flex items-center gap-2 text-sm font-semibold mb-4"
+                style={{ color: theme.blue }}
+              >
+                <Star size={18} /> Patient Reviews
+              </span>
+              <h2
+                className="text-3xl lg:text-4xl font-bold mb-4"
+                style={{ color: theme.textDark }}
+              >
+                What Our Patients Say
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Real experiences from people who trust Naavika for their hearing
+                care
+              </p>
+            </div>
 
-    {/* Header */}
-    <div className="text-center mb-12">
-      <span
-        className="inline-flex items-center gap-2 text-sm font-semibold mb-4"
-        style={{ color: theme.blue }}
-      >
-        <Star size={18} /> Patient Reviews
-      </span>
-      <h2
-        className="text-3xl lg:text-4xl font-bold mb-4"
-        style={{ color: theme.textDark }}
-      >
-        What Our Patients Say
-      </h2>
-      <p className="text-gray-600 max-w-2xl mx-auto">
-        Real experiences from people who trust Naavika for their hearing care
-      </p>
-    </div>
+            {/* Google Reviews Style Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {/* Review 1 */}
+              <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center gap-3 mb-4">
+                  <img
+                    src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid&w=740&q=80"
+                    alt="Shruthi shivdas"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
+                  />
+                  <div>
+                    <div className="font-semibold text-gray-800 text-sm">
+                      Shruthi shivdas
+                    </div>
+                    <div className="text-xs text-gray-400">
+                      1 review • January 2026
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-0.5 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      className="fill-yellow-400 text-yellow-400"
+                    />
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  " Totally happy with the services my dad received . Abhishek
+                  is absolutely professional since my dad has parkinsons he did
+                  home visists and made sure dad was comfortable throughout my
+                  dad's hearing is at its best now Super impressive"
+                </p>
+                <div
+                  className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
+                  style={{ backgroundColor: "#EFF6FF", color: theme.blue }}
+                >
+                  Hearing Aid Fitting
+                </div>
+              </div>
 
-    {/* Google Reviews Style Cards */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {/* Review 2 */}
+              <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center gap-3 mb-4">
+                  <img
+                    src="https://st2.depositphotos.com/1007566/11574/v/450/depositphotos_115748268-stock-illustration-young-executive-woman-profile-icon.jpg"
+                    alt="Ramaswami Ganesan"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
+                  />
+                  <div>
+                    <div className="font-semibold text-gray-800 text-sm">
+                      Ramaswami Ganesan
+                    </div>
+                    <div className="text-xs text-gray-400">
+                      2 reviews • 2 years ago
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-0.5 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      className="fill-yellow-400 text-yellow-400"
+                    />
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  "Since six years , no audiologist could set right my hearing
+                  aid...STARKEY model. Cheif doctor in the clinic Naavika
+                  Hearing Clinic, JP Nagar, Banglore, had resolved my hearing
+                  problems using the above hearing aid. Doctor Sab!! i hear much
+                  much better now. I owe a lot to you ."
+                </p>
+                <div
+                  className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
+                  style={{ backgroundColor: "#F0FDF4", color: theme.green }}
+                >
+                  Reprogramming
+                </div>
+              </div>
 
-      {/* Review 1 */}
-      <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
-        <div className="flex items-center gap-3 mb-4">
-          <img
-            src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid&w=740&q=80"
-            alt="Rajesh Kumar"
-            className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
-          />
-          <div>
-            <div className="font-semibold text-gray-800 text-sm">Rajesh Kumar</div>
-            <div className="text-xs text-gray-400">1 review • a year ago</div>
+              {/* Review 3 */}
+              <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center gap-3 mb-4">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/previews/029/271/062/non_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg"
+                    alt="Yogesh H.N"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
+                  />
+                  <div>
+                    <div className="font-semibold text-gray-800 text-sm">
+                      Yogesh H.N
+                    </div>
+                    <div className="text-xs text-gray-400">
+                      1 review • a year ago
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-0.5 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      className="fill-yellow-400 text-yellow-400"
+                    />
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  "I've been wearing hearing aids for years , but i've never had
+                  this level of care before. The clinc doesn't just fit you and
+                  send you off- they offer continous check-ups and adjustments,
+                  ensuring my devices are always performing at their best."
+                </p>
+                <div
+                  className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
+                  style={{ backgroundColor: "#EFF6FF", color: theme.blue }}
+                >
+                  Service and Repair
+                </div>
+              </div>
+            </div>
+
+            {/* View All Button */}
+            <div className="text-center mt-10">
+              <Link to="/review">
+                <button
+                  className="px-8 py-3 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 inline-flex items-center gap-2 shadow-lg"
+                  style={{ backgroundColor: theme.green }}
+                >
+                  View All Reviews <ArrowRight size={18} />
+                </button>
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-0.5 mb-3">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
-          ))}
-        </div>
-        <p className="text-gray-700 text-sm leading-relaxed">
-          "Excellent service! Dr. Priya was very patient and thorough in explaining my
-          hearing condition. The hearing aids recommended have truly changed my quality of life."
-        </p>
-        <div
-          className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
-          style={{ backgroundColor: '#EFF6FF', color: theme.blue }}
-        >
-          Hearing Aid Fitting
-        </div>
-      </div>
-
-      {/* Review 2 */}
-      <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
-        <div className="flex items-center gap-3 mb-4">
-          <img
-            src="https://st2.depositphotos.com/1007566/11574/v/450/depositphotos_115748268-stock-illustration-young-executive-woman-profile-icon.jpg"
-            alt="Meera Nair"
-            className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
-          />
-          <div>
-            <div className="font-semibold text-gray-800 text-sm">Meera Nair</div>
-            <div className="text-xs text-gray-400">2 reviews • 8 months ago</div>
-          </div>
-        </div>
-        <div className="flex items-center gap-0.5 mb-3">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
-          ))}
-        </div>
-        <p className="text-gray-700 text-sm leading-relaxed">
-          "The staff at Naavika are incredibly professional and caring. They took time
-          to understand my needs and provided the perfect solution for me."
-        </p>
-        <div
-          className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
-          style={{ backgroundColor: '#F0FDF4', color: theme.green }}
-        >
-          Hearing Assessment
-        </div>
-      </div>
-
-      {/* Review 3 */}
-      <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
-        <div className="flex items-center gap-3 mb-4">
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/029/271/062/non_2x/avatar-profile-icon-in-flat-style-male-user-profile-illustration-on-isolated-background-man-profile-sign-business-concept-vector.jpg"
-            alt="Anand Pillai"
-            className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
-          />
-          <div>
-            <div className="font-semibold text-gray-800 text-sm">Anand Pillai</div>
-            <div className="text-xs text-gray-400">1 review • 6 months ago</div>
-          </div>
-        </div>
-        <div className="flex items-center gap-0.5 mb-3">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
-          ))}
-        </div>
-        <p className="text-gray-700 text-sm leading-relaxed">
-          "I was hesitant about getting hearing aids, but the team at Naavika made the
-          entire process comfortable. Thank you for giving me my confidence back!"
-        </p>
-        <div
-          className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
-          style={{ backgroundColor: '#EFF6FF', color: theme.blue }}
-        >
-          Tinnitus Management
-        </div>
-      </div>
-
-
-
-    </div>
-
-    {/* View All Button */}
-    <div className="text-center mt-10">
-      <Link to="/review">
-        <button
-          className="px-8 py-3 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 inline-flex items-center gap-2 shadow-lg"
-          style={{ backgroundColor: theme.green }}
-        >
-          View All Reviews <ArrowRight size={18} />
-        </button>
-      </Link>
-    </div>
-
-  </div>
-</section>
+        </section>
 
         {/* CTA Section */}
         <section
