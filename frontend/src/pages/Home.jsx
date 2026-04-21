@@ -209,7 +209,8 @@ function Home() {
   return (
     <div className="min-h-screen">
     {/* Hero Carousel Section */}
-<section className="relative h-[260px] sm:h-[380px] md:h-[500px] lg:h-[600px] overflow-hidden">
+{/* Hero Carousel Section */}
+<section className="relative h-[500px] lg:h-[600px] overflow-hidden bg-blend-exclusion">
   {carouselSlides.map((slide, index) => (
     <div
       key={index}
@@ -217,28 +218,25 @@ function Home() {
         index === currentSlide ? "opacity-100" : "opacity-0"
       }`}
     >
-      {/* Image */}
       <img
         src={slide.image}
         alt={slide.title}
-        className="w-full h-full object-cover object-center"
+        className="w-[950%] h-[100%] mx-auto object-cover"
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
 
-      {/* Content */}
       <div className="absolute inset-0 flex items-center">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-[90%] sm:max-w-xl lg:max-w-2xl">
-            <h1 className="text-lg sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-tight">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4">
               {slide.title}
             </h1>
-            <p className="text-xs sm:text-base md:text-xl lg:text-2xl text-white/90 mb-3 sm:mb-8 leading-snug">
+            <p className="text-xl lg:text-2xl text-white/90 mb-8">
               {slide.subtitle}
             </p>
             <Link to="/book-appointment">
-              <button className="px-3 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base rounded-lg font-semibold text-white bg-blue-600 hover:scale-105 transition-all duration-300">
+              <button className="px-8 py-4 rounded-lg font-semibold text-white bg-blue-600 hover:scale-105 transition-all duration-300">
                 Book Appointment
               </button>
             </Link>
@@ -248,48 +246,13 @@ function Home() {
     </div>
   ))}
 
-  {/* Prev Arrow */}
-  {/* <button
-    onClick={() =>
-      setCurrentSlide(
-        (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length
-      )
-    }
-    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10
-               w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11
-               rounded-full bg-white/20 hover:bg-white/40
-               flex items-center justify-center
-               text-white text-lg sm:text-xl
-               transition-all duration-200"
-  >
-    ‹
-  </button> */}
-
-  {/* Next Arrow */}
-  {/* <button
-    onClick={() =>
-      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length)
-    }
-    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10
-               w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11
-               rounded-full bg-white/20 hover:bg-white/40
-               flex items-center justify-center
-               text-white text-lg sm:text-xl
-               transition-all duration-200"
-  >
-    ›
-  </button> */}
-
-  {/* Dot Indicators */}
-  <div className="absolute bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
+  {/* Indicators */}
+  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
     {carouselSlides.map((_, index) => (
-      <button
+      <div
         key={index}
-        onClick={() => setCurrentSlide(index)}
-        className={`h-1.5 sm:h-2 rounded-full transition-all ${
-          index === currentSlide
-            ? "w-5 sm:w-8 bg-white"
-            : "w-1.5 sm:w-2 bg-white/50"
+        className={`h-2 rounded-full transition-all ${
+          index === currentSlide ? "w-8 bg-white" : "w-2 bg-white/50"
         }`}
       />
     ))}
@@ -397,16 +360,16 @@ function Home() {
                   </h2>
                   <p className="text-gray-600 text-lg leading-relaxed text-justify">
                     Naavika Hearing, founded by <b>Abhishek Gowda</b>, alumnus
-                    of the prestigious{" "}
-                    <b>All India Institute Of Speech and Hearing(AIISH),</b> is
-                    built on one belief-Hearing care should be personal and
+                    of the prestigious
+                    <b>All India Institute Of Speech and Hearing (AIISH),</b> is
+                    built on one belief Hearing care should be personal and
                     compassionate.
                     <br />
                     We don't just fit hearing aids. We listen, with advanced
                     diagnostics and clinical precision, we restore confidence,
                     connection, and the joy of everyday sounds.
                     <br />
-                    At Naavika Hearing, excellence is our standard- and every
+                    At Naavika Hearing, excellence is our standard and every
                     patient is family.
                   </p>
                   <div className="space-y-4">
