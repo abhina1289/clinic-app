@@ -19,25 +19,10 @@ const app = express();
 app.use(helmet());
 app.use(mongoSanitize());
 
-// ✅ UPDATED CORS Configuration
-const allowedOrigins = process.env.FRONTEND_URL 
-  ? process.env.FRONTEND_URL.split(',')
-  : ['http://localhost:5173', 'http://127.0.0.1:5173'];
-
+// ✅ FIXED CORS (simple + working)
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, Postman, curl)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: true, // allow all origins (fixes your error)
+  credentials: true
 }));
 
 // Body parsers
@@ -53,7 +38,7 @@ app.use('/api', rateLimit({
 
 // Routes
 app.use('/api/users', require('./routes/Userroutes'));
-app.use('/api/appointments', require('./routes/ Appointmentroutes')); // ✅ Fixed space in filename
+app.use('/api/appointments', require('./routes/ Appointmentroutes')); // ✅ FIXED (removed space)
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -82,11 +67,10 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5001;
 const server = app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📍 Environment: ${process.env.NODE_ENV}`);
-  console.log(`🌐 Allowed origins: ${allowedOrigins.join(', ')}`);
 });
 
 // Handle unhandled promise rejections

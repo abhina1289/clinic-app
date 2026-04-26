@@ -1,10 +1,13 @@
 import axios from "axios";
 
 
+
+
 const commonApi = async (reqURL, reqMethod, reqHeader = null, reqBody = null) => {
   const config = {
     url: reqURL,
     method: reqMethod,
+      timeout: 300000, 
   };
 
 

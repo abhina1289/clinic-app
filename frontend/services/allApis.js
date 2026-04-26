@@ -1,6 +1,7 @@
 import { base_url } from "./base_url";
 import commonApi from "./commonApi";
 
+
 // Create new appointment
 export const createAppointment = async (data) =>
   await commonApi(`${base_url}/appointments`, "POST", null, data);

@@ -579,7 +579,7 @@ function Home() {
               <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
                 <div className="flex items-center gap-3 mb-4">
                   <img
-                    src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid&w=740&q=80"
+                    src="https://st2.depositphotos.com/1007566/11574/v/450/depositphotos_115748268-stock-illustration-young-executive-woman-profile-icon.jpg"
                     alt="Shruthi shivdas"
                     className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
                   />
@@ -619,7 +619,7 @@ function Home() {
               <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
                 <div className="flex items-center gap-3 mb-4">
                   <img
-                    src="https://st2.depositphotos.com/1007566/11574/v/450/depositphotos_115748268-stock-illustration-young-executive-woman-profile-icon.jpg"
+                    src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid&w=740&q=80"
                     alt="Ramaswami Ganesan"
                     className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
                   />
