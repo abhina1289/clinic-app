@@ -1,0 +1,196 @@
+const mongoose = require('mongoose');
+
+const appointmentSchema = new mongoose.Schema({
+  // Basic Information
+  name: {
+    type: String,
+    required: [true, 'Please provide your name'],
+    trim: true,
+    minlength: [2, 'Name must be at least 2 characters long'],
+    maxlength: [100, 'Name cannot exceed 100 characters']
+  },
+  phone: {
+    type: String,
+    required: [true, 'Please provide your phone number'],
+    trim: true,
+    match: [
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+      'Please provide a valid phone number'
+    ]
+  },
+  email: {
+    type: String,
+    lowercase: true,
+    trim: true,
+    default: null,
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Please provide a valid email'
+    ]
+  },
+  
+  // Appointment Details
+  bookingDate: {
+    type: Date,
+    required: [true, 'Please select a booking date'],
+    validate: {
+      validator: function(value) {
+        // Ensure booking date is not in the past
+        return value >= new Date().setHours(0, 0, 0, 0);
+      },
+      message: 'Booking date cannot be in the past'
+    }
+  },
+  appointmentTime: {
+    type: String,
+    default: null // e.g., "10:00 AM" - will be set by admin after confirmation call
+  },
+  appointmentWith: {
+    type: String,
+    default: 'To Be Assigned',
+    trim: true
+  },
+  appointmentFor: {
+    type: String,
+    required: [true, 'Please select appointment type'],
+    enum: [
+      'Hearing Test',
+      'Hearing Aids',
+      'Audiology Consultation',
+      'Hearing Aid Reprogramming',
+      'Services & Repairs'
+    ]
+  },
+  
+  // Additional Information
+  notes: {
+    type: String,
+    maxlength: [500, 'Notes cannot exceed 500 characters'],
+    default: null
+  },
+  
+  // Status Management
+  status: {
+    type: String,
+    enum: ['pending', 'confirmed', 'cancelled', 'completed', 'no-show'],
+    default: 'pending'
+  },
+  
+  // Confirmation Details
+  confirmationNumber: {
+    type: String,
+    unique: true,
+    sparse: true // Allows multiple null values
+  },
+  confirmedAt: {
+    type: Date,
+    default: null
+  },
+  confirmedBy: {
+    type: String,
+    default: null // Admin/Staff who confirmed
+  },
+  
+  // Cancellation Details
+  cancelledAt: {
+    type: Date,
+    default: null
+  },
+  cancellationReason: {
+    type: String,
+    maxlength: [500, 'Cancellation reason cannot exceed 500 characters'],
+    default: null
+  },
+  
+  // Call/Reminder Tracking
+  reminderSent: {
+    type: Boolean,
+    default: false
+  },
+  reminderSentAt: {
+    type: Date,
+    default: null
+  },
+  confirmationCallMade: {
+    type: Boolean,
+    default: false
+  },
+  confirmationCallMadeAt: {
+    type: Date,
+    default: null
+  },
+  
+  // Metadata
+  source: {
+    type: String,
+    enum: ['website', 'phone', 'walk-in', 'admin'],
+    default: 'website'
+  },
+  ipAddress: {
+    type: String,
+    default: null
+  },
+  
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  }
+}, {
+  timestamps: true
+});
+
+// Generate confirmation number before saving
+appointmentSchema.pre('save', function(next) {
+  if (!this.confirmationNumber) {
+    // Generate a unique confirmation number (e.g., APT-20240123-XXXX)
+    const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const random = Math.floor(1000 + Math.random() * 9000);
+    this.confirmationNumber = `APT-${date}-${random}`;
+  }
+  next();
+});
+
+// Index for faster queries
+appointmentSchema.index({ bookingDate: 1, status: 1 });
+appointmentSchema.index({ phone: 1 });
+appointmentSchema.index({ confirmationNumber: 1 });
+appointmentSchema.index({ createdAt: -1 });
+
+// Virtual for formatted date
+appointmentSchema.virtual('formattedDate').get(function() {
+  return this.bookingDate.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+});
+
+// Method to check if appointment can be modified
+appointmentSchema.methods.canModify = function() {
+  const now = new Date();
+  const appointmentDate = new Date(this.bookingDate);
+  const hoursDifference = (appointmentDate - now) / (1000 * 60 * 60);
+  
+  // Can modify if appointment is more than 24 hours away and not completed/cancelled
+  return hoursDifference > 24 && !['completed', 'cancelled'].includes(this.status);
+};
+
+// Method to mark as confirmed
+appointmentSchema.methods.confirmAppointment = function(time, confirmedBy) {
+  this.status = 'confirmed';
+  this.appointmentTime = time;
+  this.confirmedAt = new Date();
+  this.confirmedBy = confirmedBy || 'Admin';
+  this.confirmationCallMade = true;
+  this.confirmationCallMadeAt = new Date();
+  return this.save();
+};
+
+const Appointment = mongoose.model('Appointment', appointmentSchema);
+
+module.exports = Appointment;
