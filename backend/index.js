@@ -38,7 +38,7 @@ app.use('/api', rateLimit({
 
 // Routes
 app.use('/api/users', require('./routes/Userroutes'));
-app.use('/api/appointments', require('./routes/ Appointmentroutes')); // ✅ FIXED (removed space)
+app.use('/api/appointments', require('./routes/ Appointmentroutes'));
 
 // Health check
 app.get('/api/health', (req, res) => {
