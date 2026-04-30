@@ -210,33 +210,43 @@ function Home() {
     <div className="min-h-screen">
     {/* Hero Carousel Section */}
 {/* Hero Carousel Section */}
-<section className="relative h-[500px] lg:h-[600px] overflow-hidden bg-blend-exclusion">
+{/* Hero Carousel Section */}
+<section className="relative w-full h-[320px] sm:h-[420px] md:h-[500px] lg:h-[600px] overflow-hidden">
   {carouselSlides.map((slide, index) => (
     <div
       key={index}
       className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-        index === currentSlide ? "opacity-100" : "opacity-0"
+        index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
       }`}
     >
       <img
         src={slide.image}
         alt={slide.title}
-        className="w-[950%] h-[100%] mx-auto object-cover"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center top",
+          animation: index === currentSlide ? "kenBurns 6s ease-in-out forwards" : "none",
+        }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
 
       <div className="absolute inset-0 flex items-center">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-[240px] sm:max-w-sm md:max-w-lg lg:max-w-2xl">
+            <h1 className="text-lg sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight">
               {slide.title}
             </h1>
-            <p className="text-xl lg:text-2xl text-white/90 mb-8">
+            <p className="text-xs sm:text-base md:text-xl lg:text-2xl text-white/90 mb-3 sm:mb-5 md:mb-8 leading-snug">
               {slide.subtitle}
             </p>
             <Link to="/book-appointment">
-              <button className="px-8 py-4 rounded-lg font-semibold text-white bg-blue-600 hover:scale-105 transition-all duration-300">
+              <button className="px-3 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base rounded-lg font-semibold text-white bg-blue-600 hover:scale-105 transition-all duration-300">
                 Book Appointment
               </button>
             </Link>
@@ -247,16 +257,25 @@ function Home() {
   ))}
 
   {/* Indicators */}
-  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+  <div className="absolute bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 z-20">
     {carouselSlides.map((_, index) => (
       <div
         key={index}
-        className={`h-2 rounded-full transition-all ${
-          index === currentSlide ? "w-8 bg-white" : "w-2 bg-white/50"
+        className={`rounded-full transition-all ${
+          index === currentSlide
+            ? "w-5 sm:w-6 md:w-8 h-1.5 sm:h-2 bg-white"
+            : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/50"
         }`}
       />
     ))}
   </div>
+
+  <style>{`
+    @keyframes kenBurns {
+      0%   { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+  `}</style>
 </section>
       <div
         className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2"
