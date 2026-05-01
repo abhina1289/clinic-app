@@ -208,10 +208,9 @@ function Home() {
 
   return (
     <div className="min-h-screen">
-    {/* Hero Carousel Section */}
+
 {/* Hero Carousel Section */}
-{/* Hero Carousel Section */}
-<section className="relative w-full h-[320px] sm:h-[420px] md:h-[500px] lg:h-[600px] overflow-hidden">
+<section className="relative w-full h-[260px] sm:h-[420px] md:h-[500px] lg:h-[600px] overflow-hidden">
   {carouselSlides.map((slide, index) => (
     <div
       key={index}
@@ -222,16 +221,7 @@ function Home() {
       <img
         src={slide.image}
         alt={slide.title}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center top",
-          animation: index === currentSlide ? "kenBurns 6s ease-in-out forwards" : "none",
-        }}
+        className={`carousel-img${index === currentSlide ? " active" : ""}`}
       />
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
@@ -259,8 +249,10 @@ function Home() {
   {/* Indicators */}
   <div className="absolute bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 z-20">
     {carouselSlides.map((_, index) => (
-      <div
+      <button
         key={index}
+        onClick={() => setCurrentSlide(index)}
+        aria-label={`Go to slide ${index + 1}`}
         className={`rounded-full transition-all ${
           index === currentSlide
             ? "w-5 sm:w-6 md:w-8 h-1.5 sm:h-2 bg-white"
@@ -272,8 +264,37 @@ function Home() {
 
   <style>{`
     @keyframes kenBurns {
-      0%   { transform: scale(1); }
-      100% { transform: scale(1.08); }
+      0%   { transform: translateZ(0) scale(1); }
+      100% { transform: translateZ(0) scale(1.08); }
+    }
+
+    @keyframes kenBurnsMobile {
+      0%   { transform: translateZ(0) scale(1); }
+      100% { transform: translateZ(0) scale(1.04); }
+    }
+
+    .carousel-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      will-change: transform;
+    }
+
+    .carousel-img.active {
+      animation: kenBurns 6s ease-in-out forwards;
+    }
+
+    @media (max-width: 640px) {
+      .carousel-img {
+        object-position: 20% center;
+      }
+      .carousel-img.active {
+        animation: kenBurnsMobile 6s ease-in-out forwards;
+      }
     }
   `}</style>
 </section>
