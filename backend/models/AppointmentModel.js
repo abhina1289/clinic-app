@@ -157,7 +157,6 @@ appointmentSchema.pre('save', function(next) {
 // Index for faster queries
 appointmentSchema.index({ bookingDate: 1, status: 1 });
 appointmentSchema.index({ phone: 1 });
-appointmentSchema.index({ confirmationNumber: 1 });
 appointmentSchema.index({ createdAt: -1 });
 
 // Virtual for formatted date
