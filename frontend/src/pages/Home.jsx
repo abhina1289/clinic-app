@@ -42,11 +42,43 @@ import pic3 from "../assets/brands/pic3.png";
 import pic4 from "../assets/brands/pic4.png";
 import pic5 from "../assets/brands/pic5.png";
 import pic6 from "../assets/brands/pic6.png";
+// import premiumlanding from "../assets/brands/premiumlanding.png";
+// import comprehensivelanding from "../assets/brands/comprehensivelanding.png";
+// import expertlanding from "../assets/brands/expertlanding.png";
+import about from "../assets/brands/about.png";
+import itc from "../assets/brands/itc.jpg";
+// import premiumlandingmobile from "../assets/brands/premiumlandingmobile.png"
+// import expertlandingmobile from "../assets/brands/expertlandingmobile.png"
+// import comprehensivelandingmobile from "../assets/brands/comprehensivelandingmobile"
+// Imports
 import premiumlanding from "../assets/brands/premiumlanding.png";
 import comprehensivelanding from "../assets/brands/comprehensivelanding.png";
 import expertlanding from "../assets/brands/expertlanding.png";
-import about from "../assets/brands/about.png";
-import itc from "../assets/brands/itc.jpg";
+import comprehensiveMobile from "../assets/comprehensivelandingmobile.png";
+import expertMobile from "../assets/expertlandingmobile.png";
+import premiumMobile from "../assets/premiumlandingmobile.png";
+
+// carouselSlides
+const carouselSlides = [
+  {
+    title: "Comprehensive Care",
+    subtitle: "Complete healthcare solution",
+    desktopImage: comprehensivelanding,
+    mobileImage: comprehensiveMobile,
+  },
+  {
+    title: "Expert Doctors",
+    subtitle: "Trusted specialists",
+    desktopImage: expertlanding,
+    mobileImage: expertMobile,
+  },
+  {
+    title: "Premium Service",
+    subtitle: "Top quality experience",
+    desktopImage: premiumlanding,
+    mobileImage: premiumMobile,
+  },
+];
 
 const brandLogos = [pic1, pic2, pic3, pic4, pic5, pic6];
 
@@ -209,20 +241,31 @@ function Home() {
   return (
     <div className="min-h-screen">
 
+
+
 {/* Hero Carousel Section */}
-<section className="relative w-full h-[260px] sm:h-[420px] md:h-[500px] lg:h-[600px] overflow-hidden">
+<section className="relative w-full h-[400px] sm:h-[420px] md:h-[500px] lg:h-[600px] overflow-hidden">
   {carouselSlides.map((slide, index) => (
     <div
-      key={index}
-      className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+      key={index + "-" + currentSlide}
+      className={`absolute inset-0 transition-all duration-1000 ${
         index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
       }`}
     >
-      <img
-        src={slide.image}
-        alt={slide.title}
-        className={`carousel-img${index === currentSlide ? " active" : ""}`}
-      />
+      <div className="absolute inset-0 bg-black flex items-center justify-center">
+        {/* Mobile Image */}
+        <img
+          src={slide.mobileImage}
+          alt={slide.title}
+          className="w-full h-full object-cover block md:hidden"
+        />
+        {/* Desktop Image */}
+        <img
+          src={slide.desktopImage}
+          alt={slide.title}
+          className="w-full h-full object-cover hidden md:block"
+        />
+      </div>
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
 
@@ -261,42 +304,6 @@ function Home() {
       />
     ))}
   </div>
-
-  <style>{`
-    @keyframes kenBurns {
-      0%   { transform: translateZ(0) scale(1); }
-      100% { transform: translateZ(0) scale(1.08); }
-    }
-
-    @keyframes kenBurnsMobile {
-      0%   { transform: translateZ(0) scale(1); }
-      100% { transform: translateZ(0) scale(1.04); }
-    }
-
-    .carousel-img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-      will-change: transform;
-    }
-
-    .carousel-img.active {
-      animation: kenBurns 6s ease-in-out forwards;
-    }
-
-    @media (max-width: 640px) {
-      .carousel-img {
-        object-position: 20% center;
-      }
-      .carousel-img.active {
-        animation: kenBurnsMobile 6s ease-in-out forwards;
-      }
-    }
-  `}</style>
 </section>
       <div
         className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2"
@@ -400,8 +407,8 @@ function Home() {
                   </h2>
                   <p className="text-gray-600 text-lg leading-relaxed text-justify">
                     Naavika Hearing, founded by <b>Abhishek Gowda</b>, alumnus
-                    of the prestigious
-                    <b>All India Institute Of Speech and Hearing (AIISH),</b> is
+                    of the prestigious <b>All India Institute Of Speech and Hearing (AIISH),</b>
+                     is
                     built on one belief Hearing care should be personal and
                     compassionate.
                     <br />
