@@ -29,58 +29,45 @@ import earaid1 from "../assets/brands/earaid1.jpg";
 import earaid2 from "../assets/brands/earaid2.jpg";
 import earaid4 from "../assets/brands/earaid4.jpg";
 
-// import unitron from "../assets/brands/unitron.png";
-// import resound from "../assets/brands/resound.png";
-// import oticon from "../assets/brands/oticon.png";
-// import phonak from "../assets/brands/phonak.png";
-// import widex from "../assets/brands/widex.png";
-// import starkey from "../assets/brands/starkey.png";
-// import signia from "../assets/brands/signia.png";
 import pic1 from "../assets/brands/pic1.png";
 import pic2 from "../assets/brands/pic2.png";
 import pic3 from "../assets/brands/pic3.png";
 import pic4 from "../assets/brands/pic4.png";
 import pic5 from "../assets/brands/pic5.png";
 import pic6 from "../assets/brands/pic6.png";
-// import premiumlanding from "../assets/brands/premiumlanding.png";
-// import comprehensivelanding from "../assets/brands/comprehensivelanding.png";
-// import expertlanding from "../assets/brands/expertlanding.png";
 import about from "../assets/brands/about.png";
 import itc from "../assets/brands/itc.jpg";
-// import premiumlandingmobile from "../assets/brands/premiumlandingmobile.png"
-// import expertlandingmobile from "../assets/brands/expertlandingmobile.png"
-// import comprehensivelandingmobile from "../assets/brands/comprehensivelandingmobile"
-// Imports
+
 import premiumlanding from "../assets/brands/premiumlanding.png";
 import comprehensivelanding from "../assets/brands/comprehensivelanding.png";
 import expertlanding from "../assets/brands/expertlanding.png";
-import comprehensiveMobile from "../assets/comprehensivelandingmobile.png";
-import expertMobile from "../assets/expertlandingmobile.png";
-import premiumMobile from "../assets/premiumlandingmobile.png";
+import comprehensiveMobile from "../assets/brands/comprehensivelandingmobile.png";
+import expertMobile from "../assets/brands/expertlandingmobile.png";
+import premiumMobile from "../assets/brands/premiumlandingmobile.png";
 
-// carouselSlides
+const brandLogos = [pic1, pic2, pic3, pic4, pic5, pic6];
+
+// ✅ Single correct carouselSlides with desktopImage and mobileImage
 const carouselSlides = [
   {
-    title: "Comprehensive Care",
-    subtitle: "Complete healthcare solution",
+    title: "Comprehensive Hearing Tests",
+    subtitle: "Advanced diagnostic assessments with certified audiologists",
     desktopImage: comprehensivelanding,
     mobileImage: comprehensiveMobile,
   },
   {
-    title: "Expert Doctors",
-    subtitle: "Trusted specialists",
-    desktopImage: expertlanding,
-    mobileImage: expertMobile,
-  },
-  {
-    title: "Premium Service",
-    subtitle: "Top quality experience",
+    title: "Premium Hearing Aid Solutions",
+    subtitle: "Latest technology from world-leading manufacturers",
     desktopImage: premiumlanding,
     mobileImage: premiumMobile,
   },
+  {
+    title: "Expert Audiology Care",
+    subtitle: "Personalized consultation and ongoing support",
+    desktopImage: expertlanding,
+    mobileImage: expertMobile,
+  },
 ];
-
-const brandLogos = [pic1, pic2, pic3, pic4, pic5, pic6];
 
 function Home() {
   const theme = {
@@ -91,27 +78,7 @@ function Home() {
     textDark: "#222",
   };
 
-  // Carousel State
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const carouselSlides = [
-    {
-      image: comprehensivelanding,
-
-      title: "Comprehensive Hearing Tests",
-      subtitle: "Advanced diagnostic assessments with certified audiologists",
-    },
-    {
-      image: premiumlanding,
-      title: "Premium Hearing Aid Solutions",
-      subtitle: "Latest technology from world-leading manufacturers",
-    },
-    {
-      image: expertlanding,
-      title: "Expert Audiology Care",
-      subtitle: "Personalized consultation and ongoing support",
-    },
-  ];
 
   // Auto-advance carousel
   useEffect(() => {
@@ -127,7 +94,7 @@ function Home() {
 
   const prevSlide = () => {
     setCurrentSlide(
-      (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length,
+      (prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length
     );
   };
 
@@ -229,86 +196,77 @@ function Home() {
     },
   ];
 
-  // const brandLogos = [
-  //   "../assets/brands/pic1.png",
-  //   "../assets/brands/pic2.png",
-  //   "../assets/brands/pic3.png",
-  //   "../assets/brands/pic4.png",
-  //   "../assets/brands/pic5.png",
-  //   "../assets/brands/pic6.png",
-  // ];
-
   return (
     <div className="min-h-screen">
 
+      {/* Hero Carousel Section */}
+      <section className="relative w-full h-[400px] sm:h-[420px] md:h-[500px] lg:h-[600px] overflow-hidden">
+        {carouselSlides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-all duration-1000 ${
+              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
+          >
+            <div className="absolute inset-0 bg-black flex items-center justify-center">
+              {/* ✅ Mobile Image */}
+              <img
+                src={slide.mobileImage}
+                alt={slide.title}
+                className="w-full h-full object-cover block md:hidden"
+              />
+              {/* ✅ Desktop Image */}
+              <img
+                src={slide.desktopImage}
+                alt={slide.title}
+                className="w-full h-full object-cover hidden md:block"
+              />
+            </div>
 
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
 
-{/* Hero Carousel Section */}
-<section className="relative w-full h-[400px] sm:h-[420px] md:h-[500px] lg:h-[600px] overflow-hidden">
-  {carouselSlides.map((slide, index) => (
-    <div
-      key={index + "-" + currentSlide}
-      className={`absolute inset-0 transition-all duration-1000 ${
-        index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-      }`}
-    >
-      <div className="absolute inset-0 bg-black flex items-center justify-center">
-        {/* Mobile Image */}
-        <img
-          src={slide.mobileImage}
-          alt={slide.title}
-          className="w-full h-full object-cover block md:hidden"
-        />
-        {/* Desktop Image */}
-        <img
-          src={slide.desktopImage}
-          alt={slide.title}
-          className="w-full h-full object-cover hidden md:block"
-        />
-      </div>
-
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
-
-      <div className="absolute inset-0 flex items-center">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-[240px] sm:max-w-sm md:max-w-lg lg:max-w-2xl">
-            <h1 className="text-lg sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight">
-              {slide.title}
-            </h1>
-            <p className="text-xs sm:text-base md:text-xl lg:text-2xl text-white/90 mb-3 sm:mb-5 md:mb-8 leading-snug">
-              {slide.subtitle}
-            </p>
-            <Link to="/book-appointment">
-              <button className="px-3 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base rounded-lg font-semibold text-white bg-blue-600 hover:scale-105 transition-all duration-300">
-                Book Appointment
-              </button>
-            </Link>
+            <div className="absolute inset-0 flex items-center">
+              <div className="container mx-auto px-4 sm:px-6">
+                <div className="max-w-[240px] sm:max-w-sm md:max-w-lg lg:max-w-2xl">
+                  <h1 className="text-lg sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight">
+                    {slide.title}
+                  </h1>
+                  <p className="text-xs sm:text-base md:text-xl lg:text-2xl text-white/90 mb-3 sm:mb-5 md:mb-8 leading-snug">
+                    {slide.subtitle}
+                  </p>
+                  <Link to="/book-appointment">
+                    <button className="px-3 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base rounded-lg font-semibold text-white bg-blue-600 hover:scale-105 transition-all duration-300">
+                      Book Appointment
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  ))}
+        ))}
 
-  {/* Indicators */}
-  <div className="absolute bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 z-20">
-    {carouselSlides.map((_, index) => (
-      <button
-        key={index}
-        onClick={() => setCurrentSlide(index)}
-        aria-label={`Go to slide ${index + 1}`}
-        className={`rounded-full transition-all ${
-          index === currentSlide
-            ? "w-5 sm:w-6 md:w-8 h-1.5 sm:h-2 bg-white"
-            : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/50"
-        }`}
-      />
-    ))}
-  </div>
-</section>
+        {/* Slide Indicators */}
+        <div className="absolute bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 z-20">
+          {carouselSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`rounded-full transition-all ${
+                index === currentSlide
+                  ? "w-5 sm:w-6 md:w-8 h-1.5 sm:h-2 bg-white"
+                  : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
       <div
         className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2"
         style={{ borderColor: `${theme.blue}20` }}
       >
+        {/* Booking Form Section */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div
@@ -323,12 +281,10 @@ function Home() {
         {/* Brand Logos Section */}
         <section className="py-14 bg-white">
           <div className="container mx-auto px-4">
-            {/* Section Title */}
             <h2 className="text-center text-2xl md:text-3xl font-semibold text-gray-800 mb-10">
               Trusted Hearing Aid Brands
             </h2>
 
-            {/* Carousel */}
             <div className="relative overflow-hidden w-full">
               <div
                 className="flex gap-14 items-center"
@@ -345,24 +301,21 @@ function Home() {
                     <img
                       src={logo}
                       alt="Hearing Aid Brand"
-                      className={`w-auto object-contain
-    transition-transform duration-300
-    hover:scale-105
-    ${logo.includes("pic2") ? "h-34 md:h-38" : "h-18 md:h-20"}
-  `}
+                      className={`w-auto object-contain transition-transform duration-300 hover:scale-105 ${
+                        logo.includes("pic2") ? "h-34 md:h-38" : "h-18 md:h-20"
+                      }`}
                     />
                   </div>
                 ))}
               </div>
 
-              {/* Inline animation */}
               <style>
                 {`
-          @keyframes scroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-          }
-        `}
+                  @keyframes scroll {
+                    from { transform: translateX(0); }
+                    to { transform: translateX(-50%); }
+                  }
+                `}
               </style>
             </div>
           </div>
@@ -381,10 +334,7 @@ function Home() {
                   />
                   <div
                     className="absolute bottom-6 left-6 rounded-xl p-4 flex items-center gap-3"
-                    style={{
-                      backgroundColor: theme.green,
-                      color: "#ffffff",
-                    }}
+                    style={{ backgroundColor: theme.green, color: "#ffffff" }}
                   >
                     <Shield size={24} />
                     <span className="font-semibold">Certified Healthcare</span>
@@ -407,9 +357,9 @@ function Home() {
                   </h2>
                   <p className="text-gray-600 text-lg leading-relaxed text-justify">
                     Naavika Hearing, founded by <b>Abhishek Gowda</b>, alumnus
-                    of the prestigious <b>All India Institute Of Speech and Hearing (AIISH),</b>
-                     is
-                    built on one belief Hearing care should be personal and
+                    of the prestigious{" "}
+                    <b>All India Institute Of Speech and Hearing (AIISH),</b> is
+                    built on one belief — Hearing care should be personal and
                     compassionate.
                     <br />
                     We don't just fit hearing aids. We listen, with advanced
@@ -426,10 +376,7 @@ function Home() {
                         style={{ color: theme.blue }}
                       />
                       <div>
-                        <h5
-                          className="font-bold mb-1"
-                          style={{ color: theme.textDark }}
-                        >
+                        <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>
                           Advanced Technology
                         </h5>
                         <p className="text-gray-600">
@@ -443,10 +390,7 @@ function Home() {
                         style={{ color: theme.green }}
                       />
                       <div>
-                        <h5
-                          className="font-bold mb-1"
-                          style={{ color: theme.textDark }}
-                        >
+                        <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>
                           Patient Care
                         </h5>
                         <p className="text-gray-600">
@@ -460,10 +404,7 @@ function Home() {
                         style={{ color: theme.red }}
                       />
                       <div>
-                        <h5
-                          className="font-bold mb-1"
-                          style={{ color: theme.textDark }}
-                        >
+                        <h5 className="font-bold mb-1" style={{ color: theme.textDark }}>
                           Lifetime Support
                         </h5>
                         <p className="text-gray-600">
@@ -533,7 +474,7 @@ function Home() {
               ))}
             </div>
 
-            {/* Hearing Aid Products - Inside Services Section */}
+            {/* Hearing Aid Products */}
             <div className="mt-16">
               <div className="text-center mb-12">
                 <h2
@@ -552,9 +493,8 @@ function Home() {
                 {hearingAidProducts.map((product, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-2xl shadow-md  overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                    className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
                   >
-                    {/* Image Area - Full clean fit */}
                     <div className="flex items-center justify-center bg-white h-56 p-6">
                       <img
                         src={product.image}
@@ -562,11 +502,7 @@ function Home() {
                         className="max-h-full max-w-full scale-150 object-contain"
                       />
                     </div>
-
-                    {/* Divider */}
                     <div className="border-none border-gray-100" />
-
-                    {/* Text Content */}
                     <div className="p-6 text-center space-y-2">
                       <h3
                         className="text-xl font-bold"
@@ -574,9 +510,6 @@ function Home() {
                       >
                         {product.title}
                       </h3>
-                      {/* <p className="text-gray-500 text-sm leading-relaxed">
-            {product.description}
-          </p> */}
                     </div>
                   </div>
                 ))}
@@ -600,7 +533,6 @@ function Home() {
         {/* Reviews Section */}
         <section className="py-16 lg:py-24 bg-gradient-to-br from-blue-50 to-teal-50">
           <div className="container mx-auto px-4">
-            {/* Header */}
             <div className="text-center mb-12">
               <span
                 className="inline-flex items-center gap-2 text-sm font-semibold mb-4"
@@ -615,12 +547,10 @@ function Home() {
                 What Our Patients Say
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Real experiences from people who trust Naavika for their hearing
-                care
+                Real experiences from people who trust Naavika for their hearing care
               </p>
             </div>
 
-            {/* Google Reviews Style Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {/* Review 1 */}
               <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
@@ -631,28 +561,20 @@ function Home() {
                     className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
                   />
                   <div>
-                    <div className="font-semibold text-gray-800 text-sm">
-                      Shruthi shivdas
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      1 review • January 2026
-                    </div>
+                    <div className="font-semibold text-gray-800 text-sm">Shruthi shivdas</div>
+                    <div className="text-xs text-gray-400">1 review • January 2026</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-0.5 mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={14}
-                      className="fill-yellow-400 text-yellow-400"
-                    />
+                    <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  " Totally happy with the services my dad received . Abhishek
-                  is absolutely professional since my dad has parkinsons he did
-                  home visists and made sure dad was comfortable throughout my
-                  dad's hearing is at its best now Super impressive"
+                  "Totally happy with the services my dad received. Abhishek is absolutely
+                  professional since my dad has parkinsons he did home visits and made sure
+                  dad was comfortable throughout my dad's hearing is at its best now Super
+                  impressive"
                 </p>
                 <div
                   className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
@@ -671,29 +593,20 @@ function Home() {
                     className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
                   />
                   <div>
-                    <div className="font-semibold text-gray-800 text-sm">
-                      Ramaswami Ganesan
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      2 reviews • 2 years ago
-                    </div>
+                    <div className="font-semibold text-gray-800 text-sm">Ramaswami Ganesan</div>
+                    <div className="text-xs text-gray-400">2 reviews • 2 years ago</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-0.5 mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={14}
-                      className="fill-yellow-400 text-yellow-400"
-                    />
+                    <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  "Since six years , no audiologist could set right my hearing
-                  aid...STARKEY model. Cheif doctor in the clinic Naavika
-                  Hearing Clinic, JP Nagar, Banglore, had resolved my hearing
-                  problems using the above hearing aid. Doctor Sab!! i hear much
-                  much better now. I owe a lot to you ."
+                  "Since six years, no audiologist could set right my hearing aid...STARKEY
+                  model. Chief doctor in the clinic Naavika Hearing Clinic, JP Nagar,
+                  Banglore, had resolved my hearing problems using the above hearing aid.
+                  Doctor Sab!! i hear much much better now. I owe a lot to you."
                 </p>
                 <div
                   className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
@@ -712,28 +625,20 @@ function Home() {
                     className="w-12 h-12 rounded-full object-cover border-2 border-gray-100"
                   />
                   <div>
-                    <div className="font-semibold text-gray-800 text-sm">
-                      Yogesh H.N
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      1 review • a year ago
-                    </div>
+                    <div className="font-semibold text-gray-800 text-sm">Yogesh H.N</div>
+                    <div className="text-xs text-gray-400">1 review • a year ago</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-0.5 mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={14}
-                      className="fill-yellow-400 text-yellow-400"
-                    />
+                    <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  "I've been wearing hearing aids for years , but i've never had
-                  this level of care before. The clinc doesn't just fit you and
-                  send you off- they offer continous check-ups and adjustments,
-                  ensuring my devices are always performing at their best."
+                  "I've been wearing hearing aids for years, but i've never had this level
+                  of care before. The clinic doesn't just fit you and send you off - they
+                  offer continuous check-ups and adjustments, ensuring my devices are always
+                  performing at their best."
                 </p>
                 <div
                   className="text-xs font-medium mt-3 inline-block px-2 py-1 rounded-full"
@@ -744,7 +649,6 @@ function Home() {
               </div>
             </div>
 
-            {/* View All Button */}
             <div className="text-center mt-10">
               <Link to="/review">
                 <button
@@ -772,8 +676,7 @@ function Home() {
                   Ready to Get Started?
                 </h2>
                 <p className="text-white/90 text-lg">
-                  Book your appointment today and experience world-class hearing
-                  care services
+                  Book your appointment today and experience world-class hearing care services
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 justify-center lg:justify-end">
@@ -797,129 +700,68 @@ function Home() {
             </div>
           </div>
         </section>
-        {/* Floating Action Buttons */}
+
+        {/* Floating Action Buttons - Desktop */}
         <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-5">
-          {/* Call */}
           <a
             href="tel:+918123379944"
-            className="group relative flex items-center justify-center 
-               w-14 h-14 rounded-full 
-               bg-red-600 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-red-300
-               transition-all duration-300
-               animate-pulse"
+            className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-red-600 text-white shadow-xl hover:scale-110 hover:shadow-2xl hover:ring-4 hover:ring-red-300 transition-all duration-300 animate-pulse"
             title="Call Us"
           >
             <Phone size={24} />
-
-            {/* Tooltip */}
-            <span
-              className="absolute right-16 opacity-0 group-hover:opacity-100 
-                     bg-red-600 text-white text-sm px-3 py-1 rounded-md 
-                     whitespace-nowrap transition"
-            >
+            <span className="absolute right-16 opacity-0 group-hover:opacity-100 bg-red-600 text-white text-sm px-3 py-1 rounded-md whitespace-nowrap transition">
               Call Us
             </span>
           </a>
 
-          {/* WhatsApp */}
           <a
             href="https://wa.me/918123379944"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative flex items-center justify-center 
-               w-14 h-14 rounded-full 
-               bg-green-500 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-green-300
-               transition-all duration-300
-               animate-pulse"
+            className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-green-500 text-white shadow-xl hover:scale-110 hover:shadow-2xl hover:ring-4 hover:ring-green-300 transition-all duration-300 animate-pulse"
             title="WhatsApp"
           >
             <FaWhatsapp size={26} />
-
-            {/* Tooltip */}
-            <span
-              className="absolute right-16 opacity-0 group-hover:opacity-100 
-                     bg-green-500 text-white text-sm px-3 py-1 rounded-md 
-                     whitespace-nowrap transition"
-            >
+            <span className="absolute right-16 opacity-0 group-hover:opacity-100 bg-green-500 text-white text-sm px-3 py-1 rounded-md whitespace-nowrap transition">
               WhatsApp
             </span>
           </a>
 
-          {/* Appointment */}
           <Link
             to="/book-appointment"
-            className="group relative flex items-center justify-center 
-               w-14 h-14 rounded-full 
-               bg-blue-600 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-blue-300
-               transition-all duration-300"
+            className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-blue-600 text-white shadow-xl hover:scale-110 hover:shadow-2xl hover:ring-4 hover:ring-blue-300 transition-all duration-300"
             title="Book Appointment"
           >
             <Calendar size={24} />
-
-            {/* Tooltip */}
-            <span
-              className="absolute right-16 opacity-0 group-hover:opacity-100 
-                     bg-blue-600 text-white text-sm px-3 py-1 rounded-md 
-                     whitespace-nowrap transition"
-            >
+            <span className="absolute right-16 opacity-0 group-hover:opacity-100 bg-blue-600 text-white text-sm px-3 py-1 rounded-md whitespace-nowrap transition">
               Book Appointment
             </span>
           </Link>
         </div>
-        {/* Floating Action Buttons - Mobile Only */}
-        <div
-          className="fixed right-4 top-1/2 -translate-y-1/2 
-             z-50 flex flex-col gap-4 
-             md:hidden"
-        >
-          {/* Call */}
+
+        {/* Floating Action Buttons - Mobile */}
+        <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 md:hidden">
           <a
             href="tel:+918123379944"
-            className="group relative flex items-center justify-center 
-               w-12 h-12 rounded-full 
-               bg-red-600 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-red-300
-               transition-all duration-300
-               animate-pulse"
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-red-600 text-white shadow-xl hover:scale-110 transition-all duration-300 animate-pulse"
             title="Call Us"
           >
             <Phone size={22} />
           </a>
 
-          {/* WhatsApp */}
           <a
             href="https://wa.me/918123379944"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative flex items-center justify-center 
-               w-12 h-12 rounded-full 
-               bg-green-500 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-green-300
-               transition-all duration-300
-               animate-pulse"
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white shadow-xl hover:scale-110 transition-all duration-300 animate-pulse"
             title="WhatsApp"
           >
             <FaWhatsapp size={24} />
           </a>
 
-          {/* Appointment */}
           <Link
             to="/book-appointment"
-            className="group relative flex items-center justify-center 
-               w-12 h-12 rounded-full 
-               bg-blue-600 text-white shadow-xl
-               hover:scale-110 hover:shadow-2xl
-               hover:ring-4 hover:ring-blue-300
-               transition-all duration-300
-               animate-pulse"
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white shadow-xl hover:scale-110 transition-all duration-300 animate-pulse"
             title="Book Appointment"
           >
             <Calendar size={22} />
